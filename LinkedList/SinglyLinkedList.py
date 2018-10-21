@@ -28,6 +28,22 @@ class LinkedList:
         print("]")
         
             
+    def print_recursively_forward(self, start):
+        
+        if start is None:
+            return
+        else:
+            print(start.info, end=",")
+            self.print_recursively_forward(start.link)
+            
+    def print_recursively_reverse(self, start):
+        
+        if start is None:
+            return
+        else:
+            self.print_recursively_reverse(start.link) 
+            print(start.info, end=",")            
+            
     #INSERT METHODS 
             
     def insert_at_begin(self,data):         #O(1)
@@ -775,6 +791,14 @@ L.reverse_sublist_iter(3,5)
 L.print_list()
 L.start = L.reverse_sublist_ingroup(L.start, 3)
 L.print_list()
+
+#PRINTING LIST RECURSIVELY
+
+print("\n#-----Printing recursively----#")
+L.print_recursively_forward(L.start)
+print()
+L.print_recursively_reverse(L.start)
+print()
 #LOOP/CYCLE METHODS
 
 #SWAPPING_METHODS
@@ -810,6 +834,7 @@ L.print_list()
 print()
 print("Sorted list")
 L.test_remove_dups_from_sorted()
+
 
 
 
@@ -850,6 +875,10 @@ list is odd
 [item1, a, 11, 10, 10, 9.5, 9, ]
 [item1, a, 10, 10, 11, 9.5, 9, ]
 [10, a, item1, 9.5, 11, 10, 9, ]
+
+#-----Printing recursively----#
+10,a,item1,9.5,11,10,9,
+9,10,11,9.5,item1,a,10,
 
 #------swapping methods-----#
 [a, 10, 9.5, item1, 10, 11, 9, ]
