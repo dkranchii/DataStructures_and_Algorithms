@@ -892,6 +892,8 @@ list is odd
 #-----Printing recursively----#
 10,a,item1,9.5,11,10,9,
 9,10,11,9.5,item1,a,10,
+10,item1,11,9,9,11,item1,10,
+
 
 #------swapping methods-----#
 [a, 10, 9.5, item1, 10, 11, 9, ]
