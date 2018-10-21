@@ -439,7 +439,69 @@ class LinkedList:
         self.print_list()
         
         return
+    
+    def reverse_list_recursive(self, start):
         
+        if start.link is None:
+            self.start = start
+            return start
+        else:
+            self.reverse_list_recursive(start.link)
+            temp = start.link
+            temp.link = start
+            start.link = None
+            
+    def reverse_sublist_iter(self, m, n):
+        if m == n:
+            return
+        
+        dummy = Node(0)
+        dummy.link = self.start
+    
+        p, prev = self.start, dummy
+        
+        for i in range(m - 1):
+            p = p.link
+            prev = prev.link
+        
+        for i in range(n-m):
+            next1 = p.link
+            p.link = next1.link
+            next1.link = prev.link
+            prev.link = next1
+    
+        return self.start
+    
+    def reverse_sublist_ingroup(self, start, k):
+        
+        p = start
+        next1 = None
+        prev = None
+        count =0
+        
+        while p is not None and count < k:
+            next1 = p.link
+            p.link = prev
+            prev = p
+            p = next1
+            count += 1
+        
+        if p is not None:
+            start.link = self.reverse_sublist_ingroup(p, k)
+    
+        return prev
+    #SWAPPING Methods
+    
+    def pairwise_swap_iterative(self):
+        
+        if self.start is None:
+            return
+        
+        l = self.start        
+        while l is not None and l.link is not None:
+            l.info, l.link.info = l.link.info, l.info
+            l = l.link.link
+            
     #LOOP/CYLE RELATED METHODS
 
     def add_loop_at_index_k(self, k):
@@ -587,8 +649,49 @@ class LinkedList:
     
     #DUPLICATE METHODS
     
+    def remove_dup_nodes_unsorted(self):           #O(N) space:O(N)
+        
+        ht = []       
+        l = self.start
+        ht.append(l.info)
+        
+        while l.link is not None:
+            if l.link.info not in ht:
+                ht.append(l.link.info)
+                l = l.link
+            else:
+                l.link = l.link.link        
     
     
+    def remove_dups_from_sorted(self):
+        
+        l = self.start
+        while l.link is not None:
+                if l.info == l.link.info:
+                    l.link = l.link.link
+                else:                   
+                    l = l.link        
+        
+
+    def test_remove_dups_from_sorted(self):
+        # this method is only created to test remove_dups_from_sorted method
+        
+        #clear original list. 
+        self.start = None
+        
+        #insert items in list so it is a palindrom
+        self.insert_at_begin(1)
+        self.insert_at_begin(2)
+        self.insert_at_begin(3)
+        self.insert_at_begin(4)
+        self.insert_at_begin(4)
+        self.insert_at_begin(5) 
+        
+        self.print_list()
+        self.remove_dups_from_sorted()
+        self.print_list()
+        
+        
 #test
 
 L = LinkedList()
@@ -596,6 +699,7 @@ L = LinkedList()
 # INSERT METHODS Testing
 
 #-----beginning------#
+L.insert_at_begin(10)
 L.insert_at_begin(10)
 L.insert_at_begin(9)
 L.insert_at_begin(8)
@@ -664,8 +768,18 @@ L.is_list_lengh_even_or_odd()
 print("\n#------reverse_methods-----#")
 L.reverse_list_iterative()
 L.reverse_list_using_stack()
-
+L.reverse_list_recursive(L.start)
+L.print_list()
+L.reverse_sublist_iter(3,5)
+L.print_list()
+L.start = L.reverse_sublist_ingroup(L.start, 3)
+L.print_list()
 #LOOP/CYCLE METHODS
+
+#SWAPPING_METHODS
+print("\n#------swapping methods-----#")
+L.pairwise_swap_iterative()
+L.print_list()
 
 print("\n#---cycle methods, add at index---#")
 loop_added = L.add_loop_at_index_k(4)
@@ -686,51 +800,78 @@ else:
     print("Value not found. Loop not added")
 
 
+print("\n#------Remove Duplicate methods-------#")
+print("Unsorted list")      
+L.print_list()
+L.remove_dup_nodes_unsorted()
+L.print_list()
+
+print()
+print("Sorted list")
+L.test_remove_dups_from_sorted()
+
+
 
 """ 
 #----output-------#
 
 #--------Insert Methods-----#
-[8, po, 9, 9.5, 10, 10.5, 11, 12, a, item1, 3.4, ]
+[8, po, 9, 9.5, 10, 10.5, 10, 11, 12, a, item1, 3.4, ]
 
 #---------Remove Methods-------#
-[po, 9, 9.5, 10, 10.5, 11, a, item1, ]
-[po, 9, 9.5, 10, 11, a, item1, ]
-[9, 9.5, 10, 11, a, item1, ]
+[po, 9, 9.5, 10, 10.5, 10, 11, a, item1, ]
+[po, 9, 9.5, 10, 10, 11, a, item1, ]
+[9, 9.5, 10, 10, 11, a, item1, ]
 
 #--------Aggregated methods---#
-list size : 5
-Sum of numerical values is  39.5
+list size : 6
+Sum of numerical values is  49.5
 Max of numerical values is  11
 Min of numerical values is  9
-Sum of numerical values is  39.5
-list size : 5
-Aver of numerical values is  7.9
+Sum of numerical values is  49.5
+list size : 6
+Aver of numerical values is  8.25
 
 #-------Get Methods-------#
-11 found at pos 3.
+11 found at pos 4.
 Node value 10 from 2 pos
 2th node from end contains a
 first node contains   9
 last node contains  item1
-middle node contains 11
-list is Even
+middle node contains 10
+list is odd
 
 #------reverse_methods-----#
-[item1, a, 11, 10, 9.5, 9, ]
-[9, 9.5, 10, 11, a, item1, ]
+[item1, a, 11, 10, 10, 9.5, 9, ]
+[9, 9.5, 10, 10, 11, a, item1, ]
+[item1, a, 11, 10, 10, 9.5, 9, ]
+[item1, a, 10, 10, 11, 9.5, 9, ]
+[10, a, item1, 9.5, 11, 10, 9, ]
+
+#------swapping methods-----#
+[a, 10, 9.5, item1, 10, 11, 9, ]
 
 #---cycle methods, add at index---#
-Length of the loop is  3
+Length of the loop is  4
 Len of rem list  3
-Loop begins at node with 11
-Total List length  6
+Loop begins at node containing item1
+Total List length  7
 Cycle Removed
 
 #---cycle methods, add at node value---#
-Length of the loop is  4
-Len of rem list  2
-Loop begins at node with 10
-Total List length  6
+Length of the loop is  3
+Len of rem list  4
+Loop begins at node containing 10
+Total List length  7
 Cycle Removed
+
+#------Remove Duplicate methods-------#
+Unsorted list
+[a, 10, 9.5, item1, 10, 11, 9, ]
+[a, 10, 9.5, item1, 11, 9, ]
+
+Sorted list
+[5, 4, 4, 3, 2, 1, ]
+[5, 4, 3, 2, 1, ]
+
 """
