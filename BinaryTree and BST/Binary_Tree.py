@@ -125,8 +125,31 @@ class BinaryTree:
                 p = stack.pop()
                 print(p.info,  end=" ")
                 p = p.right
+                
 
+        #Divide and Counquer method available. Add later
+    def kth_node_in_order(self, k):
+        if self.root is None:
+            return
+        p = self.root
+        stack = []
+        print("Kth node in InOrder Traversal (iter) ", end="-->")
+        kth = 0
+        while stack or p:
+            if p is not None:
+                stack.append(p)
+                p = p.left
+            else:
+                p = stack.pop()
+                if kth == k:
+                    print(p.info,  end=" ")
+                    return
+                else:
+                    kth +=1
+                p = p.right
 
+                
+                
     def post_order_recur(self, root):
         if root is None:
             return
@@ -509,6 +532,9 @@ print("InOrder Traversal (recur) -->", end="")
 BT.in_order_rec(BT.root)
 print()
 BT.in_order_iter()
+
+print()
+BT.kth_node_in_order(0)
 
 print()
 print()
