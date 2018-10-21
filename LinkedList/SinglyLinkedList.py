@@ -760,6 +760,7 @@ L.get_middle_node()
 
 #VALIDATION METHODS 
 
+print("\n#-------Validation Methods-------#")
 L.is_list_lengh_even_or_odd()
 #L.test_palindrome()  #uncomment to test if the list is palindrome or not
 
@@ -839,6 +840,8 @@ Node value 10 from 2 pos
 first node contains   9
 last node contains  item1
 middle node contains 10
+
+#-------Validation Methods-------#
 list is odd
 
 #------reverse_methods-----#
