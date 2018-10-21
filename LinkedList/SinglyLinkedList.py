@@ -26,33 +26,6 @@ class LinkedList:
             print(l.info, end=", ")
             l = l.link
         print("]")
-        
-            
-    def print_recursively_forward(self, start):
-        
-        if start is None:
-            return
-        else:
-            print(start.info, end=",")
-            self.print_recursively_forward(start.link)
-            
-    def print_recursively_reverse(self, start):
-        
-        if start is None:
-            return
-        else:
-            self.print_recursively_reverse(start.link) 
-            print(start.info, end=",")  
-            
-    def print_alternate_fwd_back(self, start):
-        
-        if start is None:
-            return
-        print(start.info, end=",")
-        
-        if start.link is not None:
-            self.print_alternate_fwd_back(start.link.link)
-        print(start.info, end=",")
             
     #INSERT METHODS 
             
@@ -210,6 +183,44 @@ class LinkedList:
         else:
             prev.link = slow.link   
             
+    #TRAVERSING METHODS       
+            
+    def traverse_recur_fwd(self, start):
+        
+        if start is None:
+            return
+        else:
+            print(start.info, end=",")
+            self.traverse_recur_fwd(start.link)
+            
+    def traverse_recur_bkwd(self, start):
+        
+        if start is None:
+            return
+        else:
+            self.traverse_recur_bkwd(start.link) 
+            print(start.info, end=",")  
+            
+            
+    def traverse_recur_fwd_back(self, start):
+        
+        if start is None:
+            return
+        print(start.info, end=",")
+        if start.link is not None:
+            self.traverse_recur_fwd_back(start.link.link)
+        print(start.info, end=",")
+        
+    def traverse_recur_alt(self, start, count):
+        
+        if start is None:
+            return
+        else:
+            if count % 2 == 0:
+                 print(start.info, end=",") 
+            self.traverse_recur_alt(start.link, count+1) 
+            if count % 2 != 0:
+                print(start.info, end=",")  
     
     #AGGREGATE METHODS (COUNT, SUM, MAX, MIN, AVG)
     
@@ -373,58 +384,7 @@ class LinkedList:
         
         #test print
         print("middle node contains", slow.info)
-        return slow.info
-    
-    #VALIDATION METHODS
-
-    def is_list_lengh_even_or_odd(self):                 #O(N)
-        #without using the count variable
-        l = self.start
-        
-        while l is not None and l.link is not None:
-            l = l.link.link
-        if l is None:
-            print("list is Even")
-            return "Even"
-        else:
-            print("list is odd")
-            return "Odd"
-
-    
-    def is_list_palindrome(self):                #O(N), space:O(N)
-        st = []
-        l = self.start
-
-        while l is not None:
-            st.append(l.info)
-            l = l.link
-
-        l = self.start
-
-        while l is not None:
-            temp = st.pop()
-            if l.info == temp:
-                l = l.link
-            else:
-                return "not a palindrome"
-        return "Palindome"
-    
-    def test_palindrome(self):
-        # this method is only created to test is_list_palindrome() method
-        
-        #clear original list. 
-        self.start = None
-        
-        #insert items in list so it is a palindrom
-        self.insert_at_begin('n')
-        self.insert_at_begin('a')
-        self.insert_at_begin('y')
-        self.insert_at_begin('a')
-        self.insert_at_begin('n')  #change this to k to test not
-        
-        pal_check = self.is_list_palindrome()
-        print("list is", pal_check)
-        
+        return slow.info        
     
     #REVERSE LIST METHODS
     
@@ -671,7 +631,9 @@ class LinkedList:
         
         print("Total List length ", total_list_length)
         print("Cycle Removed")
-    
+        
+        
+
     
     #DUPLICATE METHODS
     
@@ -697,7 +659,6 @@ class LinkedList:
                     l.link = l.link.link
                 else:                   
                     l = l.link        
-        
 
     def test_remove_dups_from_sorted(self):
         # this method is only created to test remove_dups_from_sorted method
@@ -717,13 +678,63 @@ class LinkedList:
         self.remove_dups_from_sorted()
         self.print_list()
         
+    #VALIDATION METHODS
         
+    def is_list_lengh_even_or_odd(self):                 #O(N)
+        #without using the count variable
+        l = self.start
+        
+        while l is not None and l.link is not None:
+            l = l.link.link
+        if l is None:
+            print("list is Even")
+            return "Even"
+        else:
+            print("list is odd")
+            return "Odd"
+    
+    
+    def is_list_palindrome(self):                #O(N), space:O(N)
+        st = []
+        l = self.start
+
+        while l is not None:
+            st.append(l.info)
+            l = l.link
+
+        l = self.start
+
+        while l is not None:
+            temp = st.pop()
+            if l.info == temp:
+                l = l.link
+            else:
+                return "not a palindrome"
+        return "Palindome"
+    
+    def test_palindrome(self):
+        # this method is only created to test is_list_palindrome() method
+        
+        #clear original list. 
+        self.start = None
+        
+        #insert items in list so it is a palindrom
+        self.insert_at_begin('n')
+        self.insert_at_begin('a')
+        self.insert_at_begin('y')
+        self.insert_at_begin('a')
+        self.insert_at_begin('n')  #change this to k to test not
+        
+        pal_check = self.is_list_palindrome()
+        print("list is", pal_check)
+    
 #test
 
 L = LinkedList()
 
 # INSERT METHODS Testing
 
+print("#--------Insert Methods-----#")
 #-----beginning------#
 L.insert_at_begin(10)
 L.insert_at_begin(10)
@@ -742,7 +753,6 @@ L.insert_before_x_value(9.5, 10)
 L.insert_after_x_value(10.5, 10)
 L.insert_at_kth_pos('po', 1)
 
-print("#--------Insert Methods-----#")
 L.print_list()
 #[8, po, 9, 9.5, 10, 10.5, 11, 12, a, item1, 3.4, ]
 
@@ -767,6 +777,17 @@ L.print_list()
 #[9, 9.5, 10, 11, a, item1, ]
 
 
+#TRAVERSE LIST RECURSIVELY
+print("\n#-----Traverse recursively----#")
+L.traverse_recur_fwd(L.start)
+print()
+L.traverse_recur_bkwd(L.start)
+print()
+L.traverse_recur_fwd_back(L.start)
+print()
+L.traverse_recur_alt(L.start,0)
+print()
+
 #AGGREGATED METHODS
 print("\n#--------Aggregated methods---#")
 L.list_size()
@@ -784,12 +805,6 @@ L.get_first_node()
 L.get_last_node()
 L.get_middle_node()
 
-#VALIDATION METHODS 
-
-print("\n#-------Validation Methods-------#")
-L.is_list_lengh_even_or_odd()
-#L.test_palindrome()  #uncomment to test if the list is palindrome or not
-
 
 # REVERSE METHODS
 print("\n#------reverse_methods-----#")
@@ -802,22 +817,12 @@ L.print_list()
 L.start = L.reverse_sublist_ingroup(L.start, 3)
 L.print_list()
 
-#PRINTING LIST RECURSIVELY
-
-print("\n#-----Printing recursively----#")
-L.print_recursively_forward(L.start)
-print()
-L.print_recursively_reverse(L.start)
-print()
-L.print_alternate_fwd_back(L.start)
-print()
-print()
-#LOOP/CYCLE METHODS
-
 #SWAPPING_METHODS
 print("\n#------swapping methods-----#")
 L.pairwise_swap_iterative()
 L.print_list()
+
+#LOOP/CYCLE METHODS
 
 print("\n#---cycle methods, add at index---#")
 loop_added = L.add_loop_at_index_k(4)
@@ -839,17 +844,20 @@ else:
 
 
 print("\n#------Remove Duplicate methods-------#")
-print("Unsorted list")      
+print("Dups from Unsorted list")      
 L.print_list()
 L.remove_dup_nodes_unsorted()
 L.print_list()
 
 print()
-print("Sorted list")
+print("Dups from sorted list")
 L.test_remove_dups_from_sorted()
 
 
-
+#VALIDATION METHODS 
+print("\n#-------Validation Methods-------#")
+L.is_list_lengh_even_or_odd()
+L.test_palindrome()  #new data is inserted to test this.
 
 """ 
 #----output-------#
@@ -861,6 +869,12 @@ L.test_remove_dups_from_sorted()
 [po, 9, 9.5, 10, 10.5, 10, 11, a, item1, ]
 [po, 9, 9.5, 10, 10, 11, a, item1, ]
 [9, 9.5, 10, 10, 11, a, item1, ]
+
+#-----Traverse recursively----#
+9,9.5,10,10,11,a,item1,
+item1,a,11,10,10,9.5,9,
+9,10,11,item1,item1,11,10,9,
+9,10,11,item1,a,10,9.5,
 
 #--------Aggregated methods---#
 list size : 6
@@ -879,21 +893,12 @@ first node contains   9
 last node contains  item1
 middle node contains 10
 
-#-------Validation Methods-------#
-list is odd
-
 #------reverse_methods-----#
 [item1, a, 11, 10, 10, 9.5, 9, ]
 [9, 9.5, 10, 10, 11, a, item1, ]
 [item1, a, 11, 10, 10, 9.5, 9, ]
 [item1, a, 10, 10, 11, 9.5, 9, ]
 [10, a, item1, 9.5, 11, 10, 9, ]
-
-#-----Printing recursively----#
-10,a,item1,9.5,11,10,9,
-9,10,11,9.5,item1,a,10,
-10,item1,11,9,9,11,item1,10,
-
 
 #------swapping methods-----#
 [a, 10, 9.5, item1, 10, 11, 9, ]
@@ -913,12 +918,16 @@ Total List length  7
 Cycle Removed
 
 #------Remove Duplicate methods-------#
-Unsorted list
+Dups from Unsorted list
 [a, 10, 9.5, item1, 10, 11, 9, ]
 [a, 10, 9.5, item1, 11, 9, ]
 
-Sorted list
+Dups from sorted list
 [5, 4, 4, 3, 2, 1, ]
 [5, 4, 3, 2, 1, ]
+
+#-------Validation Methods-------#
+list is odd
+list is Palindome
 
 """
