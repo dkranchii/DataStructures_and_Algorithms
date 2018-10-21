@@ -330,6 +330,149 @@ class BinaryTree:
                 queue_list.append(popped.right)
             
         return sum1
+    
+    def sum_at_level(self):
+        level=1
+        if self.root is None:
+            return
+
+        queue_list = [self.root]
+        queue_list.append(None)
+        sum1 = 0
+
+        while queue_list:
+            popped = queue_list.pop(0)
+            
+            if popped is None:
+                print("Sum at level",level, "is", end="->")
+                print(sum1)
+                sum1=0
+
+                if queue_list:
+                    queue_list.append(None)
+                level+=1
+
+            else:
+                sum1+=popped.info
+
+                if popped.left is not None:
+                    queue_list.append(popped.left)
+                if popped.right is not None:
+                    queue_list.append(popped.right)
+           
+
+    def level_with_max_sum(self):
+        level=1
+        if self.root is None:
+            return
+        queue_list = [self.root]
+        queue_list.append(None)
+        sum1 = 0
+        maxSum = float("-inf")
+        maxLevel = 0
+        while queue_list:
+            popped = queue_list.pop(0)
+            
+            if popped is None:
+                print("Sum at ",level, "is", end="->")
+                print(sum1)
+                if sum1 > maxSum:
+                    maxSum = sum1
+                    maxLevel = level
+                sum1=0
+                if queue_list:
+                    queue_list.append(None)
+                level+=1
+            else:
+                sum1+=popped.info
+                if popped.left is not None:
+                    queue_list.append(popped.left)
+                if popped.right is not None:
+                    queue_list.append(popped.right)
+            
+        return maxLevel
+    
+    #NODE COUNT METHODS
+    
+    def num_of_full_nodes(self, root):
+        if root is None:
+            return 0
+        q = []
+        q.append(root)
+        count = 0
+        while q:
+            node = q.pop(0)
+            if node.left is not None and node.right is not None:
+                count +=1
+            if node.left is not None:
+                q.append(node.left)
+            if node.right is not None:
+                q.append(node.right)
+        return count
+
+
+    def num_of_half_nodes(self, root):
+        if root is None:
+            return 0
+        q = []
+        q.append(root)
+        count = 0
+        while q:
+            p = q.pop(0)
+            if p.left is not None and p.right is None:
+                count +=1
+            if p.right is not None and p.left is None:
+                count +=1
+                
+            if p.left is not None:
+                q.append(p.left)
+            if p.right is not None:
+                q.append(p.right)
+        return count
+    
+    def num_of_leaf_nodes(self, root):
+        if root is None:
+            return 0
+        q = []
+        q.append(root)
+        count = 0
+        while q:
+            node = q.pop(0)
+            if node.left is None and node.right is None:
+                count +=1
+            else:
+                if node.left is not None:
+                    q.append(node.left)
+                if node.right is not None:
+                    q.append(node.right)
+        return count
+    
+    def node_count_at_each_level(self):
+        level=1
+        if self.root is None:
+            return
+        queue_list = [self.root]
+        queue_list.append(None)
+        count1 = 0
+
+        while queue_list:
+            popped = queue_list.pop(0)
+
+            if popped is None:
+                print("Node Count at level ",level, "is", end="->")
+                print(count1)
+                count1=0
+
+                if queue_list:
+                    queue_list.append(None)
+                level+=1
+
+            else:
+                count1+=1
+                if popped.left is not None:
+                    queue_list.append(popped.left)
+                if popped.right is not None:
+                    queue_list.append(popped.right)
 
 
 #Test:
@@ -393,10 +536,6 @@ BT.reverse_level_order()
 #Aggregate Methods
 print()
 print("#----------Aggregated Methods--------------#")
-
-print("Size of the BT (recur) is", BT.size_recursive(BT.root))
-print("Size of the BT (iter) is", BT.size_iter())
-
 print("Max elem in the BT (recur) is", BT.max_rec(BT.root))
 print("Max elem in the BT(iter) is", BT.max_iter())
 
@@ -408,9 +547,21 @@ print("Item {} {} in the tree".format(5, BT.find_item_rec(BT.root, 5)))
 print("Sum of the elem (recur) is ", BT.sum_of_values_recur(BT.root))
 print("Sum of the elem (iter) is ", BT.sum_of_values_iter())
 
+print()
+BT.sum_at_level()
 
+print()
+print("Level with max sum ", BT.level_with_max_sum())
 
-
+#Node Count Methods
+print()
+print("#----------Node Count Methods--------------#")
+print("total nodes of the BT (recur) is", BT.size_recursive(BT.root))
+print("total nodes of the BT (iter) is", BT.size_iter())
+print("Num of full nodes ", BT.num_of_full_nodes(BT.root))
+print("Num of half nodes ", BT.num_of_half_nodes(BT.root))
+print("Num of leaf nodes ", BT.num_of_leaf_nodes(BT.root))    
+BT.node_count_at_each_level()
 
 
 """
@@ -467,8 +618,6 @@ LevelOrder Traversal line by line
 Reverse LevelOrder Traversal
 16 12 6 15 5 10 
 #----------Aggregated Methods--------------#
-Size of the BT (recur) is 6
-Size of the BT (iter) is 6
 Max elem in the BT (recur) is 16
 Max elem in the BT(iter) is 16
 Height of the BT(recur) is  3
@@ -476,4 +625,23 @@ Height of the BT(iter) is  3
 Item 5 found in the tree
 Sum of the elem (recur) is  64
 Sum of the elem (iter) is  64
+
+Sum at level 1 is->10
+Sum at level 2 is->20
+Sum at level 3 is->34
+
+Sum at  1 is->10
+Sum at  2 is->20
+Sum at  3 is->34
+Level with max sum  3
+
+#----------Node Count Methods--------------#
+total nodes of the BT (recur) is 6
+total nodes of the BT (iter) is 6
+Num of full nodes  2
+Num of half nodes  1
+Num of leaf nodes  3
+Node Count at level  1 is->1
+Node Count at level  2 is->2
+Node Count at level  3 is->3
 """
