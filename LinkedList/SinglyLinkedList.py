@@ -44,14 +44,14 @@ class LinkedList:
             self.print_recursively_reverse(start.link) 
             print(start.info, end=",")  
             
-    def print_alternate_nodes_fwd_back(self, start):
+    def print_alternate_fwd_back(self, start):
         
         if start is None:
             return
         print(start.info, end=",")
         
         if start.link is not None:
-            self.print_alternate_nodes_fwd_back(start.link.link)
+            self.print_alternate_fwd_back(start.link.link)
         print(start.info, end=",")
             
     #INSERT METHODS 
@@ -809,7 +809,8 @@ L.print_recursively_forward(L.start)
 print()
 L.print_recursively_reverse(L.start)
 print()
-L.print_alternate_nodes_fwd_back(L.start)
+L.print_alternate_fwd_back(L.start)
+print()
 print()
 #LOOP/CYCLE METHODS
 
