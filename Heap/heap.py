@@ -145,13 +145,15 @@ class Heap:
     def is_prime(self, x):
         for i in range(2,x):
             if x % i == 0:
-                return True
+                return False
         return True   
     
     
     def display_heap(self):
         
+        print("Heap size is ", self.heap_size)
         print("Heap contains", end=" ")
+        
         for i in range(0, self.heap_size):
             #if self.heap[i] != 0:
             print(self.heap[i], end=" ")
