@@ -130,14 +130,14 @@ class Heap:
     def resize_heap(self, new_size):
         temp = Heap(new_size) #new instance of a class
               
-        for i in range(1, self.heap_size):
+        for i in range(1, self.heap_size): #copy from orig to temp
             if self.heap[i] != 0:
                 temp.insert(self.heap[i])
                 
-        self.heap = temp.heap
-        self.heap_size = new_size
+        self.heap = temp.heap     #make temp heap as orig
+        self.heap_size = new_size  #set new size to heap_size
         
-    def next_prime(self, x):
+    def next_prime(self, x):    #gives the next prime num of x. x is 2*heap_size
         while self.is_prime(x) is not True:
             x = x+1
         return x
@@ -158,9 +158,26 @@ class Heap:
             #if self.heap[i] != 0:
             print(self.heap[i], end=" ")
         print()
-            
+        
+    def get_kth_largest(self, k):
+        
+        temp = Heap(self.heap_size) #aux instance of the heap class
+        
+        for i in range(1, self.next_prime(k*2)):  #copy contents of orig to Aux
+            if self.heap[i] != 0:
+                temp.insert(self.heap[i])   
+        
+        for i in range(1, self.next_prime(k*2)):  #remove items from aux
+            #if self.heap[i] != 0:
+            if i == k:
+                kth_value = temp.remove_max()
+                return kth_value
+            else:
+                temp.remove_max()
                 
-
+        
+    
+            
 H = Heap(10)
 H.display_heap()
 
@@ -192,7 +209,10 @@ print("Max Value in the heap is", H.get_max_value())
 #Display values of heap
 H.display_heap()
 
+print("Kth Largest value without removing from heap is", H.get_kth_largest(5))
+print("Kth Largest value without removing from heap is", H.get_kth_largest(10))
 ##-----Remove Max Values----#
+
 
 h = H.node_count
 print()
