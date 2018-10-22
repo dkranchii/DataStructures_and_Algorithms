@@ -164,7 +164,7 @@ class Heap:
 H = Heap(10)
 H.display_heap()
 
-
+#----Test insert----#
 H.insert(11)
 H.insert(14)
 H.insert(23)
@@ -182,41 +182,41 @@ H.insert(43)
 H.insert(63)
 H.insert(62)
 H.insert(9)
+H.insert(99)
+H.insert(1200)
+H.insert(132)
+H.insert(143)
 
 print("Max Value in the heap is", H.get_max_value())
 
+#Display values of heap
 H.display_heap()
 
+##-----Remove Max Values----#
+
+h = H.node_count
 print()
-print("Get Max Values")
-print(H.remove_max())
-print(H.remove_max())
-print(H.remove_max())
-print(H.remove_max())
-print(H.remove_max())
-print(H.remove_max())
-print(H.remove_max())
-print(H.remove_max())
-print(H.remove_max())
-print(H.remove_max())
-print(H.remove_max())
-print(H.remove_max())
-print(H.remove_max())
-
-
+print("Remove Max Values")
+while h >= 1:
+    print(H.remove_max())
+    h-=1
 
 """
 #------Output--------#
 
 Heap size is  10
 Heap contains inf 0 0 0 0 0 0 0 0 0 
-Heap size is  23  #(Next prime of double the original size)
-Heap contains inf 77 66 45 12 11 14 23 9 4 0 0 0 0 0 0 0 0 0 0 0 0 0 
-Max Value in the heap is 77
 Heap size is  23
-Heap contains inf 77 66 62 12 63 45 23 9 4 11 43 14 9 0 0 0 0 0 0 0 0 0 
+Heap contains inf 77 66 45 12 11 14 23 9 4 0 0 0 0 0 0 0 0 0 0 0 0 0 
+Max Value in the heap is 1200
+Heap size is  23
+Heap contains inf 1200 143 99 132 63 45 77 66 4 11 43 14 9 23 62 9 12 0 0 0 0 0 
 
-Get Max Values
+Remove Max Values
+1200
+143
+132
+99
 77
 66
 63
