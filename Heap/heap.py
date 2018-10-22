@@ -185,7 +185,7 @@ H.insert(9)
 H.insert(99)
 H.insert(1200)
 H.insert(132)
-H.insert(143)
+H.insert(142)
 
 print("Max Value in the heap is", H.get_max_value())
 
@@ -210,11 +210,11 @@ Heap size is  23
 Heap contains inf 77 66 45 12 11 14 23 9 4 0 0 0 0 0 0 0 0 0 0 0 0 0 
 Max Value in the heap is 1200
 Heap size is  23
-Heap contains inf 1200 143 99 132 63 45 77 66 4 11 43 14 9 23 62 9 12 0 0 0 0 0 
+Heap contains inf 1200 142 99 132 63 45 77 66 4 11 43 14 9 23 62 9 12 0 0 0 0 0 
 
 Remove Max Values
 1200
-143
+142
 132
 99
 77
