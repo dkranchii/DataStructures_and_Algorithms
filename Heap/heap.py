@@ -163,11 +163,11 @@ class Heap:
         
         temp = Heap(self.heap_size) #aux instance of the heap class
         
-        for i in range(1, self.next_prime(k*2)):  #copy contents of orig to Aux
+        for i in range(1, self.next_prime(k*2+1)):  #copy contents of orig to Aux
             if self.heap[i] != 0:
                 temp.insert(self.heap[i])   
         
-        for i in range(1, self.next_prime(k*2)):  #remove items from aux
+        for i in range(1, self.next_prime(k*2+1)):  #remove items from aux
             #if self.heap[i] != 0:
             if i == k:
                 kth_value = temp.remove_max()
@@ -231,6 +231,8 @@ Heap contains inf 77 66 45 12 11 14 23 9 4 0 0 0 0 0 0 0 0 0 0 0 0 0
 Max Value in the heap is 1200
 Heap size is  23
 Heap contains inf 1200 142 99 132 63 45 77 66 4 11 43 14 9 23 62 9 12 0 0 0 0 0 
+Kth Largest value without removing from heap is 77
+Kth Largest value without removing from heap is 43
 
 Remove Max Values
 1200
