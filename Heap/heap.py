@@ -203,6 +203,30 @@ print(H.remove_max())
 
 
 
+"""
+#------Output--------#
+
+Heap contains inf 0 0 0 0 0 0 0 0 0 
+Heap contains inf 77 66 45 12 11 14 23 9 4 0 0 0 0 0 0 0 0 0 0 
+Max Value in the heap is 77
+Heap contains inf 77 66 62 12 63 45 23 9 4 11 43 14 9 0 0 0 0 0 0 
+
+Get Max Values
+77
+66
+63
+62
+45
+43
+23
+14
+12
+11
+9
+9
+4
+
+"""
 
 
         
