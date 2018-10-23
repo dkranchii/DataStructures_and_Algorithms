@@ -16,9 +16,10 @@ class Vertex_Node:
         
 class Edge_Node:
     #edges between vertices will be associated with linked list of edges
-    def __init__(self, v):
+    def __init__(self, v, w):
         self.end_vertex = v
         self.next_edge = None
+        self.weight  = w
         
 class Adj_List_Graph:
     
@@ -47,7 +48,7 @@ class Adj_List_Graph:
         self.vertex_count += 1
                 
     
-    def insert_edge(self, val1, val2):
+    def insert_edge(self, val1, val2, weight):
         
         if val1 == val2:
             print("Start and End Vertex are same")
@@ -63,7 +64,7 @@ class Adj_List_Graph:
             print("End vertex not present")
             return
         
-        new_edge = Edge_Node(v)
+        new_edge = Edge_Node(v, weight)
         
         if u.first_edge is None:
             u.first_edge = new_edge
@@ -218,7 +219,7 @@ class Adj_List_Graph:
             print("]-->", end="")
             q = v.first_edge
             while q is not None:
-                print(q.end_vertex.vertex_value, end="->")
+                print(q.end_vertex.vertex_value + "(" + str(q.weight) + ")", end="-->")
                 q = q.next_edge
             print("None")
             v = v.next_vertex
@@ -232,12 +233,12 @@ G.insert_vertex("xyz")
 G.insert_vertex("lmn")
 G.insert_vertex("pqr")
 
-G.insert_edge("xyz", "pqr")
-G.insert_edge("xyz", "abc")
-G.insert_edge("pqr", "abc")
-G.insert_edge("lmn", "abc")
-G.insert_edge("lmn", "xyz")
-G.insert_edge("lmn", "pqr")
+G.insert_edge("xyz", "pqr", 5)
+G.insert_edge("xyz", "abc", 4)
+G.insert_edge("pqr", "abc", 4)
+G.insert_edge("lmn", "abc", 3)
+G.insert_edge("lmn", "xyz", 1)
+G.insert_edge("lmn", "pqr", 0)
 
 G.display_graph()
 print()
@@ -251,8 +252,8 @@ print("Indegree of vertex pqr ", G.indegree_of_a_vertex("pqr"))
 print()
 
 G.insert_vertex("tuv") 
-G.insert_edge("abc", "tuv")
-G.insert_edge("tuv", "pqr")
+G.insert_edge("abc", "tuv", 2)
+G.insert_edge("tuv", "pqr", -1)
 
 G.display_graph()
 
@@ -270,30 +271,30 @@ G.display_graph()
 #----------Output--------------#
 
 [abc]-->None
-[xyz]-->pqr->abc->None
-[lmn]-->abc->xyz->pqr->None
-[pqr]-->abc->None
+[xyz]-->pqr(5)-->abc(4)-->None
+[lmn]-->abc(3)-->xyz(1)-->pqr(0)-->None
+[pqr]-->abc(4)-->None
 
 Outdegree of vertex lmn is 3
 Indegree of vertex lmn is 0
 Outdegree of vertex pqr is 1
 Indegree of vertex pqr  2
 
-[abc]-->tuv->None
-[xyz]-->pqr->abc->None
-[lmn]-->abc->xyz->pqr->None
-[pqr]-->abc->None
-[tuv]-->pqr->None
+[abc]-->tuv(2)-->None
+[xyz]-->pqr(5)-->abc(4)-->None
+[lmn]-->abc(3)-->xyz(1)-->pqr(0)-->None
+[pqr]-->abc(4)-->None
+[tuv]-->pqr(-1)-->None
 
-[xyz]-->pqr->None
-[lmn]-->xyz->pqr->None
+[xyz]-->pqr(5)-->None
+[lmn]-->xyz(1)-->pqr(0)-->None
 [pqr]-->None
-[tuv]-->pqr->None
+[tuv]-->pqr(-1)-->None
 
 [xyz]-->None
-[lmn]-->xyz->pqr->None
+[lmn]-->xyz(1)-->pqr(0)-->None
 [pqr]-->None
-[tuv]-->pqr->None
+[tuv]-->pqr(-1)-->None
 
 """
 
