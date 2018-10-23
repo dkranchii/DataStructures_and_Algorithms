@@ -6,8 +6,9 @@ Created on Tue Oct 23 12:29:11 2018
 @author: kdp
 """
 
-#Hash Table with open addressing.
+#Hash Table stores key values pairs. It is known by Map in Java and Dictionary in Python
 #Hash Table array stores the address (reference) to instance of dictkeyvalue class. 
+#This Hash Table stores the data using "open addressing" concept.
 #Hash Table uses (key mod size) hash function to find position.
 #When collision happens, find the next open slot using quadratic probing (2,4,8,16,32 etc)
 #Clustering is the main problem with linear probing. 
