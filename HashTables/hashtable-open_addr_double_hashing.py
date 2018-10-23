@@ -47,7 +47,7 @@ class Hash:
         
     def SumofAsciiCode(self, key):
         #only for inserting strings as key 
-        #calculate the sum of 
+        #calculate the sum of ascii values of each char of the string
         sum1 = 0
         n = len(key)
         for j in range(0, n):
@@ -81,7 +81,7 @@ class Hash:
                 return False
             
             #Collision, Find next spot using double hashing
-            if type(key) == str:
+            if type(key) == str:   #when key is a string.
                 sum1 = self.SumofAsciiCode(key)
                 pos = (h1 + i * (7-(sum1 % 7))) % self.tablesize              
             else:
