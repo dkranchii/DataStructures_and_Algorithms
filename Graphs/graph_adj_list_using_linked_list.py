@@ -223,16 +223,23 @@ class Adj_List_Graph:
                 q = q.next_edge
             print("None")
             v = v.next_vertex
+            
+        print()
+        print("Total Vertices :", self.vertex_count)
+        print("Total Edges :", self.edge_count)
+        print("#-------------------------------------------#")
 
-#Test
-         
+
+#Test         
 G = Adj_List_Graph()
 
+# INSERT VERTICES METHODS
 G.insert_vertex("abc")
 G.insert_vertex("xyz")
 G.insert_vertex("lmn")
 G.insert_vertex("pqr")
 
+# INSERT EDGE with weights 
 G.insert_edge("xyz", "pqr", 5)
 G.insert_edge("xyz", "abc", 4)
 G.insert_edge("pqr", "abc", 4)
@@ -242,43 +249,48 @@ G.insert_edge("lmn", "pqr", 0)
 
 G.display_graph()
 print()
-
 print("Outdegree of vertex lmn is", G.outdegree_of_a_vertex("lmn"))
 print("Indegree of vertex lmn is", G.indegree_of_a_vertex("lmn"))
 
 print("Outdegree of vertex pqr is", G.outdegree_of_a_vertex("pqr"))
 print("Indegree of vertex pqr ", G.indegree_of_a_vertex("pqr"))
+print("#---------------------------------------------#")
 
 print()
 
+# INSERT METHODS 
 G.insert_vertex("tuv") 
 G.insert_edge("abc", "tuv", 2)
 G.insert_edge("tuv", "pqr", -1)
 
 G.display_graph()
-
 print()
+
+#DELETE VERTEX METHOD
 G.delete_vertex("abc")
 G.display_graph()
-
 print()
 
+# DELETE EDGE METHOD
 G.delete_edge("xyz", "pqr")
 G.display_graph()
 
 
 """
-#----------Output--------------#
-
 [abc]-->None
 [xyz]-->pqr(5)-->abc(4)-->None
 [lmn]-->abc(3)-->xyz(1)-->pqr(0)-->None
 [pqr]-->abc(4)-->None
 
+Total Vertices : 4
+Total Edges : 6
+#-------------------------------------------#
+
 Outdegree of vertex lmn is 3
 Indegree of vertex lmn is 0
 Outdegree of vertex pqr is 1
 Indegree of vertex pqr  2
+#---------------------------------------------#
 
 [abc]-->tuv(2)-->None
 [xyz]-->pqr(5)-->abc(4)-->None
@@ -286,15 +298,27 @@ Indegree of vertex pqr  2
 [pqr]-->abc(4)-->None
 [tuv]-->pqr(-1)-->None
 
+Total Vertices : 5
+Total Edges : 8
+#-------------------------------------------#
+
 [xyz]-->pqr(5)-->None
 [lmn]-->xyz(1)-->pqr(0)-->None
 [pqr]-->None
 [tuv]-->pqr(-1)-->None
 
+Total Vertices : 4
+Total Edges : 4
+#-------------------------------------------#
+
 [xyz]-->None
 [lmn]-->xyz(1)-->pqr(0)-->None
 [pqr]-->None
 [tuv]-->pqr(-1)-->None
+
+Total Vertices : 4
+Total Edges : 3
+#-------------------------------------------#
 
 """
 
