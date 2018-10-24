@@ -10,6 +10,8 @@ Created on Mon Oct 22 13:15:20 2018
 #When the filled slots in the array are greater than the load factor, a new temp graph array is created. 
 #Vertices and Edges are copied from original to temp. Temp is made as the primary graph
 
+# This code is for Directed and weighted Graph
+
 class Vertex_Node:
     #vertices will be associated with linked list of vertex
     #edges between vertices will be associated with linked list of edges
