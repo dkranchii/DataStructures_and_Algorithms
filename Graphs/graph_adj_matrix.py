@@ -10,6 +10,7 @@ class Vertex:
     
     def __init__(self, val):
         self.vertex_value = val
+        self.state = None
         
     
 class Adj_Matx_Graph:
@@ -20,6 +21,10 @@ class Adj_Matx_Graph:
         self.vertex_list = [None] * self.graph_size
         self.vertex_count = 0
         self.edge_count = 0
+        
+        self.INITIAL = 0
+        self.WAITING = 1
+        self.VISITED = 2
         
     #vertices are maintained in a list/array
     def insert_vertex(self, val):
@@ -139,8 +144,37 @@ class Adj_Matx_Graph:
             for j in range(m):
                 print("{0:3d}".format(self.graph[i][j]), end="  ")
             print()
+            
+    def bfs_traversal(self, start_vertex):
         
+        for v in range(0, self.graph_size):
+            self.vertex_list[v].state = self.INITIAL
         
+        print("\nBFS Traversal is ", end=" ")
+        s = self.get_index(start_vertex)
+        self._bfs(s)
+        
+        #this takes care of vertices that are not reachable from vertex[0]
+        for v in range(0, len(self.vertex_list)): 
+            if self.vertex_list[v].state == self.INITIAL:
+                self._bfs(v)
+                
+        
+    def _bfs(self, v):
+        qu = []
+        qu.append(v)
+        self.vertex_list[v].state = self.WAITING
+        
+        while qu:
+            v = qu.pop(0)           
+            print(self.vertex_list[v].vertex_value, end= " ")
+            self.vertex_list[v].state = self.VISITED
+            
+            for i in range(0, self.vertex_count):
+                if self.is_adjacent(v,i) and self.vertex_list[i].state == self.INITIAL:
+                    qu.append(i)
+                    self.vertex_list[i].state = self.WAITING
+    
 #Test:
 
 print("Graph - Adjacency Matrix")            
@@ -156,9 +190,9 @@ G.insert_vertex("lmn")
 G.insert_vertex("pqr")
 
 G.insert_edge_directed_unweighted("abc", "xyz")
-G.insert_edge_directed_unweighted("lmn", "pqr")
-G.insert_edge_directed_unweighted("pqr", "abc")
-G.insert_edge_directed_unweighted("lmn", "abc")
+G.insert_edge_directed_unweighted("xyz", "pqr")
+G.insert_edge_directed_unweighted("abc", "pqr")
+G.insert_edge_directed_unweighted("lmn", "xyz")
 
 G.display()
 print()
@@ -169,9 +203,11 @@ print()
 print("Outdegree of abc is :", G.out_degree("abc"))
 print("Indgree of abc is :", G.in_degree("abc"))
 
+#pass vertex value from where traversal should begin
+G.bfs_traversal("lmn")
 
 #Test 2
-
+print()
 print("#---------------------------#")
 print("Directed -- Weighted")
 print()
@@ -196,6 +232,8 @@ print()
 print("Outdegree of LAX is :", G1.out_degree("LAX"))
 print("Indgree of LAX is :", G1.in_degree("LAX"))
 
+G1.bfs_traversal("SFO")
+print()
 
 #Test 3
 
@@ -223,7 +261,8 @@ print()
 print("Outdegree of LAX is :", G2.out_degree("LAX"))
 print("Indgree of LAX is :", G2.in_degree("LAX"))
 
-
+G2.bfs_traversal("PHX")
+print()
 #Test 4
 
 print("#---------------------------#")
@@ -250,6 +289,8 @@ print()
 print("Outdegree of LAX is :", G3.out_degree("LAX"))
 print("Indgree of LAX is :", G3.in_degree("LAX"))
 
+G3.bfs_traversal("DEN")
+print()
 
 """
 #------Output---------#
@@ -260,16 +301,18 @@ Graph - Adjacency Matrix
 Directed -- Unweighted
 
 abc  xyz  lmn  pqr  
+  0    1    0    1  
+  0    0    0    1  
   0    1    0    0  
   0    0    0    0  
-  1    0    0    1  
-  1    0    0    0  
 
 Total Vertices: 4
 Total Edges: 4
 
-Outdegree of abc is : 1
-Indgree of abc is : 2
+Outdegree of abc is : 2
+Indgree of abc is : 0
+
+BFS Traversal is  lmn xyz pqr abc 
 #---------------------------#
 Directed -- Weighted
 
@@ -284,6 +327,8 @@ Total Edges: 4
 
 Outdegree of LAX is : 1
 Indgree of LAX is : 2
+
+BFS Traversal is  SFO PHX LAX DEN 
 #---------------------------#
 Un-directed -- un-weighted
 
@@ -298,6 +343,8 @@ Total Edges: 4
 
 Outdegree of LAX is : 3
 Indgree of LAX is : 3
+
+BFS Traversal is  PHX LAX SFO DEN 
 #---------------------------#
 Un-directed -- weighted
 
@@ -313,4 +360,5 @@ Total Edges: 4
 Outdegree of LAX is : 3
 Indgree of LAX is : 3
 
+BFS Traversal is  DEN LAX SFO PHX 
 """
