@@ -74,15 +74,36 @@ class BinaryTree:
         return p
 
     # recursively delete the tree.
-    def delete_binary_tree(self):
-        if self.root is None:
+    def delete_binary_tree_rec(self, root):
+        if root is None:
             return
-        p = self.root
-        self.delete_binary_tree(p.left)
-        self.delete_binary_tree(p.right)
-        self.root = None
         
-
+        if root.left is not None:
+            self.delete_binary_tree_rec(root.left)
+        if root.right is not None:
+            self.delete_binary_tree_rec(root.right)
+            
+        self.root = None
+        return self.root
+        
+    def _delete_binary_tree_iter(self, root):
+        if root is None:
+            return
+        q = []
+        q.append(root)
+        while q:
+            p = q.pop(0)
+            if p.left is not None:
+                q.append(p.left)
+            if p.right is not None:
+                q.append(p.right)
+            p = None
+        return p
+    
+    def delete_tree_iter(self, node_ref):
+        node_ref = self._delete_binary_tree_iter(node_ref)
+        return node_ref
+    
     # TRAVERSAL METHODS
     
     #recursive - print root.info, call with left node. call with right node
@@ -639,6 +660,29 @@ class BinaryTree:
                     queue_list.append(popped.right)
               
             
+            
+    def average_of_elemts_at_each_level(self, root):
+        q = []
+        q.append(root)
+        
+        while q:
+            sum1 = count = level = 0
+            temp = []
+            
+            while q:
+                p = q.pop(0)
+                sum1 += p.info
+                count+=1
+                level += 1
+                
+                if p.left is not None:
+                    temp.append(p.left)
+                if p.right is not None:
+                    temp.append(p.right)
+            q = temp
+            print("Sum at each level : ", level, sum1)
+            print("Average at level :", level, sum1 / count)
+
     # PATHS 
             
 
@@ -759,6 +803,15 @@ print("Num of leaf nodes (recur) ", BT.num_of_leaf_nodes_rec(BT.root))
 print()
 BT.node_count_at_each_level()
 
+print()
+BT.average_of_elemts_at_each_level(BT.root)
+print()
+
+
+print()
+root = BT.delete_tree_iter(BT.root)
+print("Tree deleted")
+print(root)
 
 """
 Output
