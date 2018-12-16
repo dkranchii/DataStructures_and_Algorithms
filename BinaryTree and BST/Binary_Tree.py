@@ -761,8 +761,7 @@ BT.node_count_at_each_level()
 
 
 """
-#---Output---#
-
+Output
 #---------Add nodes to the tree----------#
 
     16
@@ -817,11 +816,18 @@ Reverse LevelOrder Traversal
 #----------Aggregated Methods--------------#
 Max elem in the BT (recur) is 16
 Max elem in the BT(iter) is 16
+
 Height of the BT(recur) is  3
 Height of the BT(iter) is  3
-Item 5 found in the tree
-Sum of the elem (recur) is  64
-Sum of the elem (iter) is  64
+
+Search->Item 5 found in the tree
+
+Sum of all elems (recur) is  64
+Sum of all elems (iter) is  64
+
+Sum of all left leaves (recur) is  12
+
+Diameter of the tree is  5
 
 Sum at level 1 is->10
 Sum at level 2 is->20
@@ -832,12 +838,34 @@ Sum at  2 is->20
 Sum at  3 is->34
 Level with max sum  3
 
+
+    16
+
+  15
+
+    12
+
+10
+
+    6
+
+  5
+Vertical sum for each column is : 
+{-1: 5, 0: 28, 1: 15, 2: 16}
+
 #----------Node Count Methods--------------#
 total nodes of the BT (recur) is 6
 total nodes of the BT (iter) is 6
+
 Num of full nodes  2
+Num of full nodes (recur):  2
+
 Num of half nodes  1
+Num of half nodes (recur):  1
+
 Num of leaf nodes  3
+Num of leaf nodes (recur)  3
+
 Node Count at level  1 is->1
 Node Count at level  2 is->2
 Node Count at level  3 is->3
