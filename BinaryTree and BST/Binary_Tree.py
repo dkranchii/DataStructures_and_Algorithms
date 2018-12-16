@@ -31,6 +31,8 @@ class BinaryTree:
                 else:
                     node.right = BinaryNode(data) 
 
+     #recursively display binary tree
+     #call right node with level +1. ]
     def display(self, p, level):
         if p is None:
             return
@@ -42,7 +44,7 @@ class BinaryTree:
         print(p.info)
         self.display(p.left, level+1)
         
-
+    #recursively delete a node
     def deleteNode(self, p, key):
         
         if p == None:
@@ -75,6 +77,7 @@ class BinaryTree:
 
     # TRAVERSAL METHODS
     
+    #recursive - print root.info, call with left node. call with right node
     def pre_order_rec(self, root):
         if root is None:
             return
@@ -98,7 +101,8 @@ class BinaryTree:
                 stack.append(node.right)
             if node.left is not None:
                 stack.append(node.left)
-                
+     
+    #recursive - call with left, print root.info, call with right         
     def in_order_rec(self, root):
         if root is None:
             return
@@ -107,9 +111,9 @@ class BinaryTree:
         self.in_order_rec(root.right)
         
     
-    #stack, while stack or p, if p is not None, append(p),  p=p.left.  
+    #p=root. definestack, 
+    #while stack or p, if p is not None, append(p), p=p.left.  
     #else,p=pop(), print, p=p.right
-
     def in_order_iter(self):
         if self.root is None:
             return
@@ -127,7 +131,9 @@ class BinaryTree:
                 p = p.right
                 
 
-        #Divide and Counquer method available. Add later
+     #p=root. definestack, 
+    #while stack or p, if p is not None, append(p), p=p.left.  
+    #else,p=pop(), if kth==k print return, else kth++ p=p.right
     def kth_node_in_order(self, k):
         if self.root is None:
             return
@@ -149,7 +155,7 @@ class BinaryTree:
                 p = p.right
 
                 
-                
+    #recursive - call with left, call with right, print root.info        
     def post_order_recur(self, root):
         if root is None:
             return
@@ -157,6 +163,11 @@ class BinaryTree:
         self.post_order_recur(root.right)
         print(root.info,  end=" ")
         
+    #p=root. 
+    #while stak or p. if p is not none, append p, p=p.left
+    #else p=pop(). 
+    #if p.right is not none and p.right not in visited. p = p.right
+     #else add p to visited. print p.info. p = None
     def postOrderIter(self):
         if self.root is None:
             return
@@ -179,7 +190,7 @@ class BinaryTree:
                     print(p.info, end=" ")
                     p = None                
 
-    
+    #add root to queue. pop queue. print info. add left. add right.
     def level_order_traversal(self):
         queue_list = []
         queue_list.append(self.root)
@@ -194,7 +205,11 @@ class BinaryTree:
             if popped.right is not None:
                 queue_list.append(popped.right)
 
-
+    
+     # two while loops. NodeCount=length(queue) 
+     #Break from outer loop when nodeCount==0.
+     #Inner while loop, node count is greater than 0. 
+     #pop queue, print, add left, add right. decrement nodeCount
     def level_order_line_by_line(self):
         queue_list = []
         queue_list.append(self.root)
@@ -217,6 +232,8 @@ class BinaryTree:
                 nodeCount -=1
             print()
             
+    #place all popped items from queue in stack. 
+    #Print all items from stack for reverse
     def reverse_level_order(self):
         queue_list = []
         queue_list.append(self.root)
@@ -237,13 +254,15 @@ class BinaryTree:
             
 
     #AGGREGATED/SIZE METHODS
-
+    
+    #call with left + call with right + 1
     def size_recursive(self, p):
         if p is None:
             return 0
         return self.size_recursive(p.left) + self.size_recursive(p.right) +1 
     
     
+    #level order traversal
     def size_iter(self):
         queue_list = [self.root]
         size = 0
@@ -261,7 +280,10 @@ class BinaryTree:
         #test
         return size
     
-    
+    #maxData = root.info.
+    #call with left and store result in lres
+    #call with right and store result in rres
+    #maxData is max of lres, maxData, rres
     def max_rec(self, root):
         if root is None:
             return float("-inf")
@@ -274,7 +296,7 @@ class BinaryTree:
         maxData = max(max(lres, maxData), max(rres, maxData))
         return maxData
     
-    
+    #level order. pop, compare with max and update max.
     def max_iter(self):
         if self.root is None: 
             return
@@ -293,11 +315,16 @@ class BinaryTree:
             
         return max1
 
+    #max(call with left, call with right) +1
     def height_rec(self, root):
         if root is None:
             return 0
         return max(self.height_rec(root.left), self.height_rec(root.right)) + 1
 
+    #queue. append root. append none.
+    #while q pop. 
+    #if pop is none. level++. if queue is not empty. append none
+    #else: add left add right.
     def height_iter(self):
         level=0
         if self.root is None:
@@ -321,6 +348,7 @@ class BinaryTree:
         
         return level
     
+    #if root.info==date, found. else# call with left. else call with right
     def find_item_rec(self, root, data):
         if root is None:
             return "not found"
@@ -333,12 +361,13 @@ class BinaryTree:
             else:
                 return self.find_item_rec(root.right, data)     
     
+    #root.info + call with left + call with right
     def sum_of_values_recur(self, root):
         if root is None:
             return 0
         return root.info + self.sum_of_values_recur(root.left) + self.sum_of_values_recur(root.right)    
 
-
+    #level order. pop and sum all values
     def sum_of_values_iter(self):
         queue_list = [self.root]
         sum1 = 0
@@ -354,6 +383,10 @@ class BinaryTree:
             
         return sum1
     
+    #level order. Append root append None. 
+    #if popped is none. print sum.
+        #if queue, append None. level++
+    #else sum+popped.  Add left to queue. Add Right to queue.
     def sum_at_level(self):
         level=1
         if self.root is None:
@@ -383,7 +416,9 @@ class BinaryTree:
                 if popped.right is not None:
                     queue_list.append(popped.right)
            
-
+    
+    #append root, append none
+    #
     def level_with_max_sum(self):
         level=1
         if self.root is None:
@@ -417,6 +452,7 @@ class BinaryTree:
     
     #NODE COUNT METHODS
     
+    #level order. while q. pop. if node.left and node.right is not node. count
     def num_of_full_nodes(self, root):
         if root is None:
             return 0
@@ -433,7 +469,7 @@ class BinaryTree:
                 q.append(node.right)
         return count
 
-
+    #level order. count half nodes
     def num_of_half_nodes(self, root):
         if root is None:
             return 0
@@ -453,6 +489,7 @@ class BinaryTree:
                 q.append(p.right)
         return count
     
+    #level order. Count nodes without 
     def num_of_leaf_nodes(self, root):
         if root is None:
             return 0
