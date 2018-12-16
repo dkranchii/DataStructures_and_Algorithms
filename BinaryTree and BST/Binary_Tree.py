@@ -73,7 +73,15 @@ class BinaryTree:
             p.right = self.deleteNode(p.right, p.info)        
         return p
 
-
+    # recursively delete the tree.
+    def delete_binary_tree(self):
+        if self.root is None:
+            return
+        p = self.root
+        self.delete_binary_tree(p.left)
+        self.delete_binary_tree(p.right)
+        self.root = None
+        
 
     # TRAVERSAL METHODS
     
@@ -418,7 +426,9 @@ class BinaryTree:
            
     
     #append root, append none
-    #
+    #if popped is None, sum. if sum > max. set max.
+        #if queue, apppend None. level+
+    #else sum+popped. add left. add right.
     def level_with_max_sum(self):
         level=1
         if self.root is None:
@@ -450,9 +460,63 @@ class BinaryTree:
             
         return maxLevel
     
+    #vertical sum of the tree
+    #call again with left, -1.
+    #add column and value in hashtable.
+    #call again with right, +1
+    def vertical_sum(self, root, column, dict1):
+       
+        if root is None:
+            return
+        
+        #call again with left with column -1
+        self.vertical_sum(root.left, column-1, dict1)
+        
+        #add or update dictionary
+        if column in dict1:
+           dict1[column] += root.info
+        else:
+           dict1[column] = root.info
+           
+        #call again with right with column+1
+        self.vertical_sum(root.right, column+1, dict1)
+        
+        
+    def is_leaf_node(self, root):
+        if root is None:
+            return False
+        if root.left is None and root.right is None:
+            return True
+        return False
+        
+    #sum of left nodes
+    def sum_of_left_leaves_nodes_rec(self, root):
+        res = 0
+        if root is not None:
+            if self.is_leaf_node(root.left):
+                res += root.left.info
+            else:
+                res += self.sum_of_left_leaves_nodes_rec(root.left)
+            res += self.sum_of_left_leaves_nodes_rec(root.right)
+        return res
+    
+    #diameter of the tree
+    #left height. right height. left diam, rightdiam. 
+    #max of height vs diams
+    def diameter_of_tree(self, root):
+        if root is None:
+            return 0
+        lef = self.height_rec(root.left)
+        rig = self.height_rec(root.right)
+        
+        leftdiam = self.diameter_of_tree(root.left)
+        rightdiam = self.diameter_of_tree(root.right)
+        
+        return max(lef + rig+1, max(leftdiam, rightdiam))
+    
     #NODE COUNT METHODS
     
-    #level order. while q. pop. if node.left and node.right is not node. count
+    #level order. while q, pop. if node.left and node.right exist. count
     def num_of_full_nodes(self, root):
         if root is None:
             return 0
@@ -469,7 +533,9 @@ class BinaryTree:
                 q.append(node.right)
         return count
 
-    #level order. count half nodes
+    #level order. count half nodes 
+    #left not none. right none, count++
+    #right not none, left none, count++
     def num_of_half_nodes(self, root):
         if root is None:
             return 0
@@ -489,7 +555,8 @@ class BinaryTree:
                 q.append(p.right)
         return count
     
-    #level order. Count nodes without 
+    #level order. while q. pop.
+    #right and left are none. count++
     def num_of_leaf_nodes(self, root):
         if root is None:
             return 0
@@ -507,6 +574,10 @@ class BinaryTree:
                     q.append(node.right)
         return count
     
+    #q, append root. append none.
+    #while q, pop. 
+    #if popped is none. print count. set count=0. if q, append none. level++
+    #else count++, add left, add right.    
     def node_count_at_each_level(self):
         level=1
         if self.root is None:
@@ -533,6 +604,8 @@ class BinaryTree:
                     queue_list.append(popped.left)
                 if popped.right is not None:
                     queue_list.append(popped.right)
+                    
+    # PATHS 
 
 
 #Test:
@@ -602,19 +675,35 @@ print("#----------Aggregated Methods--------------#")
 print("Max elem in the BT (recur) is", BT.max_rec(BT.root))
 print("Max elem in the BT(iter) is", BT.max_iter())
 
+print()
 print("Height of the BT(recur) is ", BT.height_rec(BT.root))
 print("Height of the BT(iter) is ", BT.height_iter())
 
-print("Item {} {} in the tree".format(5, BT.find_item_rec(BT.root, 5)))
+print()
+print("Search->Item {} {} in the tree".format(5, BT.find_item_rec(BT.root, 5)))
 
-print("Sum of the elem (recur) is ", BT.sum_of_values_recur(BT.root))
-print("Sum of the elem (iter) is ", BT.sum_of_values_iter())
+print()
+print("Sum of all elems (recur) is ", BT.sum_of_values_recur(BT.root))
+print("Sum of all elems (iter) is ", BT.sum_of_values_iter())
+
+print()
+print("Sum of all left leaves (recur) is ", BT.sum_of_left_leaves_nodes_rec(BT.root))
+
+print()
+print("Diameter of the tree is ", BT.diameter_of_tree(BT.root))
 
 print()
 BT.sum_at_level()
 
 print()
 print("Level with max sum ", BT.level_with_max_sum())
+
+print()
+BT.display(BT.root,0)
+dict1 = {}
+BT.vertical_sum(BT.root, 0, dict1)
+print("Vertical sum for each column is : ")
+print(dict1)
 
 #Node Count Methods
 print()
