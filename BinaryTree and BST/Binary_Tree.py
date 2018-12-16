@@ -533,6 +533,16 @@ class BinaryTree:
                 q.append(node.right)
         return count
 
+    #recursive
+    def num_of_full_nodes_rec(self, root):
+         if root is None :
+             return 0
+         res  = 0
+         if root.left is not None and root.right is not None:
+             res +=1
+         res += self.num_of_full_nodes_rec(root.left) + self.num_of_full_nodes_rec(root.right) 
+         return res
+
     #level order. count half nodes 
     #left not none. right none, count++
     #right not none, left none, count++
@@ -555,6 +565,19 @@ class BinaryTree:
                 q.append(p.right)
         return count
     
+    #recursive half nodes
+    def num_of_half_nodes_rec(self, root):
+         if root is None :
+             return 0
+         res  = 0
+         if root.left is not None and root.right is None:
+             res +=1
+         if root.right is not None and root.left is None:
+             res +=1
+             
+         res += self.num_of_half_nodes_rec(root.left) + self.num_of_half_nodes_rec(root.right) 
+         return res
+    
     #level order. while q. pop.
     #right and left are none. count++
     def num_of_leaf_nodes(self, root):
@@ -573,6 +596,16 @@ class BinaryTree:
                 if node.right is not None:
                     q.append(node.right)
         return count
+    
+    #recursive leaf node
+    def num_of_leaf_nodes_rec(self, root):
+         if root is None :
+             return 0
+         res  = 0
+         if root.left is None and root.right is None:
+             res +=1             
+         res += self.num_of_leaf_nodes_rec(root.left) + self.num_of_leaf_nodes_rec(root.right) 
+         return res    
     
     #q, append root. append none.
     #while q, pop. 
@@ -604,9 +637,10 @@ class BinaryTree:
                     queue_list.append(popped.left)
                 if popped.right is not None:
                     queue_list.append(popped.right)
-                    
+              
+            
     # PATHS 
-
+            
 
 #Test:
 BT = BinaryTree()
@@ -710,9 +744,19 @@ print()
 print("#----------Node Count Methods--------------#")
 print("total nodes of the BT (recur) is", BT.size_recursive(BT.root))
 print("total nodes of the BT (iter) is", BT.size_iter())
+
+print()
 print("Num of full nodes ", BT.num_of_full_nodes(BT.root))
+print("Num of full nodes (recur): ", BT.num_of_full_nodes_rec(BT.root))
+
+print()
 print("Num of half nodes ", BT.num_of_half_nodes(BT.root))
+print("Num of half nodes (recur): ", BT.num_of_half_nodes_rec(BT.root))
+print()
 print("Num of leaf nodes ", BT.num_of_leaf_nodes(BT.root))    
+print("Num of leaf nodes (recur) ", BT.num_of_leaf_nodes_rec(BT.root))
+
+print()
 BT.node_count_at_each_level()
 
 
