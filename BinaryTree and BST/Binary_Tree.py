@@ -105,7 +105,7 @@ class BinaryTree:
         node_ref = self._delete_binary_tree_iter(node_ref)
         return node_ref
     
-    # TRAVERSAL METHODS
+    # TRAVERSAL METHODS-------------------------------------------------------
     
     #recursive - print root.info, call with left node. call with right node
     def pre_order_rec(self, root):
@@ -283,7 +283,7 @@ class BinaryTree:
             print(popp.info, end=" ")
             
 
-    #AGGREGATED/SIZE METHODS
+    #AGGREGATED/SIZE METHODS--------------------------------------------------
     
     #call with left + call with right + 1
     def size_recursive(self, p):
@@ -536,7 +536,7 @@ class BinaryTree:
         
         return max(lef + rig+1, max(leftdiam, rightdiam))
     
-    #NODE COUNT METHODS
+    #NODE COUNT METHODS-------------------------------------------------------
     
     #level order. while q, pop. if node.left and node.right exist. count
     def num_of_full_nodes(self, root):
@@ -684,7 +684,7 @@ class BinaryTree:
             print("Sum at each level : ", level, sum1)
             print("Average at level :", level, sum1 / count)
 
-    # VIEWS
+    # VIEWS-------------------------------------------------------------------
 
     #queue, add root. pop. dict[hd] = popped.info
     #if left, left.hd-1, append. #if right right.hd+1, append.
