@@ -661,7 +661,7 @@ class BinaryTree:
                     queue_list.append(popped.right)
               
             
-            
+    #two while loops. two queues.  
     def average_of_elemts_at_each_level(self, root):
         q = []
         q.append(root)
@@ -710,6 +710,8 @@ class BinaryTree:
         print(ht)
         
         
+    #q, append root. 
+    #two while loops. update max_level with level. decrement count.
     def right_view(self, root):
         if root is None:
             return
@@ -749,7 +751,9 @@ class BinaryTree:
         self.left_view_util(root.left, level+1, max_level)
         self.left_view_util(root.right, level+1, max_level)
         
-        
+    
+    #queue, append root. dict. pop. if hd not in ht. add hd=info
+    #if left, left.hd-1, append. #if right, right.hd+1, append.
     def top_view(self, root):
         if root is None:
             return
@@ -999,18 +1003,13 @@ Sum at  2 is->20
 Sum at  3 is->34
 Level with max sum  3
 
+Sum at each level :  1 10
+Average at level : 1 10.0
+Sum at each level :  2 20
+Average at level : 2 10.0
+Sum at each level :  3 34
+Average at level : 3 11.333333333333334
 
-    16
-
-  15
-
-    12
-
-10
-
-    6
-
-  5
 Vertical sum for each column is : 
 {-1: 5, 0: 28, 1: 15, 2: 16}
 
@@ -1030,16 +1029,19 @@ Num of leaf nodes (recur)  3
 Node Count at level  1 is->1
 Node Count at level  2 is->2
 Node Count at level  3 is->3
+#----------View Methods--------------#
+Bottom View of the tree is 
+{0: 12, -1: 5, 1: 15, 2: 16}
 
-Sum at each level :  1 10
-Average at level : 1 10.0
-Sum at each level :  2 20
-Average at level : 2 10.0
-Sum at each level :  3 34
-Average at level : 3 11.333333333333334
+Top View of the tree is 
+{0: 10, -1: 5, 1: 15, 2: 16}
 
+Right View of the binary Tree is :
+10 15 16 
+
+Left View of the tree (recur) is:
+10 5 6 
 
 Tree deleted
 None
-
 """
