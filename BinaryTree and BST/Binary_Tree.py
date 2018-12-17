@@ -778,6 +778,16 @@ class BinaryTree:
                 
         print(ht)
         
+    #CONSTRUCTION of other Trees-----------------------------------------------
+    def sum_tree(self, root):
+        
+        if root is None:
+            return 0
+        
+        old_val = root.info 
+        root.info = self.sum_tree(root.left) + self.sum_tree(root.right)
+        return root.info + old_val
+        
 #Test:
 BT = BinaryTree()
 
@@ -919,11 +929,21 @@ print("Left View of the tree (recur) is:")
 BT.left_view_rec(BT.root)
 print()
 
+# CONSTRUCTION METHODS
+print("#----------Construction Methods--------------#")
+print()
+root = BT.sum_tree(BT.root)
+BT.display(BT.root, 0)
+
+
 #DELETE TREE
+print("#----------Deletion Methods--------------#")
 print()
 root = BT.delete_tree_iter(BT.root)
 print("Tree deleted")
-print(root)
+
+
+
 
 """
 Output
