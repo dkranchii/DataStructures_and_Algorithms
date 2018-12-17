@@ -11,6 +11,7 @@ class BinaryNode:
         self.info = data
         self.left = None
         self.right = None
+        self.hd = 0  #bottom view
         
 class BinaryTree:
     def __init__(self):
@@ -683,9 +684,96 @@ class BinaryTree:
             print("Sum at each level : ", level, sum1)
             print("Average at level :", level, sum1 / count)
 
-    # PATHS 
-            
+    # VIEWS
 
+    #queue, add root. pop. dict[hd] = popped.info
+    #if left, left.hd-1, append. #if right right.hd+1, append.
+    def bottom_view(self, root):
+        if root is None:
+            return
+        q = []
+        ht = {}
+        q.append(root)
+        while q:
+            popped = q.pop(0)
+            hd = popped.hd
+            ht[hd] = popped.info
+            
+            if popped.left is not None:
+                popped.left.hd = hd -1
+                q.append(popped.left)
+                
+            if popped.right is not None:
+                popped.right.hd = hd + 1
+                q.append(popped.right)
+        
+        print(ht)
+        
+        
+    def right_view(self, root):
+        if root is None:
+            return
+        
+        q = []
+        q.append(root)
+        level = 0
+        max_level = 0
+        print("Right View of the binary Tree is :")
+        while q:
+            count = len(q)
+            level +=1 
+            while count != 0:
+                popped = q.pop(0)
+                if level > max_level:
+                    print(popped.info, end=" ")
+                    max_level = level
+                
+                if popped.right is not None:
+                    q.append(popped.right)
+                if popped.left is not None:
+                    q.append(popped.left)
+                count -=1
+            
+            
+    def left_view_rec(self, root):
+        max_level = [0]
+        self.left_view_util(root, 1, max_level)
+
+    def left_view_util(self, root, level,max_level):
+        if root is None:
+            return
+        if max_level[0] < level:
+            print(root.info, end=" ")
+            max_level[0] = level
+        
+        self.left_view_util(root.left, level+1, max_level)
+        self.left_view_util(root.right, level+1, max_level)
+        
+        
+    def top_view(self, root):
+        if root is None:
+            return
+        q = []
+        ht = {}
+        q.append(root)
+        
+        while q:
+            popped = q.pop(0)
+            hd = popped.hd
+            
+            if hd not in ht:
+                ht[hd] = popped.info
+            
+            if popped.left is not None:
+                popped.left.hd = hd-1
+                q.append(popped.left)
+                
+            if popped.right is not None:
+                popped.right.hd = hd+1
+                q.append(popped.right)
+                
+        print(ht)
+        
 #Test:
 BT = BinaryTree()
 
@@ -777,7 +865,11 @@ print()
 print("Level with max sum ", BT.level_with_max_sum())
 
 print()
-BT.display(BT.root,0)
+BT.average_of_elemts_at_each_level(BT.root)
+print()
+
+
+
 dict1 = {}
 BT.vertical_sum(BT.root, 0, dict1)
 print("Vertical sum for each column is : ")
@@ -803,11 +895,27 @@ print("Num of leaf nodes (recur) ", BT.num_of_leaf_nodes_rec(BT.root))
 print()
 BT.node_count_at_each_level()
 
-print()
-BT.average_of_elemts_at_each_level(BT.root)
-print()
 
 
+# VIEWS
+print("#----------View Methods--------------#")
+print("Bottom View of the tree is ")
+BT.bottom_view(BT.root)
+print()
+
+print("Top View of the tree is ")
+BT.top_view(BT.root)
+print()
+
+BT.right_view(BT.root)
+print()
+
+print()
+print("Left View of the tree (recur) is:")
+BT.left_view_rec(BT.root)
+print()
+
+#DELETE TREE
 print()
 root = BT.delete_tree_iter(BT.root)
 print("Tree deleted")
@@ -922,5 +1030,16 @@ Num of leaf nodes (recur)  3
 Node Count at level  1 is->1
 Node Count at level  2 is->2
 Node Count at level  3 is->3
+
+Sum at each level :  1 10
+Average at level : 1 10.0
+Sum at each level :  2 20
+Average at level : 2 10.0
+Sum at each level :  3 34
+Average at level : 3 11.333333333333334
+
+
+Tree deleted
+None
 
 """
