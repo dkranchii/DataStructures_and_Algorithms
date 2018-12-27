@@ -475,6 +475,7 @@ class BinaryTree:
                 q.append(popped.left)
             if popped.right is not None:
                 q.append(popped.right)
+        return "not found" 
     
     #root.info + call with left + call with right
     def sum_of_values_recur(self, root):
@@ -892,7 +893,7 @@ class BinaryTree:
         if root:
             self.convert_to_mirror_of_tree(root.left)
             self.convert_to_mirror_of_tree(root.right)
-            root.left, root.right = root.right,root.left
+            root.left, root.right = root.right, root.left
         return 
         
         
@@ -915,6 +916,7 @@ class BinaryTree:
         if root1.info != root2.info :
             return False
         return self.are_mirror_of_each_other(root1.left, root2.right) and self.are_mirror_of_each_other(root1.right, root2.left)
+
 #Test:
 print("#---------Create Tree instance----------#")
 BT = BinaryTree()
@@ -1310,187 +1312,3 @@ BT Tree deleted
 
 BT1 Tree deleted
 
-
-runfile('/Users/kdp/Documents/GitHub/DataStructures_and_Algorithms/BinaryTree and BST/Binary_Tree.py', wdir='/Users/kdp/Documents/GitHub/DataStructures_and_Algorithms/BinaryTree and BST')
-#---------Create Tree instance----------#
-#---------Add nodes to the tree----------#
-
-    16
-
-  15
-
-    12
-
-10
-
-    6
-
-  5
-
-    4
-
-#----------Traversal Methods----------------#
-PreOrder Traversal (recur) -->10 5 4 6 15 12 16 
-PreOrder Traversal (iter) -->10 5 4 6 15 12 16 
-
-InOrder Traversal (recur) -->4 5 6 10 12 15 16 
-InOrder Traversal (iter) -->4 5 6 10 12 15 16 
-Kth node in InOrder Traversal (iter) -->4 
-
-PostOrder Traversal (recur) -->4 6 5 12 16 15 10 
-PostOrder Traversal (iter) -->4 6 5 12 16 15 10 
-
-LevelOrder Traversal -->10 5 15 4 6 12 16 
-
-LevelOrder Traversal line by line
-10 
-5 15 
-4 6 12 16 
-
-Reverse LevelOrder Traversal
-16 12 6 4 15 5 10 
-
-Print all ancestors of a node
-15,10,
-Print nodes in a spiral order
-10 5 15 16 12 6 4 
-
-#----------Aggregated Methods--------------#
-Max elem in the BT (recur) is 16
-Max elem in the BT(iter) is 16
-
-Height of the BT(recur) is  3
-Height of the BT(iter) is  3
-
-Deepest node of the tree iter is 16
-
-Search->Item 5 found in the tree
-Search->Item 10 found in the tree Iter
-
-Sum of all elems (recur) is  68
-Sum of all elems (iter) is  68
-
-Sum of all left leaves (recur) is  16
-
-Diameter of the tree is  5
-
-Sum at level 1 is->10
-Sum at level 2 is->20
-Sum at level 3 is->38
-
-Sum at  1 is->10
-Sum at  2 is->20
-Sum at  3 is->38
-Level with max sum  3
-
-Sum at each level :  1 10
-Average at level : 1 10.0
-Sum at each level :  2 20
-Average at level : 2 10.0
-Sum at each level :  4 38
-Average at level : 4 9.5
-
-Vertical sum for each column is : 
-{-2: 4, -1: 5, 0: 28, 1: 15, 2: 16}
-
-#----------Node Count Methods--------------#
-total nodes of the BT (recur) is 7
-total nodes of the BT (iter) is 7
-
-Num of full nodes  3
-Num of full nodes (recur):  3
-
-Num of half nodes  0
-Num of half nodes (recur):  0
-
-Num of leaf nodes  4
-Num of leaf nodes (recur)  4
-
-Node Count at level  1 is->1
-Node Count at level  2 is->2
-Node Count at level  3 is->4
-#----------View Methods--------------#
-Bottom View of the tree is 
-{0: 12, -1: 5, 1: 15, -2: 4, 2: 16}
-
-Top View of the tree is 
-{0: 10, -1: 5, 1: 15, -2: 4, 2: 16}
-
-Right View of the binary Tree is :
-10 15 16 
-
-Left View of the tree (recur) is:
-10 5 4 
-
-#---------Remove node 4 from the tree------#
-
-    16
-
-  15
-
-    12
-
-10
-
-    6
-
-  5
-
-#----------Construction Methods--------------#
-
-
-Convert BT tree to its mirror
-
-  5
-
-    6
-
-10
-
-    12
-
-  15
-
-    16
-
-#----------Create another Tree-------------#
-
-    16
-
-  15
-
-    12
-
-10
-
-    6
-
-  5
-
-    4
-
-Node 4 removed. Display Tree again
-
-    16
-
-  15
-
-    12
-
-10
-
-    6
-
-  5
-
-Are trees structurally the same:  True
-
-
-Are trees mirror of each other:  True
-
-#----------Deletion Methods--------------#
-
-BT Tree deleted
-
-BT1 Tree deleted
-"""
