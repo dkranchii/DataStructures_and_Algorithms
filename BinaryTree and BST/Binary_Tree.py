@@ -17,6 +17,7 @@ class BinaryTree:
     def __init__(self):
         self.root = None
 
+    #insert like a binary search tree. Only numerical values.
     def add(self, data, node):  
         if self.root is None:
             self.root = BinaryNode(data) 
@@ -34,6 +35,7 @@ class BinaryTree:
                     node.right = BinaryNode(data) 
                     return
 
+    #Insert to make it a complete binary tree - from left to right
     def add_iter(self, root, data):
         q = []
         newNode = BinaryNode(data)
@@ -73,6 +75,7 @@ class BinaryTree:
         self.display(p.left, level+1)
         
     #recursively delete a node
+    #like a BST deletion.
     def deleteNode(self, p, key):
         
         if p == None:
@@ -1311,4 +1314,4 @@ Are trees mirror of each other:  True
 BT Tree deleted
 
 BT1 Tree deleted
-
+"""
