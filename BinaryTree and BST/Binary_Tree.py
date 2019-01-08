@@ -14,6 +14,8 @@ class BinaryNode:
         self.hd = 0  #bottom view
         
 class BinaryTree:
+    
+    preindex = 0
     def __init__(self):
         self.root = None
 
@@ -511,29 +513,29 @@ class BinaryTree:
         if self.root is None:
             return
 
-        queue_list = [self.root]
-        queue_list.append(None)
+        qu = [self.root]
+        qu.append(None)
         sum1 = 0
 
-        while queue_list:
-            popped = queue_list.pop(0)
+        while qu:
+            popped = qu.pop(0)
             
             if popped is None:
                 print("Sum at level",level, "is", end="->")
                 print(sum1)
                 sum1=0
 
-                if queue_list:
-                    queue_list.append(None)
+                if qu:
+                    qu.append(None)
                 level+=1
 
             else:
                 sum1+=popped.info
 
                 if popped.left is not None:
-                    queue_list.append(popped.left)
+                    qu.append(popped.left)
                 if popped.right is not None:
-                    queue_list.append(popped.right)
+                    qu.append(popped.right)
            
     
     #append root, append none
@@ -544,13 +546,13 @@ class BinaryTree:
         level=1
         if self.root is None:
             return
-        queue_list = [self.root]
-        queue_list.append(None)
+        qu = [self.root]
+        qu.append(None)
         sum1 = 0
         maxSum = float("-inf")
         maxLevel = 0
-        while queue_list:
-            popped = queue_list.pop(0)
+        while qu:
+            popped = qu.pop(0)
             
             if popped is None:
                 print("Sum at ",level, "is", end="->")
@@ -559,15 +561,15 @@ class BinaryTree:
                     maxSum = sum1
                     maxLevel = level
                 sum1=0
-                if queue_list:
-                    queue_list.append(None)
+                if qu:
+                    qu.append(None)
                 level+=1
             else:
                 sum1+=popped.info
                 if popped.left is not None:
-                    queue_list.append(popped.left)
+                    qu.append(popped.left)
                 if popped.right is not None:
-                    queue_list.append(popped.right)
+                    qu.append(popped.right)
             
         return maxLevel
     
@@ -890,6 +892,7 @@ class BinaryTree:
         root.info = self.sum_tree(root.left) + self.sum_tree(root.right)
         return root.info + old_val
     
+    #recursive conversion to mirror trees
     def convert_to_mirror_of_tree(self, root):
         if root is None:
             return
@@ -899,6 +902,53 @@ class BinaryTree:
             root.left, root.right = root.right, root.left
         return 
         
+    #select elem from preorder using preindex.     
+    #create new node with the data selected from preorder
+    #find the index of the new node element in inorder list
+    #call build tree for elem before in_index and make the tree as left tree of newNode
+    #call build tree for elem after in_index and make the tree as right subtree of newNode
+    #repeat steps 1 to 5 with next index of preindex
+    def build_binary_tree_in_pre(self, inorder, preorder, in_start, in_end):
+        
+        if in_start > in_end:
+            return None
+        
+        #BT2.preindex is a static variable. 
+        newNode = BinaryNode(preorder[BT2.preindex])
+        BT2.preindex+=1
+        
+        if in_start == in_end:
+            return newNode
+        
+        in_index = inorder.index(newNode.info)
+        newNode.left = self.build_binary_tree_in_pre(inorder, preorder, in_start, in_index-1)
+        newNode.right = self.build_binary_tree_in_pre(inorder, preorder, in_index+1, in_end)
+        return newNode
+    
+    #first elem in level order sequence is root. 
+    #create a new node with the data selected from level order
+    #find the index of the new node elem in inorder list 
+    #call build tree for newnode elem before in_index in inorder list and make the tree as left tree of newNode
+    #call build tree for newnode elem after in_index in inorder list and make the tree as right tree of newNode
+    #repeat steps 1 to 5 with next index of the level order
+    def build_binary_tree_in_level(self, level, inorder):
+        
+        if inorder:
+            for i in range(0, len(level)):
+                if level[i] in inorder:
+                    
+                    newNode = BinaryNode(level[i])
+                    
+                    io_index = inorder.index(level[i])
+                    break
+                
+            if not inorder:
+                return newNode
+            
+            newNode.left = self.build_binary_tree_in_level(level, inorder[0:io_index])
+            newNode.right = self.build_binary_tree_in_level(level, inorder[io_index+1 : len(inorder)])
+            return newNode
+
         
     #VALIDATIOON
     def are_structurally_same_tree(self, root1, root2):
@@ -919,6 +969,9 @@ class BinaryTree:
         if root1.info != root2.info :
             return False
         return self.are_mirror_of_each_other(root1.left, root2.right) and self.are_mirror_of_each_other(root1.right, root2.left)
+
+
+
 
 #Test:
 print("#---------Create Tree instance----------#")
@@ -1083,6 +1136,23 @@ print("#----------Construction Methods--------------#")
 print()
 #root = BT.sum_tree(BT.root)  --temporarily commented to test conversion to mirror tree
 #BT.display(BT.root, 0)
+
+print("Construct BT from inorder and pre-order sequence in a list")
+inorder = [20, 30, 35, 40, 45, 50, 55, 60, 70]
+preorder = [50,40, 30, 20, 35,45,60,55,70]
+BT2 = BinaryTree() 
+BT2.preindex = 0
+BT2.root = BT2.build_binary_tree_in_pre(inorder, preorder, 0, 8 )
+BT2.display(BT2.root, 0)
+
+print("Construct BT from level order and inorder sequence in a list")
+levelorder = [20, 8,22,4,12,10,14]
+inorder = [4, 8, 10,12,14,20,22]
+BT3 = BinaryTree() 
+ino_len = len(inorder)
+BT3.root = BT2.build_binary_tree_in_level(levelorder, inorder )
+BT3.display(BT3.root, 0)
+
 
 print()
 print("Convert BT tree to its mirror")
