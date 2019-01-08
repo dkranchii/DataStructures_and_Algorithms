@@ -1328,7 +1328,41 @@ Left View of the tree (recur) is:
   5
 
 #----------Construction Methods--------------#
+  
+Construct BT from inorder and pre-order sequence in a list
 
+    70
+
+  60
+
+    55
+
+50
+
+    45
+
+  40
+
+      35
+
+    30
+
+      20
+Construct BT from level order and inorder sequence in a list
+
+  22
+
+20
+
+      14
+
+    12
+
+      10
+
+  8
+
+    4
 
 Convert BT tree to its mirror
 
