@@ -20,6 +20,8 @@ class BinaryTree:
         self.root = None
 
     #insert like a binary search tree. Only numerical values.
+    #recursive. if left is not null. move left when new value is smaller, else add on left side.
+    #if right is not null, move right when new value is smaller, else add on right side.
     def add(self, data, node):  
         if self.root is None:
             self.root = BinaryNode(data) 
@@ -64,7 +66,11 @@ class BinaryTree:
         return
     
      #recursively display binary tree
-     #call right node with level +1. ]
+     #call right node with level +1. 
+     #print an empty line
+     #print empty space for each level.
+     #print value
+     #call left node with level + 1
     def display(self, p, level):
         if p is None:
             return
@@ -119,6 +125,7 @@ class BinaryTree:
         self.root = None
         return self.root
         
+    #Level order traversal. set p to None when there are no leaves. 
     def _delete_binary_tree_iter(self, root):
         if root is None:
             return
@@ -173,9 +180,9 @@ class BinaryTree:
         self.in_order_rec(root.right)
         
     
-    #p=root. definestack, 
+    #p=root. define stack, 
     #while stack or p, if p is not None, append(p), p=p.left.  
-    #else,p=pop(), print, p=p.right
+    #else,p=pop(), print value, p=p.right
     def in_order_iter(self):
         if self.root is None:
             return
@@ -195,7 +202,7 @@ class BinaryTree:
 
      #p=root. definestack, 
     #while stack or p, if p is not None, append(p), p=p.left.  
-    #else,p=pop(), if kth==k print return, else kth++ p=p.right
+    #else,p=pop(), if kth==k print value return, else kth++ p=p.right
     def kth_node_in_order(self, k):
         if self.root is None:
             return
@@ -226,7 +233,7 @@ class BinaryTree:
         print(root.info,  end=" ")
         
     #p=root. 
-    #while stak or p. if p is not none, append p, p=p.left
+    #while stack or p. if p is not none, append p, p=p.left
     #else p=pop(). 
     #if p.right is not none and p.right not in visited. p = p.right
      #else add p to visited. print p.info. p = None
@@ -268,10 +275,13 @@ class BinaryTree:
                 queue_list.append(popped.right)
 
     
-     # two while loops. NodeCount=length(queue) 
-     #Break from outer loop when nodeCount==0.
-     #Inner while loop, node count is greater than 0. 
-     #pop queue, print, add left, add right. decrement nodeCount
+     #queue. add root.
+     # while 1. NodeCount=length(queue) 
+     # if nodeCount==0, break
+         #while node count is greater than 0. 
+         #pop queue, print, add left, add right. 
+         #NodeCount--
+         #print()
     def level_order_line_by_line(self):
         queue_list = []
         queue_list.append(self.root)
@@ -315,6 +325,10 @@ class BinaryTree:
             print(popp.info, end=" ")
             
             
+    #recursion. #if root is None. False. 
+    #if root.info == item. True
+    # if call with left or self.call with right. print(info).return true
+    # return false
     def printAllAncestorsRecur(self, root,item):
         if root is None:
             return False
@@ -327,7 +341,13 @@ class BinaryTree:
             
         return False
     
-    #stack, queue, size, reverse.
+    #stack, queue, append root to q, reverse = True
+    #while q: size = len(q)
+       #while size. pop stack. if reverse, append stack(popped info) #else print info.  
+       #if left exist, append left. if right exist, append right
+       #size --. 
+       #if reverse. while s: print(stack.pop())
+       #reverse = not(Reverse)
     def print_tree_in_spiral_order(self, root):
         if root is None:
             return
@@ -365,7 +385,7 @@ class BinaryTree:
         return self.size_recursive(p.left) + self.size_recursive(p.right) +1 
     
     
-    #level order traversal
+    #level order traversal. if popped is not None. size++
     def size_iter(self):
         queue_list = [self.root]
         size = 0
