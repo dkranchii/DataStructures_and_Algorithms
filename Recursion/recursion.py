@@ -5,6 +5,18 @@ Created on Wed Jan 23 21:14:47 2019
 
 @author: kdp
 """
+"""
+Template for designing recursive alg"
+1. Determine size of the prob
+2. Define base cases
+3. Decompose computational problem with self-similar sub 
+   of smaller size and possibly additional diff probs
+4. Define recurse cases by relying on induction and diagrams
+    (induction - key idea is that programmers must assume the recursive
+     code works for simpler and smaller problems even if they have not written
+     of code. Referred as recursive leap of faith)
+5. Test the code
+"""
 
 def fib_recur(n):
     if n <= 2 :
@@ -223,7 +235,6 @@ print("decimal to base", decimal_to_base(1024,2))
 
 
 #Strings
-
 def reverse_string(s):
     if len(s) == 1:
         return s[0]
@@ -244,4 +255,17 @@ print("is palindrome nayan", is_palindrome("nayan"))
 print("is palindrome kasam", is_palindrome("kasam"))
 #is palindrome nayan True
 #is palindrome kasam False
+
+
+def occurrences_in_list(A, x):
+    if A == []:
+        return 0
+    else:
+        return int(A[0] == x) + occurrences_in_list(A[1:],x)
+    
+A=[1,34,5,2,-1,23,2]
+print("occurrences_in_list", occurrences_in_list(A, 2))
+#occurrences_in_list 2
+
+
 
