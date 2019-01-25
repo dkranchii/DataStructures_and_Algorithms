@@ -46,6 +46,17 @@ def sum_recur(n):
 print("sum_recur", sum_recur(5))
 #5+4+3+2+1 = 15
 
+def gcd(m, n):
+    if m == 0:
+        return n
+    elif m > n:
+        return gcd(n, m)
+    else:
+        return gcd(m, n-m)
+    
+print("gcd of 1200,232 is", gcd(1200, 232))
+#gcd of 1200,232 is 8
+
 def sum_of_first_naturals_2(n):
     if n==1:
         return 1
@@ -256,6 +267,20 @@ print("is palindrome kasam", is_palindrome("kasam"))
 #is palindrome nayan True
 #is palindrome kasam False
 
+def longest_palindromic_substring(s):
+    n = len(s)
+    if is_palindrome(s):
+        return s
+    else:
+        aux1 = longest_palindromic_substring(s[1:n])
+        aux2 = longest_palindromic_substring(s[0:n-1])
+        if len(aux1) > len(aux2):
+            return aux1
+        else:
+            return aux2
+
+print("longest palindromic substring is", longest_palindromic_substring("nayanic"))
+#longest palindromic substring is nayan
 
 def equal_strings(s,t):
     if len(s) != len(t):
@@ -383,6 +408,19 @@ print("get greater than 5", get_greater_than(AB, 4))
 #get greater than 5 [9, 6, 7, 5] 
 
 
+def is_list_sorted(A):
+    n = len(A)
+    if n <= 1:
+        return True
+    else:
+        return (is_list_sorted(A[0:n//2])
+                and A[n // 2-1] <= A[n//2]
+                and is_list_sorted(A[n // 2:n]))
+    
+AZ = [1,3,5,6,79, 110]
+print("is list sorted", is_list_sorted(AZ))
+#is list sorted True
+
 def select_sort_rec(a):
     if len(a) <= 1:
         return a
@@ -412,6 +450,29 @@ def select_sort_rec_1(a):
 A = [7,5,23,3,8,4]
 print(select_sort_rec_1(A))
 
+def merge_sort(A):
+    n = len(A)
+    if n <= 1:
+        return A
+    else:
+        m1 = merge_sort(A[0:n//2])
+        m2 = merge_sort(A[n // 2: n])
+        return merge(m1, m2)
+    
+def merge(a, b):
+    if a == []:
+        return b
+    if b == []:
+        return a
+    else:
+        if a[0] < b[0]:
+            return [a[0]] + merge(a[1:],b)
+        else:
+            return [b[0]] + merge(a, b[1:])
+                  
+AX = [7,3,4,5,6,33,3,6]
+print("merge sort list is ", merge_sort(AX))
+#merge sort list is  [3, 3, 4, 5, 6, 6, 7, 33]
 
 def pascal(n):
     if n==0:
