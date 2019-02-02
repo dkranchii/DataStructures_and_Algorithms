@@ -488,3 +488,39 @@ def pascal(n):
 print(pascal(8))
 #[1, 8, 28, 56, 70, 56, 28, 8, 1]
 
+
+ 
+#ABC -->0/0 --> call rec ABC 
+    #-->1/1 -->call ABC  2/2 call ABC [l==r match, print (ABC)]
+    #ABC
+    #-->2/1 -->call ACB  2/2 call ACB [l==r match print (ACB) ]
+#ABC --> ABC
+    
+#ABC -->1/0 --> call rec  BAC 
+     #-->1/1 -->call BAC  2/2 Call BAC [l==r match print (ABC)]
+     #BAC
+     #-->2/1 -->call ACB  2/2 Call BCA [l==r matchprint (BCA)]
+#BCA --> ABC
+
+#ABC -->2/0 --> call rec CBA 
+    #-->1/1 -->call CBA  2/2 Call CBA [l==r match print (CBA)]
+    #CBA
+    #-->2/1 -->call CAB  2/2 Call CAB [l==r match print (CAB)]
+#CBA --> ABC 
+
+def perm_of_list(A, l, r):
+    if l==r:
+        print(A)
+    else:
+        for i in range(l, r+1):
+            A[l], A[i] = A[i], A[l]
+            perm_of_list(A, l+1, r)
+            A[l], A[i] = A[i], A[l]
+            
+
+B="ABC"
+n = len(B)
+A = list(B)
+perm_of_list(A, 0, n-1)
+
+
