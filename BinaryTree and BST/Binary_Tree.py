@@ -375,6 +375,22 @@ class BinaryTree:
                 while s:
                     print(s.pop(), end=" ")
             reverse = not(reverse)
+            
+    #recursive LCA
+    def LCA(self, root, a, b):
+        if root is None:
+            return root
+        if root == a or root == b:
+            return root
+        left = self.LCA(root.left, a, b)
+        right = self.LCA(root.right, a, b)
+        if left and right:
+            return root
+        else:
+            if left:
+                return left
+            else:
+                return right
 
     #AGGREGATED/SIZE METHODS--------------------------------------------------
     
@@ -593,10 +609,10 @@ class BinaryTree:
             
         return maxLevel
     
-    #vertical sum of the tree
-    #call again with left, -1.
-    #add column and value in hashtable.
-    #call again with right, +1
+    #if root none, return
+    #call recursive functtion with again with left, col-1, dict
+    #dict[col] += root.info.  or dict[col] = root.info
+    #call recursive function with right, col+1
     def vertical_sum(self, root, column, dict1):
        
         if root is None:
@@ -811,8 +827,9 @@ class BinaryTree:
 
     # VIEWS-------------------------------------------------------------------
 
-    #queue, add root. pop. dict[hd] = popped.info
-    #if left, left.hd-1, append. #if right right.hd+1, append.
+    #queue, add root. while q. pop(0). hd=popped.hd. update dict[hd] = popped.info
+    #if left, left.hd=hf-1, append lefy. #if right right.hd=hd+1, append right.
+    #print dictionary
     def bottom_view(self, root):
         if root is None:
             return
@@ -836,7 +853,9 @@ class BinaryTree:
         
         
     #q, append root. 
-    #two while loops. update max_level with level. decrement count.
+    #two while loops. while q. count=len(q). level++. 
+        #while count >0, pop. if levl > max_level. print pop.info. max_level=level
+        #if right, append.  if left, append.  count--
     def right_view(self, root):
         if root is None:
             return
@@ -1058,6 +1077,10 @@ print()
 
 print("Print nodes in a spiral order")
 BT.print_tree_in_spiral_order(BT.root)
+print()
+
+print("Lowest common ancestor of two nodes")
+print(BT.LCA(BT.root, 12, 4))
 print()
 
 #Aggregate Methods
