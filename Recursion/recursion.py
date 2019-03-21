@@ -524,3 +524,171 @@ A = list(B)
 perm_of_list(A, 0, n-1)
 
 
+#Catalan numbers
+
+def catalan(n):
+    if n <= 1:
+        return 1
+    
+    res = 0
+    for i in range(n):
+        res += catalan(i) * catalan(n-i-1)
+        
+    return res
+
+print("catalan numbers: ", end= "")
+for i in range(10):
+    print(catalan(i), end= " ")
+    
+#output: 1 1 2 4 14 42 132 429 1430 4862
+print()
+
+#Binomial Coefficient
+#gives number of ways, disregarding order,
+#that k object can be chosen from among n objects. 
+#formally k element subset of n element set
+def binomialCoeff(n, k):
+    
+    if k == 0 or k == n:
+        return 1
+    
+    return binomialCoeff(n-1, k-1) + binomialCoeff(n-1, k)
+
+n = 5 
+k = 2
+print("binomial Coeff of n=5, k=2 is", binomialCoeff(n, k))
+
+
+#coin change problem
+# N = 4, s = {1,2,3} there are four solutions: {1,1,1,1}, {1,1,2}, {2,2}, {1,3}
+#output should be 4. 
+def count(S, m, n):
+    
+    if n == 0:
+        return 1
+    
+    if n < 0:
+        return 0
+    
+    if m <= 0 and n >= 1:
+        return 0
+    
+    return count(S, m-1, n) + count(S, m, n-S[m-1])
+
+arr=[1,2,3]
+m = len(arr)
+print(count(arr, m, 4))
+
+#output 4:
+"""
+                  C(1,2,3),5
+ 
+                /            \ 
+              /                \
+            
+        C{1,2,3},2)              C{1,2}, 5)
+        /       \               /          \ 
+       /        \              /            \
+C{1,2,3}, -1)    C{1,2},2)  C{1,2},3)       C{1}, 5)
+                /  \            /    \            /    \
+               /    \          /      \          /     \
+       C(1,2), 0)  C{1},2)  C{1,2},1) C{1},3)  C{1},3)  C{},4)
+                                               /   \
+                                              /     \
+"""
+
+
+#Subset of sum problem
+# Given a set of non-negative integers and a value sum,
+# determine if there is a subset of a given set with sum equal to sum
+
+def isSubsetSum(set, n, sum):
+    
+    if sum == 0:
+        return True
+    if n == 0 and sum != 0:
+        return False
+    
+    if set[n-1] > sum:
+        return isSubsetSum(set, n-1, sum)
+    
+    return isSubsetSum(set, n-1, sum) or isSubsetSum(set, n-1, sum-set[n-1])
+
+set = [3,34,4,12, 5,2 ]
+sum = 9
+n = len(set)
+if isSubsetSum(set, n, sum) == True:
+    print("Found a subset with given sum")
+else:
+    print("No subset with given sum")
+    
+#output Found a subset with given sum
+"""   
+                            ISS(set, n, sum)
+                        /                    \
+                       /                         \
+       ISS(set, n-1, sum)                         ISS(set, n-1, sum-set[n-1])
+       /            \                                      /                 \
+      /              \                                     /                 \
+ISS(set, n-2, sum) ISS(set, n-2, sum-set[n-2])  ISS(set, n-2, sum-set[n-1])  ISS(n-2, sum-set[n-1]-set[n-2])     
+"""
+
+
+#Longest common subsequence
+
+def lcs(X, Y, m, n):
+    
+    if m == 0 or n == 0:
+        return 0
+    elif X[m-1] == Y[n-1]:
+        return 1 + lcs(X, Y, m-1, n-1)
+    else:
+        return max(lcs(X, Y, m, n-1), lcs(X, Y, m-1, n))
+    
+X = 'AXYT'
+Y = 'AYZX'
+print("Length of LCS is ", lcs(X, Y, len(X), len(Y)))
+
+#output of LCS is 2  (AY)
+
+
+#Cutting rod
+
+def cutRod(price, n):
+    if n <= 0:
+        return 0
+    max_val = float("-inf")
+    
+    for i in range(0,n):
+        max_val = max(max_val, price[i] + 
+                      cutRod(price, n-i-1)
+                      )
+    return max_val
+
+arr = [1, 5, 8, 9, 10, 17, 17, 20]
+size = len(arr)
+print("Max obtainable value is ", cutRod(arr, size))
+
+#Max obtainable value is 22
+
+
+#Friends Pairing:
+#Given n friends, each one can remain single or can be paired up with some other 
+#friend. Each friend can be paired only once. 
+# Find out the total number of ways in which friends can remain single or paired up
+#{1}, {2}, {3} -- all single
+#{1}, {2,3} : 2 and 3 paird but 1 is single
+#{1,2}, {3} : 1 and 2 are paired but 3 is single
+#{1,3}, {2} : 1 and 3 are paired but 2 is single
+#{1,2} and {2,1} are same.
+def countFriendsPairings(n):
+    
+    if n <= 1:
+        return 1
+    return countFriendsPairings(n-1) + ((n-1)  * countFriendsPairings(n-2))
+
+n = 3
+print(countFriendsPairings(n))
+
+# output 4.  for n = 4, output 10, for n = 5, output is 26
+
