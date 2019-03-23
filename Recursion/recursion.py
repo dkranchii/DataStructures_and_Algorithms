@@ -224,6 +224,19 @@ def power_is(b, n):
 print("power is", power_is(2, 3))
 #power is 8
 
+def power_alt(x, y):
+    if y == 0:
+        return 1
+    elif y % 2 == 0:
+        return power_alt(x, y//2) * power_alt(x, y//2)
+    else:
+        return (x * power_alt(x, y//2)) * power_alt(x, y//2)
+    
+x = 2
+y = 3
+print("power alt is ", power_alt(x,y))
+# power alt is  8
+
 
 def decimal_to_binary(n):
     if n < 2:
@@ -660,8 +673,7 @@ def cutRod(price, n):
     max_val = float("-inf")
     
     for i in range(0,n):
-        max_val = max(max_val, price[i] + 
-                      cutRod(price, n-i-1)
+        max_val = max(max_val, price[i] + cutRod(price, n-i-1)
                       )
     return max_val
 
@@ -691,4 +703,25 @@ n = 3
 print(countFriendsPairings(n))
 
 # output 4.  for n = 4, output 10, for n = 5, output is 26
+
+#find a peak element - use binary search
+
+def findpeak(A, low, high, n):
+    
+    mid = low + (high-low)/2
+    mid = int(mid)
+    
+    if mid == 0 or A[mid-1] <= A[mid] and \
+        (mid == n-1  or A[mid+1] <= A[mid]):
+            return mid
+    
+    elif mid > 0 and A[mid-1] > A[mid]:
+        return findpeak(arr, low, mid-1, n)
+   
+    else:
+        return findpeak(arr, mid+1, high, n)
+    
+A = [1,3,20,4,1,0]
+print("index of a peak point is", findpeak(A, 0, n-1, n))
+
 
