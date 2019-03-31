@@ -456,6 +456,25 @@ print(find_two_sum(A, target))
 #output: [[2, 7]]
 
 
+def has_two_sum_in_sorted_array(A, target):
+
+    lo = 0
+    hi = len(A)-1
+
+    while lo <= hi:
+        if A[lo] + A[hi] == target:
+            return True
+        elif A[lo] + A[hi] < target:
+            lo += 1
+        else:
+            hi -= 1
+
+    return False
+
+A = [2,7,11,15]
+target = 9
+print("Two sum exists in the array", has_two_sum_in_sorted_array(A, target))
+
 def find_three_sum(A, target):
     
     n = len(A)
@@ -477,3 +496,14 @@ target = 50
 print(find_three_sum(A, target))
 #output
 #Triplet is  1 45 4
+
+def has_three_sum(A, target):
+
+    A.sort()
+    return any(has_two_sum_in_sorted_array(A, target-a) for a in A)
+
+A = [1,4,45,6,10,8]
+target = 50
+print("Has three sum", has_three_sum(A, target))
+
+
