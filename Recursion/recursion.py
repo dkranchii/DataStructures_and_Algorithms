@@ -57,6 +57,17 @@ def gcd(m, n):
 print("gcd of 1200,232 is", gcd(1200, 232))
 #gcd of 1200,232 is 8
 
+
+def gcd_v1(a, b):
+    if b == 0:
+        return a
+    else:
+        return  gcd_v1(b, a%b)
+
+print("gcd of 888,462 is", gcd_v1(888, 462))
+#gcd of 1200,232 is 8
+
+
 def sum_of_first_naturals_2(n):
     if n==1:
         return 1
@@ -723,5 +734,5 @@ def findpeak(A, low, high, n):
     
 A = [1,3,20,4,1,0]
 print("index of a peak point is", findpeak(A, 0, n-1, n))
-
+#index of a peak point is 2
 
