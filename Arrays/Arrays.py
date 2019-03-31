@@ -156,9 +156,9 @@ def delete_dups_from_sorted_array(A):
 A = [1,2,2,4,5,6,8,12,12,24,25]
 index = delete_dups_from_sorted_array(A)
 #first 9 entries are good out of 11 
-for i in range(0, 9):
-    print(A[i], end=",")
-#1,2,4,5,6,8,12,24,25
+print("Array after removal of the dups")
+print(A[0:index])
+#[1, 19, 5, 24, 3, 12, 2, 8, 2, 4]
     
 
 #max elem
@@ -330,7 +330,7 @@ print("missing number is ", get_missing_num(A))
 #find two elems whose sum is closes to 0
 # sort all elem of input array
 # use lo and high to traverse from left to right.
-# sum = a[lo] + a[hi].  
+# sum = a[lo] + a[hi].  if sum1 <= minsum, update minsum.
 #keep track of abs min. Repeat 
 def two_elements_whose_sum_is_closest_to_zero(A):
     
@@ -428,4 +428,52 @@ def contiguous_max_sub_array(A):
 
 A = [-2, 1,-3, 4, -1, 2, 1, -5, 4]
 print(contiguous_max_sub_array(A))
+
+
+def find_two_sum(A, target):
     
+    result = []
+    map1 = {} 
+    
+    for i in range(0, len(A)):  
+        #9 - 7 = 2.
+        sum_minus_element = target - A[i]
+        
+        #if 2 exist in map, then add  2 and 7.        
+        if sum_minus_element in map1:
+            result.append([sum_minus_element, A[i]])
+            
+        #iteration 0, 1, 2, 3
+        #{2:2, 7:7, 11:11, 15:15}
+        #first element 2 wont exist in map until this step.
+        map1[A[i]] = A[i]
+        
+    return result
+
+A = [2,7,11,15]
+target = 9
+print(find_two_sum(A, target))
+#output: [[2, 7]]
+
+
+def find_three_sum(A, target):
+    
+    n = len(A)
+    for i in range(0, n-1):
+        
+        s =set()
+        curr_sum = target - A[i]
+        
+        for j in range(i+1, n):
+            if (curr_sum - A[j]) in s:
+                print("Triplet is ", A[i], A[j], curr_sum-A[j])
+                return True
+            s.add(A[j])
+    
+    return False
+
+A = [1,4,45,6,10,8]
+target = 50
+print(find_three_sum(A, target))
+#output
+#Triplet is  1 45 4
