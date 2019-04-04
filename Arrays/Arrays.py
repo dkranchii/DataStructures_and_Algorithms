@@ -4,6 +4,7 @@ Spyder Editor
 
 This is a temporary script file.
 """
+#Learning Arrays 
 
 def unsorted_linear_search(A, data):
     n = len(A)
