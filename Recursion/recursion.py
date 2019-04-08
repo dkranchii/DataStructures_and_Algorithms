@@ -291,6 +291,8 @@ print("is palindrome kasam", is_palindrome("kasam"))
 #is palindrome nayan True
 #is palindrome kasam False
 
+
+#consider dynamic programming
 def longest_palindromic_substring(s):
     n = len(s)
     if is_palindrome(s):
@@ -583,6 +585,7 @@ k = 2
 print("binomial Coeff of n=5, k=2 is", binomialCoeff(n, k))
 
 
+#Dynamic programming
 #coin change problem
 # N = 4, s = {1,2,3} there are four solutions: {1,1,1,1}, {1,1,2}, {2,2}, {1,3}
 #output should be 4. 
@@ -622,6 +625,7 @@ C{1,2,3}, -1)    C{1,2},2)  C{1,2},3)       C{1}, 5)
 """
 
 
+# Consider Dynamic Programming
 #Subset of sum problem
 # Given a set of non-negative integers and a value sum,
 # determine if there is a subset of a given set with sum equal to sum
@@ -638,8 +642,8 @@ def isSubsetSum(set, n, sum):
     
     return isSubsetSum(set, n-1, sum) or isSubsetSum(set, n-1, sum-set[n-1])
 
-set = [3,34,4,12, 5,2 ]
-sum = 9
+set = [1, 2, 1]
+sum = 4
 n = len(set)
 if isSubsetSum(set, n, sum) == True:
     print("Found a subset with given sum")
@@ -648,18 +652,17 @@ else:
     
 #output Found a subset with given sum
 """   
-                            ISS(set, n, sum)
-                        /                    \
-                       /                         \
-       ISS(set, n-1, sum)                         ISS(set, n-1, sum-set[n-1])
-       /            \                                      /                 \
-      /              \                                     /                 \
-ISS(set, n-2, sum) ISS(set, n-2, sum-set[n-2])  ISS(set, n-2, sum-set[n-1])  ISS(n-2, sum-set[n-1]-set[n-2])     
+              3 4  (n=3-1=2, sum=4)
+            /     \ 
+           2 4      2 3 
+         /  \       /  \ 
+       1 4    1 2   1 3  1 1
+      /  \    /  \       /   \ 
+    0 4  0 3 0 2 0 1     0 1  0 0
 """
 
-
 #Longest common subsequence
-
+#consider dynamic programming
 def lcs(X, Y, m, n):
     
     if m == 0 or n == 0:
@@ -674,7 +677,30 @@ Y = 'AYZX'
 print("Length of LCS is ", lcs(X, Y, len(X), len(Y)))
 
 #output of LCS is 2  (AY)
+""" Partial recursive tree for LCS
 
+                            lcs(AXYT,       AYZX)
+                         /                        \ 
+                        /                           \ 
+                 lcs(AXY,   AYZX)                    lcs(AXYT,  AYZ)
+               /               \                      /           \ 
+              /                  \                   /             \ 
+        lcs(AX,     AYZX)         lcs(AXY, AYZ)     lcs(AXY, AYZ)    lcs(AXYT, AY)
+        /                \ 
+       /                  \ 
+      lcs(A, AYZX)          lcs(AX, AYZ)
+     /           \     
+    /             \ 
+lcs("", AYZX)     lcs(A, AYZ)
+return 0           /           \ 
+                  /              \ 
+                 lcs("", AYZ)  lcs(A, AY)
+                 return 0        /        \ 
+                               /           \ 
+                             lcs("", AY)   lcs(A, A)
+                             return 0      return 1 
+
+"""
 
 #Cutting rod
 
@@ -684,16 +710,30 @@ def cutRod(price, n):
     max_val = float("-inf")
     
     for i in range(0,n):
-        max_val = max(max_val, price[i] + cutRod(price, n-i-1)
-                      )
+        max_val = max(max_val, price[i] + cutRod(price, n-i-1))
     return max_val
 
-arr = [1, 5, 8, 9, 10, 17, 17, 20]
+arr = [1, 5, 8, 9]
 size = len(arr)
 print("Max obtainable value is ", cutRod(arr, size))
 
-#Max obtainable value is 22
-
+#Max obtainable value is 10
+"""
+                       cR(4)
+                 /          \      \        \ 
+               /             \      \        \ 
+           cR(3)           cR(2)     cR(1)    cR(0)   
+         /  \   \           /   \      \
+        /    \   \         /    \      \ 
+      cR(2) cR(1) cR(0)   cR(1) cr(0)  cR(0)
+     /   \     \          /
+    /     \     \        /
+    cR(1) cR(0)  cR(0)   cR(0)
+    /     
+    /
+  cR(0)
+  return 0
+"""
 
 #Friends Pairing:
 #Given n friends, each one can remain single or can be paired up with some other 
