@@ -26,7 +26,7 @@ def fib_recur(n):
 
 print("fibonacci", fib_recur(5))
 #outuput for 9: 34
-#1, 1, 2, 3, 5, 8, 13, 21, 34, 55
+#1, 1, 2, 3, 5     next fib numbers 8, 13, 21, 34, 55
 """
                           fib(5)
                        /  ret 5  \ 
@@ -115,7 +115,7 @@ def gcd_v1(a, b):
         return  gcd_v1(b, a%b)
 
 print("gcd of 539,84 is", gcd_v1(539, 84))
-#gcd of 1200,232 is 8
+#gcd of 539,84 is 7
 """
                gcd(539, 84)
                /ret 7
@@ -629,7 +629,18 @@ B="ABC"
 n = len(B)
 A = list(B)
 perm_of_list(A, 0, n-1)
+"""
+                  perm(ABC)
+                /     \        \ 
+              /        \        \ 
+            perm(ABC)       BAC        CAB 
+          /   \       /  \       /  \ 
+         /     \      /   \      /   \ 
+        ABC    ACB   BAC   BCA   CBA   CAB
+        print  print print print prnt  print
 
+
+"""
 
 #Catalan numbers
 
@@ -780,7 +791,7 @@ return 0       /       \         /        \      /         \                    
                /           \               /       \         /          \         lcs("", AY)  lcs(AX, "")
         lcs("", AY)    lcs(A, A)   lcs("", AY)   lcs(A, A)  lcs(A, A) lcs(AX, "") return 0     return 0
         return 0        return 1    return 0      return 1  return 1  return 0
-
+        
 """
 
 #Cutting rod
