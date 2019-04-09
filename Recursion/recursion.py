@@ -691,9 +691,9 @@ print("Length of LCS is ", lcs(X, Y, len(X), len(Y)))
       lcs(A, AYZX)             lcs(AX, AYZ)              lcs(AX, AYZX)  lcs(AX, AYZ)   ..     ..
      /           \               /          \           return 1             \ 
     /             \             /            \                                \ 
-lcs("", AYZX)   lcs(A, AYZ)    lcs(A, AYZ)     lcs(AX, AY)                        lcs(AX, AY)
-return 0       /       \         /        \      /           \                      /         \ 
-              /         \    lcs("", AYZ) ..   /             \                     /            \ 
+lcs("", AYZX)   lcs(A, AYZ)    lcs(A, AYZ)     lcs(AX, AY)                     lcs(AX, AY)
+return 0       /       \         /        \      /         \                     /          \ 
+              /         \    lcs("", AYZ) ..   /            \                     /          \ 
     lcs("", AYZ)  lcs(A, AY) return 0        lcs(A, AY)      lcs(AX, A)           lcs(A, AY)   lcs(AX, A)
      return 0     /        \                 /     \          /        \           /               \ 
                /           \               /       \         /          \         lcs("", AY)  lcs(AX, "")
