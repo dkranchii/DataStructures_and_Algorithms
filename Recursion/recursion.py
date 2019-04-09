@@ -24,9 +24,23 @@ def fib_recur(n):
     else:
         return fib_recur(n-1) + fib_recur(n-2)
 
-print("fibonacci", fib_recur(9))
+print("fibonacci", fib_recur(5))
 #outuput for 9: 34
 #1, 1, 2, 3, 5, 8, 13, 21, 34, 55
+"""
+                          fib(5)
+                       /  ret 5  \ 
+                     /            \ 
+                 fib(4)            fib(3)
+               / ret 3 \          / ret 2 \ 
+              /         \        /           \ 
+            fib(3)    fib(2)     fib(2)      fib(1)
+           /ret 2 \    ret 1     ret 1        ret 1
+          /        \                     
+       fib(2)     f(1)         
+      ret 1      ret 1          
+
+"""
 
 def fact_recur(n):
     if n == 1:
@@ -36,6 +50,24 @@ def fact_recur(n):
 
 print("factorial", fact_recur(5))
 #5*4*3*2*1 = 120
+"""
+          fact(5) --> 5 * 24 
+          /ret 120
+         /
+        fact(4) --> 4 * 6 = 24
+        /ret 24
+        /
+        fact(3) --> 3*2 = 6
+        /ret 6
+        /
+       fact(2) --2*1 = 2
+       /ret 2
+       / 
+       fact(1)
+       ret 1
+
+"""
+
 
 def sum_recur(n):
     if n == 1:
@@ -43,8 +75,26 @@ def sum_recur(n):
     else:
         return n + sum_recur(n-1)
 
+
 print("sum_recur", sum_recur(5))
 #5+4+3+2+1 = 15
+
+""" 
+         sum(5) --> 5 + 10
+         /ret 15
+        /
+        sum(4) --> 4 + 6
+        /ret 10
+        /
+        sum(3) -> 3 + 3
+        /retun 6
+        /
+        sum(2) --> 2 + 1 
+        /ret 3
+        /
+        sum(1)
+        ret 1
+"""
 
 def gcd(m, n):
     if m == 0:
@@ -64,9 +114,20 @@ def gcd_v1(a, b):
     else:
         return  gcd_v1(b, a%b)
 
-print("gcd of 888,462 is", gcd_v1(888, 462))
+print("gcd of 539,84 is", gcd_v1(539, 84))
 #gcd of 1200,232 is 8
-
+"""
+               gcd(539, 84)
+               /ret 7
+               gcd(84, 35)
+               /ret 7
+               gcd(35, 14)
+               /ret 7
+               gcd(14, 7)
+               /ret 7
+               gcd(7, 0)
+               ret 7
+"""
 
 def sum_of_first_naturals_2(n):
     if n==1:
@@ -92,6 +153,26 @@ def sum_of_list_recur(A):
 A=[1,2,3,41,5]
 print("sum_of_list_recur", sum_of_list_recur(A))
 #sum_of_list_recur 52
+"""
+                     sum([1,2,3,41,5])
+                     /ret 52
+                     /
+                    1 + sum(2,3,41,5)
+                    /ret 52
+                    /
+                    2 + sum(3,41,5)
+                    /ret 51
+                    /
+                    3 + sum(41, 5)
+                    /ret 49
+                    /
+                    41 + sum(5) 
+                    /ret 46  
+                    /
+                    5  + 0: 
+                    ret 5  
+"""
+
 
 def sum_list_len_alt2(A):
     if len(A) == 0:
