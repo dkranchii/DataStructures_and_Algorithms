@@ -9,7 +9,7 @@ Created on Wed Jan 23 21:14:47 2019
 Template for designing recursive alg"
 1. Determine size of the prob
 2. Define base cases
-3. Decompose computational problem with self-similar sub 
+3. Decompose computational problem with self-similar sub
    of smaller size and possibly additional diff probs
 4. Define recurse cases by relying on induction and diagrams
     (induction - key idea is that programmers must assume the recursive
@@ -23,7 +23,7 @@ def fib_recur(n):
         return 1
     else:
         return fib_recur(n-1) + fib_recur(n-2)
-    
+
 print("fibonacci", fib_recur(9))
 #outuput for 9: 34
 #1, 1, 2, 3, 5, 8, 13, 21, 34, 55
@@ -33,7 +33,7 @@ def fact_recur(n):
         return 1
     else:
         return n * fact_recur(n-1)
-    
+
 print("factorial", fact_recur(5))
 #5*4*3*2*1 = 120
 
@@ -41,8 +41,8 @@ def sum_recur(n):
     if n == 1:
         return 1
     else:
-        return n + sum_recur(n-1)   
-    
+        return n + sum_recur(n-1)
+
 print("sum_recur", sum_recur(5))
 #5+4+3+2+1 = 15
 
@@ -53,7 +53,7 @@ def gcd(m, n):
         return gcd(n, m)
     else:
         return gcd(m, n-m)
-    
+
 print("gcd of 1200,232 is", gcd(1200, 232))
 #gcd of 1200,232 is 8
 
@@ -74,12 +74,12 @@ def sum_of_first_naturals_2(n):
     if n == 2:
         return 3
     elif n % 2:
-        return (3 * sum_of_first_naturals_2((n-1)/2) 
+        return (3 * sum_of_first_naturals_2((n-1)/2)
                 + sum_of_first_naturals_2((n+1)/2))
     else:
-        return (3 * sum_of_first_naturals_2((n)/2) + 
+        return (3 * sum_of_first_naturals_2((n)/2) +
                  sum_of_first_naturals_2((n)/2-1))
-        
+
 print("sum_of_first_naturals_2", sum_of_first_naturals_2(10))
 #10+9+8+7+6+5+4+3+2+1 == 55
 
@@ -88,7 +88,7 @@ def sum_of_list_recur(A):
         return 0
     else:
         return A[0] + sum_of_list_recur(A[1:])
-    
+
 A=[1,2,3,41,5]
 print("sum_of_list_recur", sum_of_list_recur(A))
 #sum_of_list_recur 52
@@ -102,7 +102,7 @@ def sum_list_len_alt2(A):
         middle = len(A) // 2
         return (sum_list_len_alt2(A[0:middle])
                 + sum_list_len_alt2(A[middle:len(A)]))
-    
+
 B = [5,3,4,2,3]
 print("sum_list_len_alt2", sum_list_len_alt2(B))
 #sum_list_len_alt2 17
@@ -112,7 +112,7 @@ def sum_list_limits_1(A, lower, upper):
         return 0
     else:
         return A[upper] + sum_list_limits_1(A, lower, upper-1)
-    
+
 A1 = [4,2,3,1,5]
 print("sum_list_limits_1", sum_list_limits_1(A1,0, len(A1)-1))
 #sum_list_limits_1 15
@@ -123,7 +123,7 @@ def sum_list_limits_2(A, lower, upper):
         return 0
     else:
         return A[lower] + sum_list_limits_2(A, lower+1, upper)
-    
+
 A2 = [4,2,3,1,6]
 print("sum_list_limits_2", sum_list_limits_2(A2, 0, len(A2)-1))
 #sum_list_limits_2 16
@@ -137,28 +137,28 @@ def sum_list_limits_3(A, lower, upper):
         middle = (upper + lower) // 2
         return (sum_list_limits_3(A, lower, middle)
                 + sum_list_limits_3(A, middle, upper))
-        
+
 A3 = [4,2,3,1,7]
 print("sum_list_limits_3", sum_list_limits_2(A3, 0, len(A2)-1))
 #sum_list_limits_3 17
 
 def print_n_numbers(n):
-    if n == 0: 
+    if n == 0:
         return 0
     else:
         print(n, end= ",")
         print_n_numbers(n-1)
-        
+
 print(print_n_numbers(10))
 #10,9,8,7,6,5,4,3,2,1,None
 
 def print_n_numbers_reverse(n):
-    if n == 0: 
+    if n == 0:
         return 0
     else:
         print_n_numbers_reverse(n-1)
         print(n, end= ",")
-        
+
 print(print_n_numbers_reverse(10))
 #1,2,3,4,5,6,7,8,9,10,None
 
@@ -177,8 +177,8 @@ def print_digits_reversed_vert(n):
     else:
         print(n % 10)
         print_digits_reversed_vert(n // 10)
-        
-        
+
+
 print(print_digits_reversed_vert(1234))
 #4
 #3
@@ -193,7 +193,7 @@ def max_item_in_list_DAC1(A):
         m1 = max_item_in_list_DAC1(A[0:middle])
         m2 = max_item_in_list_DAC1(A[middle:len(A)])
         return max(m1, m2)
-    
+
 A = [23, -1, 5, 56, 4, 2, 7]
 print("max_list_length_DAC1", max_item_in_list_DAC1(A))
 #max_list_length_DAC1 56
@@ -207,7 +207,7 @@ def max_item_in_list_DAC2(A, lower, upper):
         m1 = max_item_in_list_DAC2(A, lower, middle)
         m2 = max_item_in_list_DAC2(A, middle +1, upper)
         return max(m1, m2)
-    
+
 A = [23, -1, 5, 5, 4, 2, 7]
 print("max_list_length_DAC2", max_item_in_list_DAC2(A, 0, len(A)-1))
 #max_list_length_DAC2 23
@@ -219,7 +219,7 @@ def is_even(n):
         return False
     else:
         return is_even(n-2)
-    
+
 print("is 4 even", is_even(4))
 print("is 3 even", is_even(3))
 #is 4 even True
@@ -231,7 +231,7 @@ def power_is(b, n):
         return 1
     else:
         return b * power_is(b, n-1)
-    
+
 print("power is", power_is(2, 3))
 #power is 8
 
@@ -242,7 +242,7 @@ def power_alt(x, y):
         return power_alt(x, y//2) * power_alt(x, y//2)
     else:
         return (x * power_alt(x, y//2)) * power_alt(x, y//2)
-    
+
 x = 2
 y = 3
 print("power alt is ", power_alt(x,y))
@@ -254,7 +254,7 @@ def decimal_to_binary(n):
         return n
     else:
         return 10 * decimal_to_binary(n//2) + (n % 2)
-    
+
 print("Decimal to binary", decimal_to_binary(8))
 #Decimal to binary 1000
 
@@ -264,7 +264,7 @@ def decimal_to_base(n, b):
         return n
     else:
         return 10 * decimal_to_base(n // b, b) + (n % b)
-    
+
 print("decimal to base", decimal_to_base(1024,2))
 #decimal to base 10000000000
 
@@ -275,8 +275,8 @@ def reverse_string(s):
         return s[0]
     else:
         return reverse_string(s[1:]) + s[0]
-                                
-print("reversing a string",  reverse_string("jimmie"))    
+
+print("reversing a string",  reverse_string("jimmie"))
 #reversing a string eimmij
 
 def is_palindrome(s):
@@ -315,7 +315,7 @@ def equal_strings(s,t):
         return True
     else:
         return s[0] == t[0] and equal_strings(s[1:], t[1:])
-    
+
 print("strings joe and joe are equal", equal_strings( "joe", "joe"))
 print("strings smith and joe are equal", equal_strings( "smith", "joe"))
 #strings joe and joe are equal True
@@ -330,7 +330,7 @@ def equal_strings_tail(s, t):
         return False
     else:
         return equal_strings_tail(s[1:], t[1:])
-    
+
 
 print("strings mary and mary are equal", equal_strings_tail( "mary", "mary"))
 print("strings mary and joe are equal", equal_strings_tail( "mary", "joe"))
@@ -342,7 +342,7 @@ def occurrences_in_list(A, x):
         return 0
     else:
         return int(A[0] == x) + occurrences_in_list(A[1:],x)
-    
+
 A=[1,34,5,2,3,23,2]
 print("occurrences_in_list", occurrences_in_list(A,3))
 #occurrences_in_list 2
@@ -355,12 +355,12 @@ def linear_search_list_tail(A, x):
         return n-1
     else:
         return linear_search_list_tail(A[:n-1])
-    
-    
+
+
 A=[1,34,5,12,4,23,2]
 print("linear search in list", linear_search_list_tail(A,2))
 #linear search in list 6
-    
+
 def linear_search_linear(A, x, n):
     if A == []:
         return -n-1
@@ -368,8 +368,8 @@ def linear_search_linear(A, x, n):
         return 0
     else:
         return 1 + linear_search_linear(A[1:], x, n)
-    
-    
+
+
 A=[1,34,5,12,5,23,2]
 n = len(A)
 print("linear search in list", linear_search_linear(A, 12, n))
@@ -384,8 +384,8 @@ def linear_search_tail_2(A, x, n):
         return n
     else:
         return 1 + linear_search_tail_2(A[1:], x, n+1)
-    
-    
+
+
 A=[1,34,5,12,4,23,2]
 n = len(A)
 print("linear search in list", linear_search_linear(A, 23, n))
@@ -416,7 +416,7 @@ def get_smaller_than_or_equal_to(A, x):
         return [A[0]] + get_smaller_than_or_equal_to(A[1:], x)
     else:
         return get_smaller_than_or_equal_to(A[1:],x)
-    
+
 AA = [9,6,1,7,4,5]
 print("get smaller than 5", get_smaller_than_or_equal_to(AA, 5))
 #get smaller than 5 [1, 4, 5]
@@ -428,10 +428,10 @@ def get_greater_than(A, x):
         return [A[0]] + get_greater_than(A[1:],x)
     else:
         return get_greater_than(A[1:],x)
-    
+
 AB = [9,6,1,7,4,5]
 print("get greater than 5", get_greater_than(AB, 4))
-#get greater than 5 [9, 6, 7, 5] 
+#get greater than 5 [9, 6, 7, 5]
 
 
 def is_list_sorted(A):
@@ -442,7 +442,7 @@ def is_list_sorted(A):
         return (is_list_sorted(A[0:n//2])
                 and A[n // 2-1] <= A[n//2]
                 and is_list_sorted(A[n // 2:n]))
-    
+
 AZ = [1,3,5,6,79, 110]
 print("is list sorted", is_list_sorted(AZ))
 #is list sorted True
@@ -454,9 +454,9 @@ def select_sort_rec(a):
         b = list(a)
         m = min(b)
         b.remove(m)
-        
+
         return [m] + select_sort_rec(b)
-    
+
 A = [7,5,23,3,8,4]
 print(select_sort_rec(A))
 
@@ -470,9 +470,9 @@ def select_sort_rec_1(a):
         aux = b[min_indx]
         b[min_indx] = b[0]
         b[0] = aux
-        
+
         return [aux] + select_sort_rec_1(b[1:])
-    
+
 A = [7,5,23,3,8,4]
 print(select_sort_rec_1(A))
 
@@ -484,7 +484,7 @@ def merge_sort(A):
         m1 = merge_sort(A[0:n//2])
         m2 = merge_sort(A[n // 2: n])
         return merge(m1, m2)
-    
+
 def merge(a, b):
     if a == []:
         return b
@@ -495,7 +495,7 @@ def merge(a, b):
             return [a[0]] + merge(a[1:],b)
         else:
             return [b[0]] + merge(a, b[1:])
-                  
+
 AX = [7,3,4,5,6,33,3,6]
 print("merge sort list is ", merge_sort(AX))
 #merge sort list is  [3, 3, 4, 5, 6, 6, 7, 33]
@@ -515,24 +515,24 @@ print(pascal(8))
 #[1, 8, 28, 56, 70, 56, 28, 8, 1]
 
 
- 
-#ABC -->0/0 --> call rec ABC 
+
+#ABC -->0/0 --> call rec ABC
     #-->1/1 -->call ABC  2/2 call ABC [l==r match, print (ABC)]
     #ABC
     #-->2/1 -->call ACB  2/2 call ACB [l==r match print (ACB) ]
 #ABC --> ABC
-    
-#ABC -->1/0 --> call rec  BAC 
+
+#ABC -->1/0 --> call rec  BAC
      #-->1/1 -->call BAC  2/2 Call BAC [l==r match print (ABC)]
      #BAC
      #-->2/1 -->call ACB  2/2 Call BCA [l==r matchprint (BCA)]
 #BCA --> ABC
 
-#ABC -->2/0 --> call rec CBA 
+#ABC -->2/0 --> call rec CBA
     #-->1/1 -->call CBA  2/2 Call CBA [l==r match print (CBA)]
     #CBA
     #-->2/1 -->call CAB  2/2 Call CAB [l==r match print (CAB)]
-#CBA --> ABC 
+#CBA --> ABC
 
 def perm_of_list(A, l, r):
     if l==r:
@@ -542,7 +542,7 @@ def perm_of_list(A, l, r):
             A[l], A[i] = A[i], A[l]
             perm_of_list(A, l+1, r)
             A[l], A[i] = A[i], A[l]
-            
+
 
 B="ABC"
 n = len(B)
@@ -555,32 +555,32 @@ perm_of_list(A, 0, n-1)
 def catalan(n):
     if n <= 1:
         return 1
-    
+
     res = 0
     for i in range(n):
         res += catalan(i) * catalan(n-i-1)
-        
+
     return res
 
 print("catalan numbers: ", end= "")
 for i in range(10):
     print(catalan(i), end= " ")
-    
+
 #output: 1 1 2 4 14 42 132 429 1430 4862
 print()
 
 #Binomial Coefficient
 #gives number of ways, disregarding order,
-#that k object can be chosen from among n objects. 
+#that k object can be chosen from among n objects.
 #formally k element subset of n element set
 def binomialCoeff(n, k):
-    
+
     if k == 0 or k == n:
         return 1
-    
+
     return binomialCoeff(n-1, k-1) + binomialCoeff(n-1, k)
 
-n = 5 
+n = 5
 k = 2
 print("binomial Coeff of n=5, k=2 is", binomialCoeff(n, k))
 
@@ -588,18 +588,18 @@ print("binomial Coeff of n=5, k=2 is", binomialCoeff(n, k))
 #Dynamic programming
 #coin change problem
 # N = 4, s = {1,2,3} there are four solutions: {1,1,1,1}, {1,1,2}, {2,2}, {1,3}
-#output should be 4. 
+#output should be 4.
 def count(S, m, n):
-    
+
     if n == 0:
         return 1
-    
+
     if n < 0:
         return 0
-    
+
     if m <= 0 and n >= 1:
         return 0
-    
+
     return count(S, m-1, n) + count(S, m, n-S[m-1])
 
 arr=[1,2,3]
@@ -609,12 +609,12 @@ print(count(arr, m, 4))
 #output 4:
 """
                   C(1,2,3),5
- 
-                /            \ 
+
+                /            \
               /                \
-            
+
         C{1,2,3},2)              C{1,2}, 5)
-        /       \               /          \ 
+        /       \               /          \
        /        \              /            \
 C{1,2,3}, -1)    C{1,2},2)  C{1,2},3)       C{1}, 5)
                 /  \            /    \            /    \
@@ -631,15 +631,15 @@ C{1,2,3}, -1)    C{1,2},2)  C{1,2},3)       C{1}, 5)
 # determine if there is a subset of a given set with sum equal to sum
 
 def isSubsetSum(set, n, sum):
-    
+
     if sum == 0:
         return True
     if n == 0 and sum != 0:
         return False
-    
+
     if set[n-1] > sum:
         return isSubsetSum(set, n-1, sum)
-    
+
     return isSubsetSum(set, n-1, sum) or isSubsetSum(set, n-1, sum-set[n-1])
 
 set = [1, 2, 1]
@@ -649,29 +649,29 @@ if isSubsetSum(set, n, sum) == True:
     print("Found a subset with given sum")
 else:
     print("No subset with given sum")
-    
+
 #output Found a subset with given sum
-"""   
+"""
               3 4  (n=3-1=2, sum=4)
-            /     \ 
-           2 4      2 3 
-         /  \       /  \ 
+            /     \
+           2 4      2 3
+         /  \       /  \
        1 4    1 2   1 3  1 1
-      /  \    /  \       /   \ 
+      /  \    /  \       /   \
     0 4  0 3 0 2 0 1     0 1  0 0
 """
 
 #Longest common subsequence
 #consider dynamic programming
 def lcs(X, Y, m, n):
-    
+
     if m == 0 or n == 0:
         return 0
     elif X[m-1] == Y[n-1]:
         return 1 + lcs(X, Y, m-1, n-1)
     else:
         return max(lcs(X, Y, m, n-1), lcs(X, Y, m-1, n))
-    
+
 X = 'AXYT'
 Y = 'AYZX'
 print("Length of LCS is ", lcs(X, Y, len(X), len(Y)))
@@ -679,26 +679,26 @@ print("Length of LCS is ", lcs(X, Y, len(X), len(Y)))
 #output of LCS is 2  (AY)
 """ Partial recursive tree for LCS
 
-                            lcs(AXYT,       AYZX)
-                         /                        \ 
-                        /                           \ 
-                 lcs(AXY,   AYZX)                    lcs(AXYT,  AYZ)
-               /               \                      /           \ 
-              /                  \                   /             \ 
-        lcs(AX,     AYZX)         lcs(AXY, AYZ)     lcs(AXY, AYZ)    lcs(AXYT, AY)
-        /                \ 
-       /                  \ 
-      lcs(A, AYZX)          lcs(AX, AYZ)
-     /           \     
-    /             \ 
-lcs("", AYZX)     lcs(A, AYZ)
-return 0           /           \ 
-                  /              \ 
-                 lcs("", AYZ)  lcs(A, AY)
-                 return 0        /        \ 
-                               /           \ 
-                             lcs("", AY)   lcs(A, A)
-                             return 0      return 1 
+                                lcs(AXYT,       AYZX)
+                                 /                      \ 
+                                /                        \ 
+                   lcs(AXY,        AYZX)                  lcs(AXYT,  AYZX)
+               /                         \                    /            \ 
+              /                            \                  /               \ 
+        lcs(AX,        AYZX)                lcs(AXY, AYZ)   lcs(AXY, AYZX)      lcs(AXYT, AY)
+        /                    \                 \            /          \                /   \ 
+       /                      \                 \...        /           \               /    \ 
+      lcs(A, AYZX)             lcs(AX, AYZ)              lcs(AX, AYZX)  lcs(AX, AYZ)   ..     ..
+     /           \               /          \           return 1             \ 
+    /             \             /            \                                \ 
+lcs("", AYZX)   lcs(A, AYZ)    lcs(A, AYZ)     lcs(AX, AY)                        lcs(AX, AY)
+return 0       /       \         /        \      /           \                      /         \ 
+              /         \    lcs("", AYZ) ..   /             \                     /            \ 
+    lcs("", AYZ)  lcs(A, AY) return 0        lcs(A, AY)      lcs(AX, A)           lcs(A, AY)   lcs(AX, A)
+     return 0     /        \                 /     \          /        \           /               \ 
+               /           \               /       \         /          \         lcs("", AY)  lcs(AX, "")
+        lcs("", AY)    lcs(A, A)   lcs("", AY)   lcs(A, A)  lcs(A, A) lcs(AX, "") return 0     return 0
+        return 0        return 1    return 0      return 1  return 1  return 0
 
 """
 
@@ -708,7 +708,7 @@ def cutRod(price, n):
     if n <= 0:
         return 0
     max_val = float("-inf")
-    
+
     for i in range(0,n):
         max_val = max(max_val, price[i] + cutRod(price, n-i-1))
     return max_val
@@ -720,24 +720,24 @@ print("Max obtainable value is ", cutRod(arr, size))
 #Max obtainable value is 10
 """
                        cR(4)
-                 /          \      \        \ 
-               /             \      \        \ 
-           cR(3)           cR(2)     cR(1)    cR(0)   
+                 /          \      \        \
+               /             \      \        \
+           cR(3)           cR(2)     cR(1)    cR(0)
          /  \   \           /   \      \
-        /    \   \         /    \      \ 
+        /    \   \         /    \      \
       cR(2) cR(1) cR(0)   cR(1) cr(0)  cR(0)
      /   \     \          /
     /     \     \        /
     cR(1) cR(0)  cR(0)   cR(0)
-    /     
+    /
     /
   cR(0)
   return 0
 """
 
 #Friends Pairing:
-#Given n friends, each one can remain single or can be paired up with some other 
-#friend. Each friend can be paired only once. 
+#Given n friends, each one can remain single or can be paired up with some other
+#friend. Each friend can be paired only once.
 # Find out the total number of ways in which friends can remain single or paired up
 #{1}, {2}, {3} -- all single
 #{1}, {2,3} : 2 and 3 paird but 1 is single
@@ -745,7 +745,7 @@ print("Max obtainable value is ", cutRod(arr, size))
 #{1,3}, {2} : 1 and 3 are paired but 2 is single
 #{1,2} and {2,1} are same.
 def countFriendsPairings(n):
-    
+
     if n <= 1:
         return 1
     return countFriendsPairings(n-1) + ((n-1)  * countFriendsPairings(n-2))
@@ -758,21 +758,20 @@ print(countFriendsPairings(n))
 #find a peak element - use binary search
 
 def findpeak(A, low, high, n):
-    
+
     mid = low + (high-low)/2
     mid = int(mid)
-    
+
     if mid == 0 or A[mid-1] <= A[mid] and \
         (mid == n-1  or A[mid+1] <= A[mid]):
             return mid
-    
+
     elif mid > 0 and A[mid-1] > A[mid]:
         return findpeak(arr, low, mid-1, n)
-   
+
     else:
         return findpeak(arr, mid+1, high, n)
-    
+
 A = [1,3,20,4,1,0]
 print("index of a peak point is", findpeak(A, 0, n-1, n))
 #index of a peak point is 2
-
