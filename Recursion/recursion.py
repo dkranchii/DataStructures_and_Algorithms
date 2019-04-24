@@ -5,6 +5,16 @@ Created on Wed Jan 23 21:14:47 2019
 
 @author: kdp
 """
+
+"""program question breakdown in a Google Interview - source Byte-by-Byte.com
+Graphs/Trees  - 29.8%
+System Design - 22.6%
+Arrays/String - 20.2%
+Recursion - 9.5%
+Dynamic Prog - 9.5%
+Geometry/Math - 8.3% 
+"""
+
 """
 Template for designing recursive alg"
 1. Determine size of the prob
@@ -129,26 +139,12 @@ print("gcd of 539,84 is", gcd_v1(539, 84))
                ret 7
 """
 
-def sum_of_first_naturals_2(n):
-    if n==1:
-        return 1
-    if n == 2:
-        return 3
-    elif n % 2:
-        return (3 * sum_of_first_naturals_2((n-1)/2)
-                + sum_of_first_naturals_2((n+1)/2))
-    else:
-        return (3 * sum_of_first_naturals_2((n)/2) +
-                 sum_of_first_naturals_2((n)/2-1))
-
-print("sum_of_first_naturals_2", sum_of_first_naturals_2(10))
-#10+9+8+7+6+5+4+3+2+1 == 55
-
 def sum_of_list_recur(A):
     if len(A)==0:
         return 0
     else:
         return A[0] + sum_of_list_recur(A[1:])
+
 
 A=[1,2,3,41,5]
 print("sum_of_list_recur", sum_of_list_recur(A))
@@ -184,9 +180,27 @@ def sum_list_len_alt2(A):
         return (sum_list_len_alt2(A[0:middle])
                 + sum_list_len_alt2(A[middle:len(A)]))
 
+
 B = [5,3,4,2,3]
 print("sum_list_len_alt2", sum_list_len_alt2(B))
 #sum_list_len_alt2 17
+
+"""
+
+            sum(5,3,4,2,3) len=5
+           /
+           middle( 5/2) = 2
+           /          \
+    sum(5,3), len=2     sum(2, 5)
+        /               
+   middle = 2/2 = 1     
+   ret 5
+     
+
+"""
+
+
+
 
 def sum_list_limits_1(A, lower, upper):
     if lower > upper:
