@@ -145,7 +145,6 @@ def sum_of_list_recur(A):
     else:
         return A[0] + sum_of_list_recur(A[1:])
 
-
 A=[1,2,3,41,5]
 print("sum_of_list_recur", sum_of_list_recur(A))
 #sum_of_list_recur 52
@@ -186,21 +185,19 @@ print("sum_list_len_alt2", sum_list_len_alt2(B))
 #sum_list_len_alt2 17
 
 """
-
-            sum(5,3,4,2,3) len=5
-           /
-           middle( 5/2) = 2
-           /          \
-    sum(5,3), len=2     sum(2, 5)
-        /               
-   middle = 2/2 = 1     
-   ret 5
-     
-
-"""
-
-
-
+            sum(5,3,4,2,3) len=5  middle( 5/2) = 2
+            /      ret 17              \
+           /                            \
+    sum(5,3),len=2,middle=1     sum(4,2,3), len = 3, middle, 3//2 = 1  
+     / ret 8  \                  /  ret 9   \     
+    /          \                /            \    
+    sum(5)     \            sum(4)            \
+    ret 5     sum(3)      ret 4       sum(2,3) middle, 2/2 = 1
+              ret 3                   /   ret 5  \
+                                     /            \
+                                 sum(2)         sum(3)
+                                 ret 2          ret 3
+"""  
 
 def sum_list_limits_1(A, lower, upper):
     if lower > upper:
@@ -212,6 +209,25 @@ A1 = [4,2,3,1,5]
 print("sum_list_limits_1", sum_list_limits_1(A1,0, len(A1)-1))
 #sum_list_limits_1 15
 
+"""    sum(4,3,2,1,5), 0, 4
+       /ret 5+10 = 15
+      /
+      sum(4,3,2,1), 0, 3
+     /ret 1+9 = 10
+     /
+     sum(4,3,2), 0, 2
+     /ret 2+7=9
+     /
+     sum(4,3),  0, 1
+     /ret 3+4=7
+     /
+     sum(4)    0, 0
+     /ret 4+0=4
+     /
+     sum()     0, -1
+     /ret 0
+"""  
+
 
 def sum_list_limits_2(A, lower, upper):
     if lower > upper:
@@ -222,7 +238,25 @@ def sum_list_limits_2(A, lower, upper):
 A2 = [4,2,3,1,6]
 print("sum_list_limits_2", sum_list_limits_2(A2, 0, len(A2)-1))
 #sum_list_limits_2 16
-
+"""
+       sum(4,2,3,1,6), 0, 4
+       /ret 4 + 12 =16
+       /
+       sum(2,3,1,6), 1, 4
+       /ret 2 + 10 =12
+       /
+       sum(3,1,6), 2, 4
+       /ret 3+7 = 10
+       /
+       sum(1, 6)  3, 4
+       /ret 1+6 = 7
+       /
+       sum(6)   4, 4
+       /ret 6+0 = 6
+       /
+       sum()    5, 4
+       ret 0
+"""
 def sum_list_limits_3(A, lower, upper):
     if lower > upper:
         return 0
@@ -243,9 +277,44 @@ def print_n_numbers(n):
     else:
         print(n, end= ",")
         print_n_numbers(n-1)
-
+        
 print(print_n_numbers(10))
 #10,9,8,7,6,5,4,3,2,1,None
+      
+"""   
+        print(10)
+        /
+        10
+        print(9)
+        /
+        9
+        print(8)
+        /
+        8
+        print(7)
+        /
+        7
+        print(6)
+        /
+        6
+        print(5)
+        /
+        5
+        print(4)
+        /
+        4
+        print(3)
+        /
+        3
+        print(2)
+        /
+        2
+        print(1)
+        /
+        1
+        print(0)
+        ret 0
+"""
 
 def print_n_numbers_reverse(n):
     if n == 0:
@@ -253,9 +322,47 @@ def print_n_numbers_reverse(n):
     else:
         print_n_numbers_reverse(n-1)
         print(n, end= ",")
+        
 
 print(print_n_numbers_reverse(10))
 #1,2,3,4,5,6,7,8,9,10,None
+
+""" 
+    print(10)
+    |print 10
+    |
+    print(9)
+    |print 9
+    |
+    print(8)
+    |print 8
+    |
+    print(7)
+    |print 7
+    |
+    print(6)
+    |print 6
+    |
+    print(5)
+    |print 5
+    |
+    print(4)
+    |print 4
+    |
+    print(3)
+    |print 3
+    |
+    print(2)
+    |print 2
+    |
+    print(1)
+    |print 1
+    |
+    print(0)
+    ret 0
+
+"""
+
 
 def add_digits(n):
     if n < 10:
@@ -320,6 +427,19 @@ print("is 3 even", is_even(3))
 #is 4 even True
 #is 3 even False
 
+""" 
+     is_even(4)      is_even(5)
+     |               |
+     |               |
+     is_even(2)      is_even(3)
+     |               |
+     |               |
+     is_even(0)      is_even(1)
+     ret true        ret False
+    
+"""
+
+
 #non-negative exponents
 def power_is(b, n):
     if n==0:
@@ -329,6 +449,22 @@ def power_is(b, n):
 
 print("power is", power_is(2, 3))
 #power is 8
+
+"""
+     power(2,3)
+     |ret 2 * 4 = 8
+     |
+     power(2, 2)
+     |ret 2 * 2 = 4
+     |
+     power(2, 1)
+     |ret 2 * 1 = 2
+     |
+     power(2, 0)
+     ret 1
+
+"""
+
 
 def power_alt(x, y):
     if y == 0:
@@ -374,6 +510,28 @@ def reverse_string(s):
 print("reversing a string",  reverse_string("jimmie"))
 #reversing a string eimmij
 
+"""    
+    reverse(jimmie)
+    |ret eimmi + j = eimmij 
+    |
+    reverse(immie)
+    |ret eimm + i = eimmi
+    |
+    reverse(mmie)
+    |ret eim + m = eimm
+    |
+    reverse(mie)
+    |ret ei + m = eim
+    |
+    reverse(ie)
+    |ret e + i = ei
+    |
+    reverse(e), len=1
+    ret e
+
+"""
+
+
 def is_palindrome(s):
     n = len(s)
     if n <=1:
@@ -385,6 +543,12 @@ print("is palindrome nayan", is_palindrome("nayan"))
 print("is palindrome kasam", is_palindrome("kasam"))
 #is palindrome nayan True
 #is palindrome kasam False
+
+"""
+
+
+
+"""
 
 
 #consider dynamic programming
