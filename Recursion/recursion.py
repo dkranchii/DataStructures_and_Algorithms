@@ -396,10 +396,23 @@ def max_item_in_list_DAC1(A):
         m2 = max_item_in_list_DAC1(A[middle:len(A)])
         return max(m1, m2)
 
-A = [23, -1, 5, 56, 4, 2, 7]
+A = [23, -1, 5, 56]
 print("max_list_length_DAC1", max_item_in_list_DAC1(A))
+
 #max_list_length_DAC1 56
 
+"""
+               max(23,-1,5,56), mid=4//2=2
+              /  m1=22,m2=56 ret 56   \
+             /                         \
+      max(22,-1),mid=2//2=1           max(5,56), mid=2/2=1
+      /  m1=22,m2=-1 \               /  m1=5 m2=56 ret=56 \ 
+    /   ret 22        \             /                      \
+   /                   \         max(5)                 max(56)
+  max(22),      max(-1)          ret 5                    ret 56
+ ret 22         ret -1
+        
+"""
 
 def max_item_in_list_DAC2(A, lower, upper):
     if lower == upper:
@@ -545,9 +558,14 @@ print("is palindrome kasam", is_palindrome("kasam"))
 #is palindrome kasam False
 
 """
-
-
-
+is_pal(nayan)                       is_pal(kasam)
+        |                            |
+        |                            |
+[n]==[n]:true and is_pal(aya)       [k]==[m] ret False
+        |    
+        |
+[a]==[a]:true and is_pal(y)
+ ret true
 """
 
 
@@ -564,8 +582,20 @@ def longest_palindromic_substring(s):
         else:
             return aux2
 
-print("longest palindromic substring is", longest_palindromic_substring("nayanic"))
+print("longest palindromic substring is", longest_palindromic_substring("yayi"))
 #longest palindromic substring is nayan
+
+"""  
+                  yayi
+               /  yay   \
+              /          \
+             ayi         yay
+            /   \       aux2 = "yay"
+          yi    ay
+         / \    / \
+        i  y   y   a
+"""
+
 
 def equal_strings(s,t):
     if len(s) != len(t):
