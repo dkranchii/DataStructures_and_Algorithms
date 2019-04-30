@@ -585,15 +585,17 @@ def longest_palindromic_substring(s):
 print("longest palindromic substring is", longest_palindromic_substring("yayi"))
 #longest palindromic substring is nayan
 
+#the length is checked in case there are two palindromes returned
+
 """  
-                  yayi
+                 1 yayi
                /  yay   \
               /          \
-             ayi         yay
-            /   \       aux2 = "yay"
-          yi    ay
-         / \    / \
-        i  y   y   a
+          2 ayi         9  yay
+          /       \       aux2 = "yay"
+       3 yi      6 ay
+        /  \      /   \
+     4 i    5 y  7 y   8  a
 """
 
 
@@ -632,10 +634,34 @@ def occurrences_in_list(A, x):
     else:
         return int(A[0] == x) + occurrences_in_list(A[1:],x)
 
-A=[1,34,5,2,3,23,2]
+A=[1,2,5,2,3,2]
 print("occurrences_in_list", occurrences_in_list(A,3))
 #occurrences_in_list 2
 
+"""
+               occ(1,2,5,2,3,3), 2
+               |ret 2
+               |
+               (1==2)=0 + occ(2,5,2,3,3),2
+               |ret 2
+               |
+               (2==2)=1 + occ(5,2,3,3),2
+               |ret 1 + 1 = 2
+               |
+               (5==2)=0 + occ(2,3,3), 2
+               |ret 1
+               |
+               (2==2)=1 + occ(3,3), 2 
+               |ret 1
+               |
+               (3==2) + occ(3), 2
+               |ret 0
+               |
+               (3==2) + occ(), 2
+               ret 0
+                 
+                 
+"""
 def linear_search_list_tail(A, x):
     n = len(A)
     if A==[]:
@@ -643,12 +669,34 @@ def linear_search_list_tail(A, x):
     elif A[n-1] == x:
         return n-1
     else:
-        return linear_search_list_tail(A[:n-1])
+        return linear_search_list_tail(A[:n-1], x)
 
 
 A=[1,34,5,12,4,23,2]
-print("linear search in list", linear_search_list_tail(A,2))
+print("linear search in list", linear_search_list_tail(A,34))
 #linear search in list 6
+
+"""
+            A[2]==34 search(1,34,5,12,4,23,2), n=7
+            |return 1
+            |
+            A[23]==34 seach(1,34,5,12,4,23), n=6
+            |ret 1
+            |
+            A[4]==34, search(1,34,5,12,4),  n=5
+            |ret 1 
+            |
+            A[12]==34 search(1,34,5,12), n=4
+            |return 1 
+            |
+            A[5]==34 search(1,34,5)  n=3
+           |return 1
+           |
+           A[34]==34  search(1,34)  n=2
+           return n-1 = 1
+"""
+
+
 
 def linear_search_linear(A, x, n):
     if A == []:
@@ -697,6 +745,20 @@ def binary_search(A, x, lower, upper):
 bb=[1, 3, 7, 22, 33, 44, 55, 56, 78]
 print("binary search in a list" , binary_search(bb, 56, 0, len(bb)-1))
 #binary search in a list 7
+
+"""
+                 bs(1,3,7,22,33,44,55,56,78), x=56  0+8//2 = 4
+                                \          
+                                 \  56 > 33 (A[4]), 
+                            bs(44, 55, 56,78)  x=56, 5+8//2 = 6
+                                 \
+                                  \ 56 > 55 (A[6])
+                           bs(56, 78)  x = 56, 7+8//2 = 7
+                           \
+                            \ 56 == 56  x==(A[7])
+                            return 7
+    
+"""
 
 def get_smaller_than_or_equal_to(A, x):
     if A == []:
@@ -838,20 +900,23 @@ n = len(B)
 A = list(B)
 perm_of_list(A, 0, n-1)
 """
-                  perm(ABC)
-                /     \        \ 
-              /        \        \ 
-            perm(ABC)       BAC        CAB 
-          /   \       /  \       /  \ 
-         /     \      /   \      /   \ 
-        ABC    ACB   BAC   BCA   CBA   CAB
-        print  print print print prnt  print
+                permutation of    (ABC)
+              /           \             \ 
+    swap 0/0 /    swap 0/1 \        swap 0/2 \ 
+         (ABC)            BAC                  CBA 
+ swap 1,1/  1,2\  swp1,2 / swp1,2 \    swp 1,1 /  swp1,2 \ 
+        /       \     /            \           /          \ 
+    ABC        ACB    BAC         BCA      CBA          CAB
+    print     print  print        print    pnt          print
 
 
 """
 
 #Catalan numbers
-
+"""
+C0 = 1 and  Cn+1 = for i to n summation of (Ci * Cn-1)
+C4 = C0C3 + C1C2 + C2C1 + C3C0
+"""
 def catalan(n):
     if n <= 1:
         return 1
@@ -867,6 +932,7 @@ for i in range(10):
     print(catalan(i), end= " ")
 
 #output: 1 1 2 4 14 42 132 429 1430 4862
+             
 print()
 
 #Binomial Coefficient
@@ -883,6 +949,24 @@ def binomialCoeff(n, k):
 n = 5
 k = 2
 print("binomial Coeff of n=5, k=2 is", binomialCoeff(n, k))
+
+"""   
+                    binCoef(5,2)
+                  /     ret 10   \ 
+                 /                 \ 
+            binCoeff(4,1)            binCo(4,2)
+           /  ret 4  \               /     6    \ 
+          /           \             /            \
+    binCoeff(3, 0)   binCo(3,1)    bin(3,1)        bin(3,2)
+    ret 1          / ret 3  \      /   3   \        /   3  \
+                 /           \     /        \      b(2,1)   b(2,2)
+        binCo(2,0)    binC(2,1)  binC(2,0) b(2,1)   / 2  \  r 1
+       ret 1         / ret 2   \  ret1    /  2  \   /     \
+                    /           \     b(1,1) b(1,1) b(1,1) b(1,1) 
+             bin(1,1)    bin(1,1)     1       1     ret 1  r 1
+               ret 1      ret 1
+
+"""
 
 
 #Dynamic programming
@@ -906,32 +990,31 @@ arr=[1,2,3]
 m = len(arr)
 print(count(arr, m, 4))
 
+
+
+
 #output 4:
 """
-                              C(1,2,3),4,4
-                       /                          \ 
-                     /                              \ 
-
-              C{3, 4)          
-              /
-              /
-               C(2, 4)
-             /          \ 
-            /            \ 
-   C(1, 4)               C(2, 3)
-    / et 1 \            /                 
-   /        \          /                 
-C(0, 4)  C(1, 3)      C(1,3)        
-r0      / r1 \        / r1 \          
-       /        \    /      \             
-  C(,0,3)  C(,1,2)  C(0,3) C(1,2)    
-  r0      / r1  \   r0    / 1  \  
-         /      \        /      \    
-   C(0,2)  C(1, 1)     C(0,2)   C(1,1)  
-   r0     / r1 \       /  1 \     r1       
-         /      \     /      \             
-     C(0, 1) C(1,0) C(0,1) C(1,0)
-    r0      r1      r0    r1                
+                              C(1,2,3),3,4
+                            /       r4       \
+                           /                  \
+                    C(123),2, 4                 C(123),3,4-S[3-1]=1
+                     /   r3   \                      /    r1           \
+                    /          \                     C(123),2,1         C(123),3, 1-S[3-1]
+          C(123),1, 4      C(1,2,3),2 4-S[2-1]=2      /  r1    \              /  r0   \
+        /  r1  \          /  r2     \                 C(123),1,1 ...         /         \
+       /       \      C(123),1,2  C(123),2,2-S[2-1]=0   / r1                /          C(123),3,-2
+ C(123),0, 4  C(123),1, 4-S[1-1]=3  /   r1    \        R0              C(123),2, -   ret 0
+ ret 0       / r1 \     C(1,2,3),0,2  C(123),1,2-S[1-1]=1               ret 0
+            /      \    r0            /  r1  \               
+   C(123),0,3 C(123),1,3-S[1-1]=2    /        \                   
+   ret 0        / r1   \      C(123),0,1  C(123),1,1-S[1-1]=0      
+               /       \     ret 0        ret 1                     
+    C(123) 0, 2  C(123), 1, 2-S[1-1]=1                   
+    ret 0        /  r1   \                              
+                /         \
+       C(123),0,1    C(123),1, 1-S[1-1]=0
+       ret 0           ret 1
                         
                       
 """
@@ -998,17 +1081,17 @@ print("Length of LCS is ", lcs(X, Y, len(X), len(Y)))
                /                         \                    /            \ 
               /                            \                  /               \ 
         lcs(AX,        AYZX)                lcs(AXY, AYZ)   lcs(AXY, AYZX)      lcs(AXYT, AY)
-        /                    \                 \            /          \                /   \ 
-       /                      \                 \...        /           \               /    \ 
+        /          r1         \               \            /          \                /   \ 
+       /                      \                 \...       /           \               /    \ 
       lcs(A, AYZX)             lcs(AX, AYZ)              lcs(AX, AYZX)  lcs(AX, AYZ)   ..     ..
-     /           \               /          \           return 1             \ 
+     /     r1    \               /   r1     \           return 1             \ 
     /             \             /            \                                \ 
 lcs("", AYZX)   lcs(A, AYZ)    lcs(A, AYZ)     lcs(AX, AY)                     lcs(AX, AY)
-return 0       /       \         /        \      /         \                     /          \ 
-              /         \    lcs("", AYZ) ..   /            \                     /          \ 
+return 0       /  r1     \         /        \    /   r1     \                     /          \ 
+              /         \    lcs("", AYZ)  ..    /           \                     /          \ 
     lcs("", AYZ)  lcs(A, AY) return 0        lcs(A, AY)      lcs(AX, A)           lcs(A, AY)   lcs(AX, A)
-     return 0     /        \                 /     \          /        \           /               \ 
-               /           \               /       \         /          \         lcs("", AY)  lcs(AX, "")
+     return 0     /   r1  \                 /  r1   \          /    r1  \           /               \ 
+                /           \               /       \         /          \         lcs("", AY)  lcs(AX, "")
         lcs("", AY)    lcs(A, A)   lcs("", AY)   lcs(A, A)  lcs(A, A) lcs(AX, "") return 0     return 0
         return 0        return 1    return 0      return 1  return 1  return 0
         
