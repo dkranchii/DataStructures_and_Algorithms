@@ -38,16 +38,16 @@ print("fibonacci", fib_recur(5))
 #outuput for 9: 34
 #1, 1, 2, 3, 5     next fib numbers 8, 13, 21, 34, 55
 """
-                          fib(5)
+                         1 fib(5)
                        /  ret 5  \ 
                      /            \ 
-                 fib(4)            fib(3)
+               2  fib(4)           7  fib(3)
                / ret 3 \          / ret 2 \ 
               /         \        /           \ 
-            fib(3)    fib(2)     fib(2)      fib(1)
+           3 fib(3)    6 fib(2)   8  fib(2)   9   fib(1)
            /ret 2 \    ret 1     ret 1        ret 1
           /        \                     
-       fib(2)     f(1)         
+      4 fib(2)    5 f(1)         
       ret 1      ret 1          
 
 """
@@ -61,19 +61,19 @@ def fact_recur(n):
 print("factorial", fact_recur(5))
 #5*4*3*2*1 = 120
 """
-          fact(5) --> 5 * 24 
+       1   fact(5) --> 5 * 24 
           /ret 120
          /
-        fact(4) --> 4 * 6 = 24
+     2   fact(4) --> 4 * 6 = 24
         /ret 24
         /
-        fact(3) --> 3*2 = 6
+    3    fact(3) --> 3*2 = 6
         /ret 6
         /
-       fact(2) --2*1 = 2
+    4   fact(2) --2*1 = 2
        /ret 2
        / 
-       fact(1)
+    5   fact(1) 
        ret 1
 
 """
@@ -90,19 +90,19 @@ print("sum_recur", sum_recur(5))
 #5+4+3+2+1 = 15
 
 """ 
-         sum(5) --> 5 + 10
+     1    sum(5) --> 5 + 10
          /ret 15
         /
-        sum(4) --> 4 + 6
+     2   sum(4) --> 4 + 6
         /ret 10
         /
-        sum(3) -> 3 + 3
+    3    sum(3) -> 3 + 3
         /retun 6
         /
-        sum(2) --> 2 + 1 
+    4    sum(2) --> 2 + 1 
         /ret 3
         /
-        sum(1)
+    5    sum(1)
         ret 1
 """
 
@@ -114,9 +114,56 @@ def gcd(m, n):
     else:
         return gcd(m, n-m)
 
-print("gcd of 1200,232 is", gcd(1200, 232))
-#gcd of 1200,232 is 8
+print("gcd of 232,272 is", gcd(232, 272))
+#gcd of 232,272 is 8
 
+"""
+                   1 gcd(232, 272)
+               30   |ret 8
+                    |
+                   2 gcd(232,40)
+               29   |ret 8
+                    |
+                  3  gcd(40, 232)
+               28   |ret 8
+                    |
+                  4  gcd(40, 192)
+               27   |ret 8
+                    |
+                  5  gcd(40, 152)
+               26   |ret 8
+                    |
+                  6  gcd(40, 112)
+              25    |ret 8
+                    |
+                 7   gcd(40, 72)
+              24    |ret 8
+                    |
+                8    gcd(40, 32)
+              23    |ret 8
+                    |
+                9   gcd(32, 40)
+              22    |ret 8
+                    |
+                10    gcd(8, 32)
+              21    |ret 8
+                    |
+                11   gcd(8,24)
+              20   |ret 8
+                   |
+                12   gcd(8, 16)
+              19   |ret 8
+                   |
+               13    gcd(8, 8)
+             18    |ret 8
+                   |
+               14    gcd(8,0)
+               17  |ret 8
+                   |
+               15    gcd(0, 8)
+               16    ret 8
+                       
+"""
 
 def gcd_v1(a, b):
     if b == 0:
@@ -127,16 +174,16 @@ def gcd_v1(a, b):
 print("gcd of 539,84 is", gcd_v1(539, 84))
 #gcd of 539,84 is 7
 """
-               gcd(539, 84)
-               /ret 7
-               gcd(84, 35)
-               /ret 7
-               gcd(35, 14)
-               /ret 7
-               gcd(14, 7)
-               /ret 7
-               gcd(7, 0)
-               ret 7
+        1      gcd(539, 84)
+          10     /ret 7
+        2      gcd(84, 35)
+          9     /ret 7
+        3       gcd(35, 14)
+          8    /ret 7
+        4       gcd(14, 7)
+          7     /ret 7
+        5       gcd(7, 0)
+          6      ret 7
 """
 
 def sum_of_list_recur(A):
@@ -149,23 +196,23 @@ A=[1,2,3,41,5]
 print("sum_of_list_recur", sum_of_list_recur(A))
 #sum_of_list_recur 52
 """
-                     sum([1,2,3,41,5])
-                     /ret 52
+          1          sum([1,2,3,41,5])
+            12       /ret 52
                      /
-                    1 + sum(2,3,41,5)
-                    /ret 52
+          2          1 + sum(2,3,41,5)
+            11       /ret 52
                     /
-                    2 + sum(3,41,5)
-                    /ret 51
+          3          2 + sum(3,41,5)
+            10       /ret 51
                     /
-                    3 + sum(41, 5)
-                    /ret 49
+          4          3 + sum(41, 5)
+            9       /ret 49
                     /
-                    41 + sum(5) 
-                    /ret 46  
+          5          41 + sum(5) 
+            8       /ret 46  
                     /
-                    5  + 0: 
-                    ret 5  
+          6          5  + sum(): 
+            7        ret 5  
 """
 
 
@@ -185,18 +232,18 @@ print("sum_list_len_alt2", sum_list_len_alt2(B))
 #sum_list_len_alt2 17
 
 """
-            sum(5,3,4,2,3) len=5  middle( 5/2) = 2
-            /      ret 17              \
+       1     sum(5,3,4,2,3) len=5  middle( 5/2) = 2
+            /   18   ret 17            \
            /                            \
-    sum(5,3),len=2,middle=1     sum(4,2,3), len = 3, middle, 3//2 = 1  
-     / ret 8  \                  /  ret 9   \     
+  2  sum(5,3),len=2,middle=1   8  sum(4,2,3), len = 3, middle, 3//2 = 1  
+     / 7 ret 8  \                / 17 ret 9   \     
     /          \                /            \    
-    sum(5)     \            sum(4)            \
-    ret 5     sum(3)      ret 4       sum(2,3) middle, 2/2 = 1
-              ret 3                   /   ret 5  \
+ 3   sum(5)     \         9  sum(4)            \
+ 4  ret 5   5  sum(3)   10  ret 4     11  sum(2,3) middle, 2/2 = 1
+             6 ret 3                  /  16 ret 5  \
                                      /            \
-                                 sum(2)         sum(3)
-                                 ret 2          ret 3
+                              12   sum(2)     14    sum(3)
+                              13  ret 2       15   ret 3
 """  
 
 def sum_list_limits_1(A, lower, upper):
@@ -209,23 +256,23 @@ A1 = [4,2,3,1,5]
 print("sum_list_limits_1", sum_list_limits_1(A1,0, len(A1)-1))
 #sum_list_limits_1 15
 
-"""    sum(4,3,2,1,5), 0, 4
-       /ret 5+10 = 15
+"""  1   sum(4,3,2,1,5), 0, 4
+    12   /ret 5+10 = 15
       /
-      sum(4,3,2,1), 0, 3
-     /ret 1+9 = 10
-     /
-     sum(4,3,2), 0, 2
-     /ret 2+7=9
-     /
-     sum(4,3),  0, 1
-     /ret 3+4=7
-     /
-     sum(4)    0, 0
-     /ret 4+0=4
-     /
-     sum()     0, -1
-     /ret 0
+  2    sum(4,3,2,1), 0, 3
+  11   /ret 1+9 = 10
+       /
+  3   sum(4,3,2), 0, 2
+  10   /ret 2+7=9
+       /
+  4   sum(4,3),  0, 1
+   9  /ret 3+4=7
+      /
+ 5    sum(4)    0, 0
+  8   /ret 4+0=4
+      /
+ 6    sum()     0, -1
+  7   /ret 0
 """  
 
 
@@ -239,23 +286,23 @@ A2 = [4,2,3,1,6]
 print("sum_list_limits_2", sum_list_limits_2(A2, 0, len(A2)-1))
 #sum_list_limits_2 16
 """
-       sum(4,2,3,1,6), 0, 4
-       /ret 4 + 12 =16
-       /
-       sum(2,3,1,6), 1, 4
-       /ret 2 + 10 =12
-       /
-       sum(3,1,6), 2, 4
-       /ret 3+7 = 10
-       /
-       sum(1, 6)  3, 4
-       /ret 1+6 = 7
-       /
-       sum(6)   4, 4
-       /ret 6+0 = 6
-       /
-       sum()    5, 4
-       ret 0
+   1    sum(4,2,3,1,6), 0, 4
+    12   /ret 4 + 12 =16
+        /
+  2    sum(2,3,1,6), 1, 4
+   11    /ret 2 + 10 =12
+        /
+  3    sum(3,1,6), 2, 4
+   10   /ret 3+7 = 10
+        /
+  4     sum(1, 6)  3, 4
+    9   /ret 1+6 = 7
+        /
+  5     sum(6)   4, 4
+    8   /ret 6+0 = 6
+        /
+  6     sum()    5, 4
+    7    ret 0
 """
 def sum_list_limits_3(A, lower, upper):
     if lower > upper:
@@ -282,38 +329,48 @@ print(print_n_numbers(10))
 #10,9,8,7,6,5,4,3,2,1,None
       
 """   
-        print(10)
-        /
-        10
-        print(9)
-        /
-        9
-        print(8)
-        /
-        8
-        print(7)
-        /
-        7
-        print(6)
-        /
-        6
-        print(5)
-        /
+  1      print(10)
+    21  | ret 0
+        |
+       10   #print
+  2     print(9)
+   21  |ret 0       
+       |
+       9   #print
+  3    print(8)
+   20   | ret 0
+        |
+       8  #print
+  4     print(7)
+    19  | ret 0
+        |
+       7 
+  5     print(6)
+    18  |ret 0
+        |
+       6
+ 6     print(5)
+   17     | ret 0
+        |
         5
-        print(4)
-        /
+ 7      print(4)
+   16     | ret 0
+        |
         4
-        print(3)
-        /
+ 8       print(3)
+   15      |ret 0
+        |
         3
-        print(2)
-        /
+ 9       print(2)
+   14     |ret 0
+        |
         2
-        print(1)
-        /
-        1
-        print(0)
-        ret 0
+ 10    print(1)
+   13    | ret 0
+       |
+       1
+11    print(0)
+   12     ret 0
 """
 
 def print_n_numbers_reverse(n):
@@ -328,37 +385,47 @@ print(print_n_numbers_reverse(10))
 #1,2,3,4,5,6,7,8,9,10,None
 
 """ 
-    print(10)
-    |print 10
-    |
-    print(9)
-    |print 9
-    |
-    print(8)
-    |print 8
-    |
-    print(7)
-    |print 7
-    |
-    print(6)
-    |print 6
-    |
-    print(5)
-    |print 5
-    |
-    print(4)
-    |print 4
-    |
-    print(3)
-    |print 3
-    |
-    print(2)
-    |print 2
-    |
-    print(1)
-    |print 1
-    |
-    print(0)
+ 1    print(10)
+     | ret 0
+     |print 10
+     |
+ 2   print(9)
+     | ret 0
+     |print 9
+     |
+ 3   print(8)
+     | ret 
+     |print 8
+     |
+ 4   print(7)
+     | ret 
+     |print 7
+     |
+ 5   print(6)
+     | ret 0
+     |print 6
+     |
+ 6   print(5)
+     | ret 0
+     |print 5
+     |
+ 7   print(4)
+     | ret 0 
+     |print 4
+     |
+ 8   print(3)
+     | ret 0
+     |print 3
+     |
+ 9   print(2)
+     |ret 0
+     |print 2
+     |
+ 10  print(1)
+     |ret 0
+     |print 1
+     |
+ 11   print(0)
     ret 0
 
 """
@@ -373,6 +440,22 @@ def add_digits(n):
 print("add digits", add_digits(326))
 #11
 
+"""
+    1    add(326)
+     8   |ret 11
+        |
+   2     add(326//10) == 32
+     7   | ret 5 + 326 % 10 (6) = 11
+        |
+   3      add(32//10)  == 3
+     6   | ret 3 +  32 % 10 (2) = 5
+        |
+   4     add(3//10)
+     5   ret 3
+  
+  
+"""
+
 def print_digits_reversed_vert(n):
     if n < 10:
         print(n)
@@ -382,10 +465,65 @@ def print_digits_reversed_vert(n):
 
 
 print(print_digits_reversed_vert(1234))
+
+
 #4
 #3
 #2
 #1
+"""  
+   1    print(1234)
+         |
+         |
+         1234 % 10 = 4  #print
+   2      print(123) #1234//10
+         |
+         |
+         123 % 10 = 3  #print
+   3     print(12)  #123//10 
+         |
+         |
+        12 % 10 = 2  # print
+   4     print (1)   #12//10
+         |
+         1 (n < 2)  #print
+         
+
+"""
+
+def product(a, b):
+    if a < b:
+        return product(b,a)
+    elif b != 0:
+        return a + product(a,b-1)
+    else:
+        return 0
+    
+print("product of two numbers 4 and 5 is", product(4,5))
+#product of two numbers 4 and 5 is 20
+
+"""
+  1          product(4,5)
+            | ret 20
+            |
+  2                ret product(5,4)
+            | 
+            |
+  3          5 + product(5,3)
+     11     | ret 5 + 10 = 20
+            |
+  4          5 + product(5,2)
+     10     | ret 5 + 10 = 15
+            |
+  5          5 + product(5,1)
+     9      | ret 5 + 5 = 10
+            |
+  6          5 + product(5,0) 
+   7             ret 0
+    8         ret 5
+
+"""
+
 
 def max_item_in_list_DAC1(A):
     if len(A) == 1:
@@ -402,15 +540,16 @@ print("max_list_length_DAC1", max_item_in_list_DAC1(A))
 #max_list_length_DAC1 56
 
 """
-               max(23,-1,5,56), mid=4//2=2
+         1      max(23,-1,5,56), mid=4//2=2
               /  m1=22,m2=56 ret 56   \
-             /                         \
-      max(22,-1),mid=2//2=1           max(5,56), mid=2/2=1
-      /  m1=22,m2=-1 \               /  m1=5 m2=56 ret=56 \ 
-    /   ret 22        \             /                      \
-   /                   \         max(5)                 max(56)
-  max(22),      max(-1)          ret 5                    ret 56
- ret 22         ret -1
+             /      14                 \
+            /                           \
+  2    max(22,-1),mid=2//2=1      8     max(5,56), mid=2/2=1
+      /  m1=22,m2=-1 \                /  m1=5 m2=56 ret=56 \ 
+    /   7 ret 22        \             /         13          \
+   /                   \       9   max(5)             11    max(56)
+3  max(22),   5  max(-1)       10  ret 5              12    ret 56
+4 ret 22      6   ret -1
         
 """
 
@@ -441,14 +580,14 @@ print("is 3 even", is_even(3))
 #is 3 even False
 
 """ 
-     is_even(4)      is_even(5)
-     |               |
-     |               |
-     is_even(2)      is_even(3)
-     |               |
-     |               |
-     is_even(0)      is_even(1)
-     ret true        ret False
+ 1    is_even(4)   1    is_even(5)
+ 6    |ret True     6  | ret False
+     |                 |
+ 2   is_even(2)    2     is_even(3)
+  5   | ret True    5   |ret False
+     |                 |
+ 3    is_even(0)   3    is_even(1)
+ 4    ret true      4   ret False
     
 """
 
@@ -464,17 +603,17 @@ print("power is", power_is(2, 3))
 #power is 8
 
 """
-     power(2,3)
-     |ret 2 * 4 = 8
+ 1   power(2,3)
+  8  |ret 2 * 4 = 8
      |
-     power(2, 2)
-     |ret 2 * 2 = 4
+ 2    power(2, 2)
+  7   |ret 2 * 2 = 4
      |
-     power(2, 1)
-     |ret 2 * 1 = 2
+ 3    power(2, 1)
+  6   |ret 2 * 1 = 2
      |
-     power(2, 0)
-     ret 1
+ 4    power(2, 0)
+  5   ret 1
 
 """
 
@@ -524,23 +663,23 @@ print("reversing a string",  reverse_string("jimmie"))
 #reversing a string eimmij
 
 """    
-    reverse(jimmie)
-    |ret eimmi + j = eimmij 
+1   reverse(jimmie)
+ 12 |ret eimmi + j = eimmij 
     |
-    reverse(immie)
-    |ret eimm + i = eimmi
+2    reverse(immie)
+ 11 |ret eimm + i = eimmi
     |
-    reverse(mmie)
-    |ret eim + m = eimm
+3    reverse(mmie)
+ 10 |ret eim + m = eimm
     |
-    reverse(mie)
-    |ret ei + m = eim
+4    reverse(mie)
+ 9  |ret ei + m = eim
     |
-    reverse(ie)
-    |ret e + i = ei
+5    reverse(ie)
+ 8  |ret e + i = ei
     |
-    reverse(e), len=1
-    ret e
+6    reverse(e), len=1
+ 7  ret e
 
 """
 
@@ -558,14 +697,14 @@ print("is palindrome kasam", is_palindrome("kasam"))
 #is palindrome kasam False
 
 """
-is_pal(nayan)                       is_pal(kasam)
-        |                            |
-        |                            |
-[n]==[n]:true and is_pal(aya)       [k]==[m] ret False
-        |    
-        |
-[a]==[a]:true and is_pal(y)
- ret true
+1 is_pal(nayan)                    1  is_pal(kasam)
+       | ret True                     | 
+       |                              |
+2 [n]==[n]:true and is_pal(aya)      [k]==[m] 
+  5   |  ret True                      ret False
+      |
+3 [a]==[a]:true and is_pal(y)
+ 4 ret True
 """
 
 
@@ -592,10 +731,10 @@ print("longest palindromic substring is", longest_palindromic_substring("yayi"))
                /  yay   \
               /          \
           2 ayi         9  yay
-          /       \       aux2 = "yay"
+          /       \       aux2 = "yay" 
        3 yi      6 ay
-        /  \      /   \
-     4 i    5 y  7 y   8  a
+       /  \      /    \
+    4 i   5 y  7 y   8  a
 """
 
 
@@ -621,6 +760,25 @@ def equal_strings_tail(s, t):
         return False
     else:
         return equal_strings_tail(s[1:], t[1:])
+    
+"""
+ 1       equal(mary, mary)       1  equal(mary, joe)
+   10     | ret True               |
+         |                          |
+ 2       equal(ary, ary)            len(mary)=4, len(joe)=3 
+   9     | ret True                 ret False
+        |
+ 3       equal(ry, ry)
+   8     | ret True
+        |
+ 4       equal(y,y)
+   7     |ret True
+        |
+ 5       equal('','')
+   6      ret True
+
+
+"""
 
 
 print("strings mary and mary are equal", equal_strings_tail( "mary", "mary"))
@@ -759,6 +917,23 @@ print("binary search in a list" , binary_search(bb, 56, 0, len(bb)-1))
                             return 7
     
 """
+
+def flatten(A):
+    if A == []:
+        return A
+    if isinstance(A[0], list):
+        return A[0] + flatten(A[1:])
+    else:
+        return A[:1] + flatten(A[1:])
+
+A = [[1,2],[3],4, [3,4]]
+print("Flattened list is ", flatten(A))
+
+""" 
+    
+
+"""
+
 
 def get_smaller_than_or_equal_to(A, x):
     if A == []:
