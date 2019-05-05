@@ -1241,6 +1241,33 @@ print("coin change counts", count(arr, m, 4))
                         
                       
 """
+print("print all subsets")
+def print_subsets(n, curr, res):
+    if curr == 0:
+        print(res)
+        return
+    
+    for i in range(1, n):
+        if i <= curr:
+            print_subsets(n, curr-i, res+str(i))
+    
+print_subsets(4,4,"")
+""" 
+                       print(4, "")       
+                     /      /           \              \
+                    /      /             \              \
+         print(3,"1")     print(2, "2")  print(1,"3)    print(0,"4")
+         /         | \               \               \
+        /          |  print(0, "1,3") \               \
+  print(2,"1 1")   print(1, "1 2")    / \              \
+     /           \       print(1,"2 1") print(0,"2 2")  \ 
+    /             \                 |                     print(0,"3 1")
+ print(1, "1 1 1") print(0,"1 1 2") |  
+ |                                  |
+ |                                 print(0,"2 1 1")
+ print(0, "1 1 1 1")
+
+"""
 
 
 # Consider Dynamic Programming
