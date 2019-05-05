@@ -237,8 +237,8 @@ print("sum_list_len_alt2", sum_list_len_alt2(B))
            /                            \
   2  sum(5,3),len=2,middle=1   8  sum(4,2,3), len = 3, middle, 3//2 = 1  
      / 7 ret 8  \                / 17 ret 9   \     
-    /          \                /            \    
- 3   sum(5)     \         9  sum(4)            \
+    /          \                /              \    
+ 3   sum(5)     \         9  sum(4)             \
  4  ret 5   5  sum(3)   10  ret 4     11  sum(2,3) middle, 2/2 = 1
              6 ret 3                  /  16 ret 5  \
                                      /            \
@@ -924,15 +924,11 @@ def flatten(A):
     if isinstance(A[0], list):
         return A[0] + flatten(A[1:])
     else:
-        return A[:1] + flatten(A[1:])
+        return [A[0]] + flatten(A[1:])
 
-A = [[1,2],[3],4, [3,4]]
+A = [1,[1,2],[3],4, [3,4]]
+
 print("Flattened list is ", flatten(A))
-
-""" 
-    
-
-"""
 
 
 def get_smaller_than_or_equal_to(A, x):
@@ -960,18 +956,43 @@ print("get greater than 5", get_greater_than(AB, 4))
 #get greater than 5 [9, 6, 7, 5]
 
 
-def is_list_sorted(A):
-    n = len(A)
-    if n <= 1:
+def is_list_sorted(A,n):
+    if n == 1:
         return True
+    elif A[n-1] <= A[n-2]:
+        return False
     else:
-        return (is_list_sorted(A[0:n//2])
-                and A[n // 2-1] <= A[n//2]
-                and is_list_sorted(A[n // 2:n]))
+        return is_list_sorted(A,n-1)
+        
 
-AZ = [1,3,5,6,79, 110]
-print("is list sorted", is_list_sorted(AZ))
+AZ = [1,3,5,6,8]
+n=len(AZ)
+print("is list sorted", is_list_sorted(AZ, n))
 #is list sorted True
+
+"""
+  1    is_sorted(1,3,5,6,8),5
+    9  |ret True
+       |
+       | 8 <= 6, nope
+  2    is_sorted(1,3,5,6,8),4
+    8  |ret True
+       |
+       | 6 <= 5 nope
+  3    is_sorted(1,3,5,6,8),3
+    8   |ret True
+       |
+       | 5 <= 3 nope
+  4    is_sorted(1,3,5,6,8),2
+    7   | ret True
+       |
+       | 3 <= 1 nope
+  5    is_sorted(1,3,5,6,8),1
+    6   ret True
+       
+"""
+
+
 
 def select_sort_rec(a):
     if len(a) <= 1:
@@ -1105,10 +1126,10 @@ def catalan(n):
 print("catalan numbers: ", end= "")
 for i in range(10):
     print(catalan(i), end= " ")
-
-#output: 1 1 2 4 14 42 132 429 1430 4862
-             
 print()
+#output: 1 1 2 4 14 42 132 429 1430 4862
+
+
 
 #Binomial Coefficient
 #gives number of ways, disregarding order,
@@ -1143,6 +1164,33 @@ print("binomial Coeff of n=5, k=2 is", binomialCoeff(n, k))
 
 """
 
+#Stair Climbing Puzzle
+#A child is climbing up stairs with n steps. Can hop 1,2,3 steps at a time
+#Count how many possible ways the child can jump the stairs
+
+def steps_possible(n):
+    if n < 1:
+        return 0
+    return 1 + steps_possible(n-1) + steps_possible(n-2) + steps_possible(n-3)
+
+print("Possible ways a child can jump", steps_possible(3))
+
+"""
+            1               steps_possible(3)   
+                /               1 + 2+1+0                           \ 
+               /                        |                            \ 
+         2   steps_possible (2)          9 steps_possible(1)        13 steps(0)
+          /   ret 1+1+0+0  | \            | ret 1 +0+0+0    \       ret 0
+         /                 |  \           |          \       \
+    3  steps_poss(1) 7steps(0) \          10 st(0), 11 st(-1), 12 st(-2)
+      / ret 1 |    \   ret 0   8 steps(-1)   ret 0     ret 0   ret 0
+4    /        |      \           ret 0
+steps(0) 5 steps(-1)  6 st(-2)
+ret 0    ret 0          ret 0
+             
+
+"""
+
 
 #Dynamic programming
 #coin change problem
@@ -1163,7 +1211,7 @@ def count(S, m, n):
 
 arr=[1,2,3]
 m = len(arr)
-print(count(arr, m, 4))
+print("coin change counts", count(arr, m, 4))
 
 
 
@@ -1262,7 +1310,7 @@ print("Length of LCS is ", lcs(X, Y, len(X), len(Y)))
      /     r1    \               /   r1     \           return 1             \ 
     /             \             /            \                                \ 
 lcs("", AYZX)   lcs(A, AYZ)    lcs(A, AYZ)     lcs(AX, AY)                     lcs(AX, AY)
-return 0       /  r1     \         /        \    /   r1     \                     /          \ 
+return 0       /  r1     \        /      \      /   r1     \                     /          \ 
               /         \    lcs("", AYZ)  ..    /           \                     /          \ 
     lcs("", AYZ)  lcs(A, AY) return 0        lcs(A, AY)      lcs(AX, A)           lcs(A, AY)   lcs(AX, A)
      return 0     /   r1  \                 /  r1   \          /    r1  \           /               \ 
