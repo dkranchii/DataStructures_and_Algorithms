@@ -39,8 +39,8 @@ print("fibonacci", fib_recur(5))
 #1, 1, 2, 3, 5     next fib numbers 8, 13, 21, 34, 55
 """
                          1 fib(5)
-                       /  ret 5  \ 
-                     /            \ 
+                       /  ret 5   \ 
+                      /            \ 
                2  fib(4)           7  fib(3)
                / ret 3 \          / ret 2 \ 
               /         \        /           \ 
@@ -1046,6 +1046,36 @@ def merge(a, b):
 AX = [7,3,4,5,6,33,3,6]
 print("merge sort list is ", merge_sort(AX))
 #merge sort list is  [3, 3, 4, 5, 6, 6, 7, 33]
+                       
+"""
+44 step journey to sort 8 numbers. Journey includes return steps too.
+
+
+                   1 msort(7,3,4,5,6,33,3,6) n=8.
+                   /        44 r                \
+                  /                              \
+    2 msort(7,3,4,5)                              22 msort(6,33,3,6)
+          /  21r   \                                /      41 r      \
+         /          \                              /                  \
+   3 msor(7,3)     11 msrot(4,5)           23 msort(6,33)           31 msort(3,6)
+   /  10 r   \            | 18r \              /  30r   \             /   38 r   \
+  /           \           |      \            /          \          32 msort(3)   34 msort(6)
+ 4 msort(7) 6 msort(3) 12 ms(4)  14 ms(5)  24 msort(6) 26 msort(33)  33 rm1=3     35  ret m2=6
+5ret m1=7    7ret m2=3  13r m1=4 15r m2=5  25 r m1=6  27 m2=33        \            /
+     \       /              \      /           \         /             \          /
+      \     /                \    /             \       /             36 merge(3,6) 
+    8 merge(3,7)           16 merge(4,5)  28 merge(6,33)             37 r [3,6]
+    9 ret [3,7]             17 r[4,5]      29 r [6,33]                /
+         \                  /                         \              /
+          \                /                           \            /
+             19 merge([3,7],[4,5])                  39  merge([6,33],[3,6])
+             20 ret [3,4,5,7]                        40     ret [3,6,6,33]
+                            \                      /
+                             \                    /
+                         42 merge([3,4,5,7],[3,6,6,33])
+                          43 ret [3,3,4,5,6,6,7,33]     
+"""                   
+
 
 def pascal(n):
     if n==0:
@@ -1096,14 +1126,20 @@ n = len(B)
 A = list(B)
 perm_of_list(A, 0, n-1)
 """
-                permutation of    (ABC)
-              /           \             \ 
-    swap 0/0 /    swap 0/1 \        swap 0/2 \ 
-         (ABC)            BAC                  CBA 
- swap 1,1/  1,2\  swp1,2 / swp1,2 \    swp 1,1 /  swp1,2 \ 
-        /       \     /            \           /          \ 
-    ABC        ACB    BAC         BCA      CBA          CAB
-    print     print  print        print    pnt          print
+                 1 permutation of    (ABC)
+               /         \                 \
+      swap 0/0/   swp 1/0 \         swp 2/0 \ 
+             /             \                 \ 
+        2 ABC              5  BAC           8   CBA 
+         /    \            /     \             /     \ 
+swap 1,1/  2/1 \      1/1 /   2/1 \       1/1 /    2/1\ 
+       /        \        /         \         /         \
+  3 ABC      4 ACB     6 BAC   7 BCA     9  CBA     10  CAB
+     |         |        |        |          |           |
+ 2/2 |    2/2  |    2/2 |    2/2 |      2/2 |       2/2 |
+     |         |        |        |          |           |
+   prnt       prnt     prnt     prnt        prnt       print
+ 
 
 
 """
@@ -1147,21 +1183,27 @@ k = 2
 print("binomial Coeff of n=5, k=2 is", binomialCoeff(n, k))
 
 """   
-                    binCoef(5,2)
-                  /     ret 10   \ 
-                 /                 \ 
-            binCoeff(4,1)            binCo(4,2)
-           /  ret 4  \               /     6    \ 
-          /           \             /            \
-    binCoeff(3, 0)   binCo(3,1)    bin(3,1)        bin(3,2)
-    ret 1          / ret 3  \      /   3   \        /   3  \
-                 /           \     /        \      b(2,1)   b(2,2)
-        binCo(2,0)    binC(2,1)  binC(2,0) b(2,1)   / 2  \  r 1
-       ret 1         / ret 2   \  ret1    /  2  \   /     \
-                    /           \     b(1,1) b(1,1) b(1,1) b(1,1) 
-             bin(1,1)    bin(1,1)     1       1     ret 1  r 1
-               ret 1      ret 1
-
+                   1    binCoef(5,2)
+                     /     38 r10     \ 
+                    /                   \
+                   /                      \ 
+          2  binCoeff(4,1)                16  binCo(4,2)    
+           / 15 et 4  \                     /   37 r6      \
+          /            \                   /                \
+         /              \                 /                  \
+  3  binCoeff(3, 0)  5 binCo(3,1)       17 bin(3,1)            27  bin(3,2)
+   4 r1             / 14 r3 \           /   26 r3  \              /   36 r3 \
+                   /         \         /            \            /           \
+                  /           \       /              \          28  b(2,1)     34 b(2,2)
+      6 binCo(2,0)   8 binC(2,1)  18 binC(2,0)  20 b(2,1)          /33 r2 \    35 r1
+      7   r1          / 13 r2 \    19  r1      / 25 r2 \          /        \
+                     /         \              /         \        /          \
+                    /           \          21 b(1,1)  23 b(1,1) /            \
+           9 bin(1,1)    11 bin(1,1)       22  r1    24 r 1    /              \
+            10  r1       12  r1                               /                \
+                                                            29 b(1,1)       31 b(1,1)
+                                                            30 r1           32 r1
+                
 """
 
 #Stair Climbing Puzzle
@@ -1247,26 +1289,40 @@ def print_subsets(n, curr, res):
         print(res)
         return
     
-    for i in range(1, n):
+    for i in range(1, n+1):
         if i <= curr:
             print_subsets(n, curr-i, res+str(i))
     
 print_subsets(4,4,"")
 """ 
-                       print(4, "")       
-                     /      /           \              \
-                    /      /             \              \
-         print(3,"1")     print(2, "2")  print(1,"3)    print(0,"4")
-         /         | \               \               \
-        /          |  print(0, "1,3") \               \
-  print(2,"1 1")   print(1, "1 2")    / \              \
-     /           \       print(1,"2 1") print(0,"2 2")  \ 
-    /             \                 |                     print(0,"3 1")
- print(1, "1 1 1") print(0,"1 1 2") |  
- |                                  |
- |                                 print(0,"2 1 1")
- print(0, "1 1 1 1")
+                      1   ss(4, "")       
+                     /            |               \                 \
+                    /             |                \                 \
+      2   ss(3,"1")            10 ss(2, "2")  15 ss(1,"3")  17 print(0,"4")
+          /      | \                      |           \ 
+         /       |  \                     |            \
+        /        |  9 print(0, "13")      |             \ 
+       /         |                        |            16 print(0,"31")
+ 3 ss(2,"11")  7 ss(1, "12")              |         
+     /      \              \              |\         
+    /        \              \             | \     
+4 ss(1 "111") \      8   print(0,"121")   |  \
+ |         6 print(0,"112")               |   \
+ |                             11 ss(1,"21")   14 print(0,"22")
+ |                                   |       
+5 print(0, "1111")                   |
+                                13 print(0,"211")
 
+
+o/p
+1111
+112
+121
+13
+211
+22
+31
+4
 """
 
 
