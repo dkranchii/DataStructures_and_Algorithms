@@ -1354,12 +1354,14 @@ else:
 #output Found a subset with given sum
 """
               3 4  (n=3-1=2, sum=4)
-            /     \
-           2 4      2 3
-         /  \       /  \
-       1 4    1 2   1 3  1 1
-      /  \    /  \       /   \
-    0 4  0 3 0 2 0 1     0 1  0 0
+            /      r=True      \
+           2 4                  2   3
+         / F   \               /    T   \
+       1 4     1 2 (4-2=2)    1 3        1  1  (n-1=1, 3-set[1]=1)
+      / F \    / F   \       /  \       / T  \
+    0 4  0 3  0 2   0 1    0 3  0,2   0 1   0  0
+    rF   rF   F     F      F    F       F     T
+                   
 """
 
 #Longest common subsequence
@@ -1420,20 +1422,21 @@ print("Max obtainable value is ", cutRod(arr, size))
 
 #Max obtainable value is 10
 """
-                       cR(4)
-                 /          \      \        \
-               /             \      \        \
-           cR(3)           cR(2)     cR(1)    cR(0)
-         /  \   \           /   \      \
-        /    \   \         /    \      \
-      cR(2) cR(1) cR(0)   cR(1) cr(0)  cR(0)
-     /   \     \          /
-    /     \     \        /
-    cR(1) cR(0)  cR(0)   cR(0)
-    /
-    /
-  cR(0)
-  return 0
+                           cR(4)
+                /                 \         \                \
+               /                   \         \                \
+           cR(3) i=0             cR(2)i=1     cR(1)i=2       cR(0)i=3
+            r5                      r= 5+1     r8+0    \     r0
+         /      \       \            |          |       \
+        /        \       \           |          |        \
+      cR(2)i=0 cR(1)i=1   cR(0)i=2   cR(1)i=0  cr(0)i=0  cR(0)i=1
+     / r1 \          \                |1+0     r0        r0
+    /      \          \               |
+   cR(1)i=0 cR(0)i=1   cR(0)i=0      cR(0)i=0
+   / r1+0  r0           r0           r0
+  /
+ cR(0)
+ r0
 """
 
 #Friends Pairing:
