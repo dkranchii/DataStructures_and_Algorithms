@@ -511,21 +511,29 @@ class BinaryTree:
       4     5  6     7
     
        
-        1 call printAllAncestors with 1, 5                              9 print 1, return True 
-        2 call printAllAncestors with 2 (1's left)  5                   8 print 2, return True
+        1 call printAllAncestors with 1, 5                              
+        2 call printAllAncestors with 2 (1's left)  5                  
             3 call printAllAncestors with 4 (2's left)  5
                 4 call printAllAncestors with None (4's left), 5
                    return False
                 5 call printAllAncestors with None (4's right), 5
                   return False
-            return False to 2
-        6 call printAllAncestors 5 (2's right), 5
-            if root.info (5) == item (5)
-                7 return True (go back to 2)                                   
-    
+              return False to 2  (for left side call)
+            6 call printAllAncestors 5 (2's right), 5
+                if root.info (5) == item (5)
+                return True to 2 (for right hand side call)
+                
+          go back to 2
+        
+        8 print 2, 
+            return True
+            go back to 1
+        9 print 1, 
+            return True
+            
+        return function call
     """
-    
-    
+        
     
     #stack, queue, append root to q, reverse = True
     #while q: size = len(q)
