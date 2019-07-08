@@ -40,6 +40,10 @@ class BinaryTree:
                     return
 
     #Insert to make it a complete binary tree - from left to right
+    # define queue.  Add root to queue.
+    # while queue is not empty, pop the first element. 
+    # if popped element's left is null, add new node to left else append to queue.
+    # if popped element's right is null, add new node to right else append to queue.
     def add_iter(self, root, data):
         q = []
         newNode = BinaryNode(data)
@@ -126,6 +130,11 @@ class BinaryTree:
         return self.root
         
     #Level order traversal. set p to None when there are no leaves. 
+    # add root to queue.
+    #while queue is not empty, pop first element.
+    # if popped elements left exists, add to queue
+    # if popped elements right exists, add to queue
+    # set popped element to None.
     def _delete_binary_tree_iter(self, root):
         if root is None:
             return
@@ -153,9 +162,58 @@ class BinaryTree:
         print(root.info,  end = " ")
         self.pre_order_rec(root.left)
         self.pre_order_rec(root.right)
+        
+        """      
+                  1                           
+              2       3                
+          4     5  6     7
+          
+          preorder is 1, 2, 4, 5, 3,  6, 7
+          
+          print 1 
+              call recursive - make 2 as root (1's left)
+              print 2
+              call recursive - make 4 as root (2's left)
+                  print 4
+                      call recursive - make None as root (4's left)
+                      return 
+                      call recursive - make None as root (4's right)
+                      return 
+                  return to 2
+              call recursive - make 5 as root (2's right)
+                  print 5
+                      call recursive - make None as root (5's left)
+                      return
+                      call recursive - make None as root (5's right)
+                      return
+              return to 2
+          return to 1
+              call recursive - make 3 as root (1's right)
+              print 3
+              call recursive - make 6 as root (3's left)
+                  print 6
+                      call recursive - make None as root (6's left)
+                      return
+                      call recursive - make None as root (6's right)
+                      return
+                  return to 3
+             call recursive - make 7 as root (3's right)
+                 print 7
+                     call recursive - make None as root (7's left)
+                     return
+                     call recursive - make None as root (7's right)
+                     return
+             return to to 3
+          return to 1
+         
+        """
     
-    #stack, add root, while stack (pop, print p.info, 
-    #if right, append right, if left, append left)        
+    #stack, add root, 
+    #while stack 
+        #pop 
+        #print p.info, 
+        #if right, append right, 
+        #if left, append left)        
     def pre_order_iter(self):
         if self.root is None:
             return
@@ -179,10 +237,64 @@ class BinaryTree:
         print(root.info,  end=" ")
         self.in_order_rec(root.right)
         
+    """      
+                  1                           
+              2       3                
+          4     5  6     7
+          
+        inorder -  4 2 5 1 6 3 7
+          
+        call function with 1 as root
+          call recursive - make 2 as root (1's left)
+              call recursive - make 4 as root (2's left)
+                  call recursive - make None as root (4's left)
+                  return to 4
+                  print 4
+                  call recursive - make None as root (4's right)
+                  return to 4
+              return to 2
+          print 2
+              call recursive - make 5 as root (2's right)
+                  call recursive - make None as root (5's left)
+                  return to 5
+                  print 5
+                  call recursive - make None as root (5's right)
+                  return to 5
+              return to 2
+         return to 1
+         print 1 
+         call recursive - make 3 as root(1's right)
+             call recursive - make 6 as root (3's left)
+                 call recursive - make None as root(6's left)
+                 return to 6
+                 print 6
+                 call recursive - make None as root (6's right)
+                 return to 6
+             return to 3
+         print 3
+             call recursive - make 7 as root(3's right)
+                 call recursive - make None as root (7's left)
+                 return
+                 print 7
+                 call recursive - make None as root (7's right)
+                 return
+             return to 3
+         return to 1
+        
+     return the function call
+          
+    """
+    
     
     #p=root. define stack, 
-    #while stack or p, if p is not None, append(p), p=p.left.  
-    #else,p=pop(), print value, p=p.right
+    #while stack or p, 
+        #if p is not None,  (keep adding left nodes until null)
+            #append(p), 
+            #p=p.left.  
+        #else,
+            #p=pop(), 
+            #print value, 
+            #p=p.right
     def in_order_iter(self):
         if self.root is None:
             return
@@ -231,6 +343,59 @@ class BinaryTree:
         self.post_order_recur(root.left)
         self.post_order_recur(root.right)
         print(root.info,  end=" ")
+        
+    """      
+                  1                           
+              2       3                
+          4     5  6     7
+          
+    postorder -  4 5 2 6 7 3 1 
+          
+     call function with 1 as root
+         call recursive - make 2 as root (1's left)
+             call recursive - make 4 as root (2's left)
+                 call recursive - make None as root (4's left)
+                 return (root is None)
+                 call recursive - make None as root (4's right)
+                 return (root is None)
+             back to 4
+            print 4
+        return to 2
+            call recursive - make 5 as root (2's right)
+                call recursive - make None as root (5's left)
+                return (root is None)
+                call recursive - make None as root (5's right)
+                return (root is None)
+            back to 5
+            print 5
+        return to 2
+    return to 1
+        call recursive - make 3 as root (1's right)
+            call recursive - make 6 as root (3's left)
+                call recursive - make None as root (6's left)
+                return (root is None)
+                call recursive - make None as root (6's right)
+                return (root is None)
+            back to 6
+            print 6
+        return to 3
+            call recursive - make 7 as root (3's right)
+                call recursive - make None as root (7's left)
+                return (root is None)
+                call recursive - make None as root (7's right)
+                return (root is None)
+            back to 7
+            print 7
+        return to 3
+        print 3
+    return to 1
+    print 1
+            
+        
+     return the function call
+          
+    """      
+        
         
     #p=root. 
     #while stack or p. if p is not none, append p, p=p.left
@@ -329,17 +494,38 @@ class BinaryTree:
     #if root.info == item. True
     # if call with left or self.call with right. print(info).return true
     # return false
-    def printAllAncestorsRecur(self, root,item):
+    def printAllAncestorsRecur(self, root, item):
         if root is None:
             return False
         if root.info == item:
             return True
-        if self.printAllAncestorsRecur(root.left, item) or \
-            self.printAllAncestorsRecur(root.right, item):
+        if self.printAllAncestorsRecur(root.left, item) or self.printAllAncestorsRecur(root.right, item):
                 print(root.info, end= ",")
                 return True
             
         return False
+    
+    """
+              1
+         2        3
+      4     5  6     7
+    
+       
+        1 call printAllAncestors with 1, 5                              9 print 1, return True 
+        2 call printAllAncestors with 2 (1's left)  5                   8 print 2, return True
+            3 call printAllAncestors with 4 (2's left)  5
+                4 call printAllAncestors with None (4's left), 5
+                   return False
+                5 call printAllAncestors with None (4's right), 5
+                  return False
+            return False to 2
+        6 call printAllAncestors 5 (2's right), 5
+            if root.info (5) == item (5)
+                7 return True (go back to 2)                                   
+    
+    """
+    
+    
     
     #stack, queue, append root to q, reverse = True
     #while q: size = len(q)
