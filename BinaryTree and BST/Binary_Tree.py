@@ -509,29 +509,20 @@ class BinaryTree:
               1
          2        3
       4     5  6     7
-    
-       
-        1 call printAllAncestors with 1, 5                              
-        2 call printAllAncestors with 2 (1's left)  5                  
-            3 call printAllAncestors with 4 (2's left)  5
-                4 call printAllAncestors with None (4's left), 5
-                   return False
-                5 call printAllAncestors with None (4's right), 5
-                  return False
-              return False to 2  (for left side call)
-            6 call printAllAncestors 5 (2's right), 5
-                if root.info (5) == item (5)
-                return True to 2 (for right hand side call)
-                
-          go back to 2
+      
+                          1. PAAR(1, 5)
+                         /      14.  print 1 
+                        /       15. return True
+         2.  PAAR (2   (1s't left), 5)
+              / 9. Ret F (Left)        \
+             /       12 print 2         \
+            /    13. return True (right) \
+    3. PAAR (4,(2's left), 5)            10 PAAR(5, 5)
+          /  8ret False      \           11. if 5==5, ret True
+        /                     \
+  4. PAAR(None, 5)       6. PAAR(None, 5)
+     5 Return False      7 Return False
         
-        8 print 2, 
-            return True
-            go back to 1
-        9 print 1, 
-            return True
-            
-        return function call
     """
         
     
@@ -585,6 +576,36 @@ class BinaryTree:
                 return left
             else:
                 return right
+            
+            
+    """
+             1
+          2       3       
+       4     5  6   7
+     9   20      
+
+    LCA for 20 ad 5 is 2. 
+    
+    
+                           1. LCA(1, 20, 5)  
+                        /      left =2, ret 2  \              
+                       /      right=None        \
+        2. LCA(2, 20, 5)                        16. LCA(3, 20, 5)
+       /  left=20 right=5  \                         /  ret None  \        
+      /   15.ret 2          \                       /              \
+     3.  LCA (4, 20, 5)     13. LCA(5, 20, 5)    17. LCA(6,        23 LCA(7, 20, 5)
+    /  12. ret right=20 \   14. Ret 5             20, 5)  \        24 LCA(None, 20,5) Ret None (left)
+   /     left=None       \                      /  22 ret None \   25 LCA(None, 20,5) Ret None (right)
+ 4. LCA(9, 20, 5)   10.LCA(20,20,5)            /             \     
+ |  9. R None   \   11. Ret 20               18. LCA(None,  20. LCA(None,
+ |               \                                 20,5)          20,5)
+ 5. LCA(None,   7. LCA(None,                19. Ret None      21. Ret None
+        20, 5)      20, 5)      
+ 6. Return None     8.Return None
+
+    
+
+   """       
 
     #AGGREGATED/SIZE METHODS--------------------------------------------------
     
