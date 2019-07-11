@@ -515,18 +515,20 @@ class BinaryTree:
       4     5  6     7
       
                           1. PAAR(1, 5)
-                         /      14.  print 1 
-                        /       15. return True
-                       /
+                         /      left=True
+                        /       14.  print 1 
+                       /        15. return True
+                      /
+                     /
          2.  PAAR (2   (1s't left), 5)
-              / 9. Ret F (Left)        \
-             /       12 print 2         \
+              / 9.  left=F,right=True  \
+             /   12 print 2             \
             /    13. return True (right) \
            /                              \
           /                                \
     3. PAAR (4,(2's left), 5)            10 PAAR(5, 5)
-         /  8ret False      \            11. if 5==5, ret True
-        /                    \
+         / left= F right=F  \            11. if 5==5, ret True
+        /      8. ret False   \
   4. PAAR(None, 5)       6. PAAR(None, 5)
      5 Return False      7 Return False
         
