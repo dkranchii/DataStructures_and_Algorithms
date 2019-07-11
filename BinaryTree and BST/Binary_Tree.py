@@ -86,6 +86,10 @@ class BinaryTree:
         print(p.info)
         self.display(p.left, level+1)
         
+        
+
+        
+        
     #recursively delete a node
     #like a BST deletion.
     def deleteNode(self, p, key):
@@ -400,7 +404,7 @@ class BinaryTree:
     #p=root. 
     #while stack or p. if p is not none, append p, p=p.left
     #else p=pop(). 
-    #if p.right is not none and p.right not in visited. p = p.right
+    #if p.right is not none and p.right not in visited set. p = p.right
      #else add p to visited. print p.info. p = None
     def postOrderIter(self):
         if self.root is None:
@@ -513,13 +517,16 @@ class BinaryTree:
                           1. PAAR(1, 5)
                          /      14.  print 1 
                         /       15. return True
+                       /
          2.  PAAR (2   (1s't left), 5)
               / 9. Ret F (Left)        \
              /       12 print 2         \
             /    13. return True (right) \
+           /                              \
+          /                                \
     3. PAAR (4,(2's left), 5)            10 PAAR(5, 5)
-          /  8ret False      \           11. if 5==5, ret True
-        /                     \
+         /  8ret False      \            11. if 5==5, ret True
+        /                    \
   4. PAAR(None, 5)       6. PAAR(None, 5)
      5 Return False      7 Return False
         
@@ -588,18 +595,21 @@ class BinaryTree:
     
     
                            1. LCA(1, 20, 5)  
-                        /      left =2, ret 2  \              
-                       /      right=None        \
-        2. LCA(2, 20, 5)                        16. LCA(3, 20, 5)
-       /  left=20 right=5  \                         /  ret None  \        
-      /   15.ret 2          \                       /              \
-     3.  LCA (4, 20, 5)     13. LCA(5, 20, 5)    17. LCA(6,        23 LCA(7, 20, 5)
-    /  12. ret right=20 \   14. Ret 5             20, 5)  \        24 LCA(None, 20,5) Ret None (left)
-   /     left=None       \                      /  22 ret None \   25 LCA(None, 20,5) Ret None (right)
- 4. LCA(9, 20, 5)   10.LCA(20,20,5)            /             \     
+                        /      left =2,     \              
+                       /      right=None       \
+        2. LCA(2, 20, 5)     29. ret 2          16. LCA(3, 20, 5)
+       /  left=20 right=5  \                      / 28 ret None  \        
+      /   15.ret 2          \                    /                \
+     /                       \                  /                  \
+    3.  LCA (4, 20, 5)     13. LCA(5, 20, 5)   17. LCA(6,        23 LCA(7, 20, 5)
+    /  12. ret right=20 \   14. Ret 5            20, 5)  \        24 LCA(None, 20,5) 25 Ret None (left)
+   /     left=None       \                     /          \       26 LCA(None, 20,5) 27 Ret None (right)
+  /                       \                   /  22. rNone \
+ 4. LCA(9, 20, 5)   10.LCA(20,20,5)          /              \     
  |  9. R None   \   11. Ret 20               18. LCA(None,  20. LCA(None,
  |               \                                 20,5)          20,5)
- 5. LCA(None,   7. LCA(None,                19. Ret None      21. Ret None
+ |                |                          19. Ret None    21. Ret None
+ 5. LCA(None,   7. LCA(None,                
         20, 5)      20, 5)      
  6. Return None     8.Return None
 
@@ -614,6 +624,35 @@ class BinaryTree:
         if p is None:
             return 0
         return self.size_recursive(p.left) + self.size_recursive(p.right) +1 
+    
+    """
+    sample tree
+           5
+       3       2
+    4     1  3   
+   
+   Answer = 6
+   
+       Recursive Tree 
+               1. call SR(5)
+             /  l=3, r=2 + 1  \
+            /    r=6           16. SR(2)  ------------23.  SR(None) 
+       2. call SR(3)              | 24.r1+0+1=2       24. R0
+        /   l=1, r=1 \            |
+       /    15. r=3   \           17. SR(3)
+       /               \          | 22 r1 \
+      /                \          |         \
+     /                  \         19. SR(N)   \
+    /                    \          19. r 0    20. SR(N)
+   /                      \                   21. r 0 
+   3 call SR(4)        9 SR(1)
+     / 8 R0+0+1\        |  14r=1 \
+    /             \     |         \
+ 4. SR(None) 6.SR(None) 10.SR(None)\
+5. ret 0     7. ret 0    11 ret 0   12 SR(None)
+                                    13. ret 0
+   
+   """
     
     
     #level order traversal. if popped is not None. size++
@@ -650,6 +689,33 @@ class BinaryTree:
         maxData = max(max(lres, maxData), max(rres, maxData))
         return maxData
     
+    """
+                1
+          3        5
+     2
+    
+     Answer = 5
+     Recursive Tree
+     
+           1. max(1), maxData=1
+           /  lres=3, rres=5   \
+          /   r=5               \
+         /                       12. max(5),maxData=5
+      2. max(3), maxData=3                |  r5       \
+      /  lres=2  11.r3   \                |            \
+     / rres=-inf          \              13. Max(None)  16.Max(None)
+    /                     9. Max(None)   14. ret -inf   17. ret -inf
+  3.max(2),maxD=2         10. ret -inf 
+  |  lres=-inf   \
+  | rres=-inf     \
+  |  8.r=2         |
+  |                |
+  4.max(None),     |
+ 5. ret=-inf     6.Max(None)
+                 7. ret=-inf
+    
+    """
+    
     #level order. pop, compare with max and update max.
     def max_iter(self):
         if self.root is None: 
@@ -674,7 +740,39 @@ class BinaryTree:
         if root is None:
             return 0
         return max(self.height_rec(root.left), self.height_rec(root.right)) + 1
-
+    
+    """
+            1
+          3        5
+     2
+    
+    answer = 3
+    Recursive Tree
+    
+               1. Height (1) 
+           /  lres=2       \
+          /   rres=1        \
+         /   19. r=3          12. Height(5)
+        /                        |        \
+        2. Height(3),            |  18=1   \
+      /  lres=1    \             |          \
+     /  rres=0      \          13. Max(None)  16.Max(None)
+    /   11. r2      9. H(None) 14. ret 0      17. 0
+   /                10. ret=0
+  3. H(2),           
+  | lres=0  \
+  | rres=0   \
+  | 8. r1     |
+  |           |
+  4.H(None),  |
+  5. ret=0    6.H(None)
+              7. ret=0
+    
+    
+    """
+    
+    
+    
     #queue. append root. append none.
     #while q pop. 
     #if pop is none. level++. if queue is not empty. append none
