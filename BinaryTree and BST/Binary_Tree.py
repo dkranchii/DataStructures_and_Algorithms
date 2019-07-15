@@ -1352,6 +1352,7 @@ class BinaryTree:
                     q.append(popped.left)
                 count -=1
             
+    
             
     def left_view_rec(self, root):
         max_level = [0]
