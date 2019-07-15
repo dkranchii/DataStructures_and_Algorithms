@@ -159,6 +159,51 @@ class BinaryTree:
     
     # TRAVERSAL METHODS-------------------------------------------------------
     
+    
+    #recursive - only extreme left nodes in reverse using recurson
+    
+    def only_extreme_left(self, root):
+        if root is None:
+            return 
+        self.only_extreme_left(root.left)
+        print(root.info, end=" ")
+       
+
+    #print only extreme left notes with root first using recursion
+    def only_extreme_left_str(self, root):
+        if root is None:
+            return 
+        print(root.info, end=" ")
+        self.only_extreme_left_str(root.left)
+        
+
+    #print only extreme right nodes in reverse using recursion
+    def only_extreme_right(self, root):
+        if root is None:
+            return 
+        self.only_extreme_right(root.right)
+        print(root.info, end=" ")
+        
+    #all left nodes 
+    def all_left_nodes(self, root, node_type):
+        if root is None:
+            return 
+        if node_type == 'L':
+            print(root.info, end=" ")  
+            
+        self.all_left_nodes(root.left, "L")
+        self.all_left_nodes(root.right, "R")
+        
+    #all right nodes including root
+    def all_right_nodes(self, root, node_type):
+        if root is None:
+            return 
+        if node_type == 'R':
+            print(root.info, end=" ")  
+            
+        self.all_right_nodes(root.left, "L")
+        self.all_right_nodes(root.right, "R")
+  
     #recursive - print root.info, call with left node. call with right node
     def pre_order_rec(self, root):
         if root is None:
@@ -402,9 +447,9 @@ class BinaryTree:
         
         
     #p=root. 
-    #while stack or p. if p is not none, append p, p=p.left
+    #while stack or p. if p is not none, append p to stak, make p=p.left
     #else p=pop(). 
-    #if p.right is not none and p.right not in visited set. p = p.right
+    #if p.right is not none and p.right not in visited set. make p = p.right
      #else add p to visited. print p.info. p = None
     def postOrderIter(self):
         if self.root is None:
@@ -456,21 +501,21 @@ class BinaryTree:
         queue_list.append(self.root)
         
         while 1:
-            nodeCount = len(queue_list)
+            nodeCount = len(queue_list)    #node count will be 1 at level1, 2 at level 2, 4 at level 3 etc.
             if nodeCount == 0:
                 break
             
             while nodeCount > 0:
-                popped = queue_list.pop(0)
+                popped = queue_list.pop(0)   #pop from queue
                 print(popped.info, end=" ")
             
-                if popped.left is not None:
+                if popped.left is not None:    #add left 
                     queue_list.append(popped.left)
                 
-                if popped.right is not None:
+                if popped.right is not None:     #add right
                     queue_list.append(popped.right) 
                 
-                nodeCount -=1
+                nodeCount -=1       #decrement node count. After all nodes are printed at each level, nodecount will go back to 0
             print()
             
     #place all popped items from queue in stack. 
@@ -516,22 +561,45 @@ class BinaryTree:
       
                           1. PAAR(1, 5)
                          /      left=True
-                        /       14.  print 1 
-                       /        15. return True
+                        /       13.  print 1 
+                       /        14. return True
                       /
                      /
          2.  PAAR (2   (1s't left), 5)
-              / 9.  left=F,right=True  \
-             /   12 print 2             \
-            /    13. return True (right) \
+              /   left=F,right=True  \
+             /   11 print 2             \
+            /    12. return True (right) \
            /                              \
           /                                \
-    3. PAAR (4,(2's left), 5)            10 PAAR(5, 5)
-         / left= F right=F  \            11. if 5==5, ret True
-        /      8. ret False   \
-  4. PAAR(None, 5)       6. PAAR(None, 5)
+    3. PAAR (4,(2's left), 5)            9 PAAR(5, 5)
+         / left= F right=F  \            10. if 5==5, ret True
+        /      8. ret False  \
+       /                      \
+      /                        \ 
+    4. PAAR(None, 5)       6. PAAR(None, 5)
      5 Return False      7 Return False
         
+     
+     another way to represent
+     
+         1. PAAR(1, 5)
+             2. PAAR(2, 5)
+                 3. PAAR(4, 5) (left)
+                     4. PAAR(None, 5)
+                        5. return False
+                     6. PAAR(none, 5) (right)
+                        7. return False
+                   left(4) = F, right(5) = F
+                   8. return False (from left side)
+                 9. PAAR(5, 5) (right)
+                     10. if 5==5, retur True
+             if left=F or right=T
+               11. print 2
+               12. return True
+        if left=True or right
+          13. print 1
+          14. return True
+                    
     """
         
     
@@ -653,6 +721,38 @@ class BinaryTree:
  4. SR(None) 6.SR(None) 10.SR(None)\
 5. ret 0     7. ret 0    11 ret 0   12 SR(None)
                                     13. ret 0
+                                    
+                                    
+   another representation
+
+    1. call SR(5)
+        2. SR(3) (left)
+            3. SR(4) (left)
+                4. SR(None) (left)
+                5. return 0
+                6. SR(None) (right)
+                7. return 0
+              8. return 0 + 0 + 1 (from left side)
+            9. SR(1) (right)
+                10. SR(None) (left)
+                11. return 0
+                12. SR(None) (right)
+                13. return 0
+            14. return 0+0+1 (from right side)
+         15. return left+right+1 = 1+1+1 = 3
+        16. SR(2) right
+            17. SR(3) left
+                18. SR(None) (left)
+                19. return 0
+                20. SR(None) right)
+                21. return 0
+             22. return 0 + 0 + 1 (left side)
+            24. SR(None) right
+            25. return 0
+         26. return left+right+ 1 = 1 + 0 + 1=2 (right side)
+    27. Return 3 (from step 15) + 2 (from step 26)
+    
+    answer = 5
    
    """
     
@@ -888,6 +988,63 @@ class BinaryTree:
                 if popped.right is not None:
                     qu.append(popped.right)
            
+    """
+       10
+      /  \
+    5     15
+   / \   /  \
+  4   6 12   16
+  
+  
+       queue = [10, None]
+       popped = 10
+       
+       queue = [None, 5, 15]
+       sum  = 10 (+= popped)
+       
+       popped = None.
+       print sum (10) for level 1
+       sum = 0 (set)
+       
+       queue = [5, 15, None]
+       popped = 5
+       
+       queue = [15, None]
+       sum = 5 (+=popped)
+       
+       queue = [15, None, 4, 6]
+       popped = 15
+       sum = 20, 5+15 (+=popped )            
+       
+       queue = [None, 4,6,12,16]
+       popped = None 
+       print sum (20) for level 2
+       sum = 0 (set)
+       
+       queue = [4,6,12,16, None]
+       popped  = 4
+       sum  = 4 
+       queue = [6,12,16 None]
+       
+       popped = 6
+       sum = 10 (4+6)
+       queue = [12, 16, None]
+       
+       popped 12 
+       sum = 22 (10+12)
+      
+       popped 16
+       sum = 38 (22+16)
+       queue = [None]
+       
+       popped = None
+       print sum (38) for level 3
+       
+       sum =0
+       
+       queue is empty
+    
+    """
     
     #append root, append none
     #if popped is None, sum. if sum > max. set max.
@@ -1346,6 +1503,35 @@ BT.display(BT.root,0)
 #Traversal Methods
 print()
 print("#----------Traversal Methods----------------#")
+print()
+print("Only print extreme left nodes in reverse")
+print(BT.only_extreme_left(BT.root))     
+print()
+      
+
+print()
+print("Only print extreme left starting from root")
+print(BT.only_extreme_left_str(BT.root))     
+print()
+
+
+print()
+print("Only print extreme right in reverse")
+print(BT.only_extreme_right(BT.root))     
+print()
+
+print()
+print("All left nodes")
+print(BT.all_left_nodes(BT.root, "L"))     
+print()
+
+
+print()
+print("All right nodes")
+print(BT.all_right_nodes(BT.root, "R"))     
+print()
+
+
 print("PreOrder Traversal (recur) -->", end="")
 BT.pre_order_rec(BT.root)
 print()
