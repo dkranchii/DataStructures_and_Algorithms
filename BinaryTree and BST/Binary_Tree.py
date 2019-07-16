@@ -1160,7 +1160,7 @@ class BinaryTree:
              return 0
          res  = 0
          if root.left is not None and root.right is not None:
-             res +=1
+             return 1 
          res += self.num_of_full_nodes_rec(root.left) + self.num_of_full_nodes_rec(root.right) 
          return res
 
